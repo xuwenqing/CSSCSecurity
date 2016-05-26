@@ -24,7 +24,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Objects;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/wechat")
 public class WechatController {
 
 //    NewPeanuthull client 2.8.0.9515
@@ -46,7 +46,7 @@ public class WechatController {
 
     public static String access_token = "ruoHbmuXnz8NgjhFVcrBihobsiRuwblATO7g2-O0oFkhV2BYPtW-UWQzW6Ofp1IL7CU_fzbZZ0JCneVk5g9rCnFZnTIWo-vcUvQBkYXuRohlLlJcoLFGjKETic_fMuTfXPReAJAJBD";
 
-    @RequestMapping(value = "wechat", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public void developValid(HttpServletRequest request, HttpServletResponse response,
                              @RequestParam(value = "echostr")String echostr,
                              @RequestParam(value = "signature")String signature,
@@ -71,7 +71,7 @@ public class WechatController {
 
     }
 
-    @RequestMapping(value = "wechat", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public void receriveMessage(HttpServletRequest request, HttpServletResponse response,
                                 @RequestParam(value = "signature")String signature,
                                 @RequestParam(value = "timestamp")String timestamp,
@@ -113,7 +113,7 @@ public class WechatController {
 
     }
 
-    @RequestMapping(value = "/wechat/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getUserInfo(HttpServletRequest request, HttpServletResponse response,
                             @RequestParam(value = "code", required = false) String code) {
 
