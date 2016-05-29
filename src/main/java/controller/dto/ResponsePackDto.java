@@ -9,16 +9,16 @@ import controller.enumerate.ResponseStatusEnum;
 public class ResponsePackDto {
     private Integer status;
     private String error;
-    private Object body;
+    private Object data;
 
     public ResponsePackDto() {
-       this(new Object());
+       this(new String(""));
     }
 
-    public ResponsePackDto(Object body) {
+    public ResponsePackDto(Object data) {
         this.status = ResponseStatusEnum.OK.value();
         this.error = "";
-        this.body = body;
+        this.data = data;
     }
 
     /**
@@ -49,11 +49,11 @@ public class ResponsePackDto {
      * 返回的详细内容，如果成功返回则读取这个字段。
      * @return
      */
-    public Object getBody() {
-        return body;
+    public Object getData() {
+        return data;
     }
 
-    public void setBody(Object body) {
-        this.body = body;
+    public void setData(Object data) {
+        this.data = data;
     }
 }

@@ -25,6 +25,7 @@
                         <value>/login</value>
                         <value>/register</value>
                         <value>/user</value>
+                        <value>/law</value>
                     </list>
                 </property>
             </bean>
