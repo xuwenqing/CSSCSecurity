@@ -17,4 +17,9 @@ public class HomeController extends BaseController{
         return "hello";
     }
 
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    public @ResponseBody Object get() {
+        return new String("hello");
+    }
+
 }
