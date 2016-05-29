@@ -8,8 +8,9 @@
 
     <!-- 采用注释的方式配置bean -->
     <context:annotation-config />
-    <!-- 配置要扫描的包-->
-    <context:component-scan base-package="dao,service,model"></context:component-scan>
+
+    <!-- 配置要扫描的包 -->
+    <context:component-scan base-package="dao,service"></context:component-scan>
 
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

@@ -12,9 +12,13 @@ public class ResponsePackDto {
     private Object body;
 
     public ResponsePackDto() {
+       this(new Object());
+    }
+
+    public ResponsePackDto(Object body) {
         this.status = ResponseStatusEnum.OK.value();
         this.error = "";
-        this.body = new Object();
+        this.body = body;
     }
 
     /**

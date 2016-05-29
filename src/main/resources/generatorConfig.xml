@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
     <!--导入属性配置 -->
-    <properties resource="datasource.properties"/>
+    <properties resource="properties/datasource.properties"/>
     <context id="default" targetRuntime="MyBatis3">
 
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
@@ -39,17 +39,17 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--
-        商品表
-        <table tableName="goods_integrated" domainObjectName="Goods" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-        </table>
-
-         -->
+        用户表
         <table tableName="user" domainObjectName="User" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
         </table>
+        <table tableName="law" domainObjectName="Law" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+         -->
+
 
 
 
