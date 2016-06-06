@@ -33,4 +33,20 @@
       </if>
     </trim>
   </insert>
+
+  <select id="selectResourceIdsByRoleId" parameterType="long" resultType="long">
+    SELECT resource_id FROM roles_resources
+    WHERE role_id = #{roleId,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteManyByRoleId" parameterType="long">
+    DELETE FROM roles_resources where
+    role_id = #{roleId,jdbcType=BIGINT}
+  </delete>
+
+  <delete id="deleteManyByResourceId" parameterType="long">
+    DELETE FROM roles_resources where
+    resource_id = #{resourceId,jdbcType=BIGINT}
+  </delete>
+
 </mapper>

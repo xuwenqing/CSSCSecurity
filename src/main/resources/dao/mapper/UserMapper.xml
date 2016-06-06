@@ -151,11 +151,26 @@
     <result column="available" property="available" jdbcType="BIT" />
   </resultMap>
 
-  <select id="selectRolesByName" resultMap="RoleResultMap" parameterType="java.lang.String" >
+  <select id="selectRolesByUsername" resultMap="RoleResultMap" parameterType="java.lang.String" >
     SELECT r.id as id,r.role as role,r.description as description,r.available as available
-     FROM users u, roles r, users_roles
-      WHERE u.username= #{name,jdbcType=VARCHAR} and u.id=ur.user_id and r.id=ur.role_id
+    FROM users_roles ur INNER JOIN users u on ur.user_id = u.id
+    INNER JOIN roles r on ur.role_id = r.id
+    WHERE u.username = #{name,jdbcType=VARCHAR}
   </select>
+
+  <select id="selectRoleIdsByUsername" resultType="long" parameterType="java.lang.String" >
+    SELECT ur.role_id
+    FROM users_roles ur INNER JOIN users u on ur.user_id = u.id
+    WHERE u.username = #{name,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectRoleNamesByUsername" resultType="java.lang.String" parameterType="java.lang.String" >
+    SELECT r.role as role
+    FROM users_roles ur INNER JOIN users u on ur.user_id = u.id
+    INNER JOIN roles r on ur.role_id = r.id
+    WHERE u.username = #{name,jdbcType=VARCHAR}
+  </select>
+
 
   <resultMap id="ResourceResultMap" type="model.Resource" >
     <id column="id" property="id" jdbcType="BIGINT" />
@@ -167,10 +182,32 @@
     <result column="permission" property="permission" jdbcType="VARCHAR" />
     <result column="available" property="available" jdbcType="BIT" />
   </resultMap>
-  <select id="selectResourcesByName" resultMap="ResourceResultMap" parameterType="java.lang.String">
-      select p.id,p.name,p.type,p.url,p.parent_id,p.parent_ids,p.permission,p.available from
-      users u, roles r, resources p, users_roles ur, roles_resources rp
-      where u.username= #{name,jdbcType=VARCHAR} and u.id=ur.user_id
-       and r.id=ur.role_id and r.id=rp.role_id and p.id=rp.resource_id
+  <select id="selectResourcesByUsername" resultMap="ResourceResultMap" parameterType="java.lang.String">
+
+     SELECT p.id,p.name,p.type,p.url,p.parent_id,p.parent_ids,p.permission,p.available from users u
+      INNER JOIN users_roles ur on ur.user_id = u.id
+      INNER JOIN roles r on ur.role_id = r.id
+      INNER JOIN roles_resources rr on rr.role_id = r.id
+      INNER JOIN resources p on p.id = rr.resource_id
+      WHERE u.username= #{name,jdbcType=VARCHAR}
+
   </select>
+
+  <select id="selectResourcePermissionsByUsername" resultType="java.lang.String" parameterType="java.lang.String">
+    SELECT p.permission from users u
+    INNER JOIN users_roles ur on ur.user_id = u.id
+    INNER JOIN roles r on ur.role_id = r.id
+    INNER JOIN roles_resources rr on rr.role_id = r.id
+    INNER JOIN resources p on p.id = rr.resource_id
+    WHERE u.username= #{name,jdbcType=VARCHAR}
+
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from users
+  </select>
+
+
 </mapper>

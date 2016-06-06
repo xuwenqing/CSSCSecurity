@@ -1,9 +1,11 @@
 package service;
 
+import dao.condition.UserCondition;
 import model.Resource;
 import model.Role;
 import model.User;
 
+import java.util.List;
 import java.util.Set;
 
 public interface UserService {
@@ -26,7 +28,7 @@ public interface UserService {
      * @param userId
      * @param roleIds
      */
-     void correlationRoles(Long userId, Long... roleIds);
+     void correlationRoles(Long userId, List<Long> roleIds);
 
 
     /**
@@ -34,7 +36,7 @@ public interface UserService {
      * @param userId
      * @param roleIds
      */
-     void uncorrelationRoles(Long userId, Long... roleIds);
+     void uncorrelationRoles(Long userId, List<Long> roleIds);
 
     /**
      * 根据用户名查找用户
@@ -61,4 +63,9 @@ public interface UserService {
 
      Set<String> findResourcePermissions(String username);
 
+     boolean deleteUser(List<Long> userId);
+
+     boolean updateUser(User user,List<Long> roleIds);
+
+     List<User> query(UserCondition userCondition);
 }

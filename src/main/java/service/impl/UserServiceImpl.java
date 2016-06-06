@@ -2,6 +2,7 @@ package service.impl;
 
 import dao.UserMapper;
 import dao.UserRoleMapper;
+import dao.condition.UserCondition;
 import model.Resource;
 import model.Role;
 import model.User;
@@ -12,6 +13,8 @@ import service.UserService;
 import shiro.util.PasswordHelper;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -45,27 +48,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void correlationRoles(Long userId, Long... roleIds) {
-        if(userId == null || roleIds.length == 0)
+    public void correlationRoles(Long userId, List<Long> roleIds) {
+        if(userId == null || roleIds == null || roleIds.size() == 0)
             return;
-        for(Long roleId : roleIds) {
-            UserRole userRole = new UserRole();
-            userRole.setUserId(userId);
-            userRole.setRoleId(roleId);
-            userRoleDao.insertSelective(userRole);
-        }
+        userRoleDao.insertMany(userId,roleIds);
     }
 
     @Override
-    public void uncorrelationRoles(Long userId, Long... roleIds) {
-        if(userId == null || roleIds.length == 0)
+    public void uncorrelationRoles(Long userId, List<Long> roleIds) {
+        if(userId == null || roleIds == null || roleIds.size() == 0)
             return;
-        for(Long roleId : roleIds) {
-            UserRole userRole = new UserRole();
-            userRole.setUserId(userId);
-            userRole.setRoleId(roleId);
-            userRoleDao.deleteByPrimaryKey(userRole);
-        }
+        userRoleDao.deleteMany(userId, roleIds);
     }
 
     @Override
@@ -75,31 +68,74 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Set<Role> findRoles(String username) {
-        return userDao.selectRolesByName(username);
+        return userDao.selectRolesByUsername(username);
     }
 
     @Override
     public Set<Resource> findResources(String username) {
-        return userDao.selectResourcesByName(username);
+        return userDao.selectResourcesByUsername(username);
     }
 
     @Override
     public Set<String> findRolesNames(String username) {
-        Set<Role> roles = findRoles(username);
-        Set<String > rs = new HashSet<String>();
-        for(Role role : roles) {
-            rs.add(role.getRole());
-        }
+        Set<String > rs = userDao.selectRoleNamesByUsername(username);
         return rs;
     }
 
     @Override
     public Set<String> findResourcePermissions(String username) {
-        Set<Resource> resources = findResources(username);
-        Set<String> permissions = new HashSet<String>();
-        for (Resource resource : resources) {
-            permissions.add(resource.getPermission());
-        }
+        Set<String> permissions = userDao.selectResourcePermissionsByUsername(username);
         return permissions;
+    }
+
+    @Override
+    public boolean deleteUser(List<Long> userIds) {
+        if(userIds == null || userIds.size() == 0)
+            return true;
+        for(Long userId : userIds) {
+            userDao.deleteByPrimaryKey(userId);
+            userRoleDao.deleteManyByUserId(userId);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean updateUser(User user, List<Long> roleIds) {
+        if(user == null)
+            return true;
+        User oldUser = userDao.selectByPrimaryKey(user.getId());
+        if(oldUser == null)
+            return false;
+        oldUser.setUsername(user.getUsername());
+        oldUser.setEmail(user.getEmail());
+        oldUser.setPhone(user.getPhone());
+        oldUser.setPassword(user.getPassword());
+        oldUser.setDeleted(user.getDeleted());
+        oldUser.setLocked(user.getLocked());
+        if(user.getPassword() != null)
+            passwordHelper.equals(oldUser);
+        userDao.updateByPrimaryKeySelective(oldUser);
+
+        List<Long> delete_roles = userDao.selectRoleIdsByUsername(oldUser.getUsername());
+        List<Long> add_roles = new LinkedList<Long>();
+
+        if(delete_roles != null && delete_roles.size() > 0 && roleIds != null && roleIds.size() > 0) {
+            for(Long roleId : roleIds) {
+                if(delete_roles.contains(roleId)) {
+                    delete_roles.remove(roleId);
+                }
+                else {
+                    add_roles.add(roleId);
+                }
+            }
+        }
+        correlationRoles(oldUser.getId(), add_roles);
+        uncorrelationRoles(oldUser.getId(), delete_roles);
+        return true;
+    }
+
+    @Override
+    public List<User> query(UserCondition userCondition) {
+        return userDao.selectAll();
     }
 }

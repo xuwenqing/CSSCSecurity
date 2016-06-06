@@ -4,6 +4,7 @@ import model.Resource;
 import model.Role;
 import model.User;
 
+import java.util.List;
 import java.util.Set;
 
 public interface UserMapper {
@@ -20,6 +21,16 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     User selectUserByName(String name);
-    Set<Role> selectRolesByName(String name);
-    Set<Resource> selectResourcesByName(String name);
+
+    Set<Role> selectRolesByUsername(String name);
+
+    List<Long> selectRoleIdsByUsername(String name);
+
+    Set<String> selectRoleNamesByUsername(String name);
+
+    Set<Resource> selectResourcesByUsername(String name);
+
+    Set<String> selectResourcePermissionsByUsername(String name);
+
+    List<User> selectAll();
 }

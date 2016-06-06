@@ -3,12 +3,15 @@ package service.impl;
 import dao.ResourceMapper;
 import dao.RoleMapper;
 import dao.RoleResourceMapper;
+import dao.UserRoleMapper;
+import dao.condition.RoleCondition;
 import model.Role;
 import model.RoleResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.RoleService;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -21,6 +24,8 @@ public class RoleServiceImpl implements RoleService {
     private RoleMapper roleDao;
     @Autowired
     private RoleResourceMapper roleResourceDao;
+    @Autowired
+    private UserRoleMapper userRoleDao;
 
     @Override
     public Role createRole(Role role) {
@@ -32,11 +37,47 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void deleteRole(Long roleId) {
         roleDao.deleteByPrimaryKey(roleId);
+        roleResourceDao.deleteManyByRoleId(roleId);
+        userRoleDao.deletManyByRoleId(roleId);
     }
 
     @Override
-    public void correlationResources(Long roleId, Long... resourceIds) {
-        if(roleId == null || resourceIds.length == 0) {
+    public void updateRole(Role role, List<Long> resource_ids) {
+        if(role == null)
+            return;
+        Role old = roleDao.selectByPrimaryKey(role.getId());
+        if(old == null)
+            return;
+
+        old.setRole(role.getRole());
+        old.setDescription(role.getDescription());
+        old.setAvailable(role.getAvailable());
+
+        List<Long> delete = roleResourceDao.selectResourceIdsByRoleId(role.getId());
+        List<Long> add = new LinkedList<Long>();
+        if(delete != null && delete.size() > 0 && resource_ids != null && resource_ids.size() > 0) {
+            for(Long resourceId : resource_ids) {
+                if(delete.contains(resourceId)) {
+                    delete.remove(resourceId);
+                }
+                else {
+                    add.add(resourceId);
+                }
+            }
+        }
+        correlationResources(role.getId(), add);
+        uncorrelationResources(role.getId(), delete);
+    }
+
+    @Override
+    public List<Role> query(RoleCondition condition) {
+        roleDao.selectAll();
+        return null;
+    }
+
+    @Override
+    public void correlationResources(Long roleId, List<Long> resourceIds) {
+        if(roleId == null || resourceIds == null ||  resourceIds.size() == 0) {
             return;
         }
         for(Long resourceId : resourceIds) {
@@ -47,19 +88,10 @@ public class RoleServiceImpl implements RoleService {
         }
     }
 
-    @Override
-    public void correlationResourcesL(Long roleId, List<Long> resources) {
-        for(Long resourceId : resources) {
-            RoleResource rr = new RoleResource();
-            rr.setRoleId(roleId);
-            rr.setResourceId(resourceId);
-            roleResourceDao.insertSelective(rr);
-        }
-    }
 
     @Override
-    public void uncorrelationResources(Long roleId, Long... resourceIds) {
-        if(roleId == null || resourceIds.length == 0) {
+    public void uncorrelationResources(Long roleId, List<Long> resourceIds) {
+        if(roleId == null || resourceIds == null ||  resourceIds.size() == 0) {
             return;
         }
         for(Long resourceId : resourceIds) {

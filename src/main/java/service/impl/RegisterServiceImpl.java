@@ -5,10 +5,12 @@ import dao.RegisterMapper;
 import dao.UserMapper;
 import dao.condition.RegisterCondition;
 import model.Register;
+import model.User;
 import model.dto.DataPageDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.RegisterService;
+import service.UserService;
 
 import java.util.Date;
 import java.util.List;
@@ -22,7 +24,7 @@ public class RegisterServiceImpl implements RegisterService {
     @Autowired
     private RegisterMapper registerDao;
     @Autowired
-    private UserMapper userDao;
+    private UserService userService;
 
     @Override
     public ResponsePackDto register(Register register) {
@@ -32,12 +34,13 @@ public class RegisterServiceImpl implements RegisterService {
             dto.setError("用户名，密码，手机号不能为空");
             return dto;
         }
-//        User user = userDao.selectByName(register.getUsername());
-//        if(user != null) {
-//            dto.setStatus(400);
-//            dto.setError("用户名已存在");
-//            return dto;
-//        }
+
+        User user = userService.findByUsername(register.getUsername());
+        if(user != null) {
+            dto.setStatus(400);
+            dto.setError("用户名已存在");
+            return dto;
+        }
         Register old_register = registerDao.selectByName(register.getUsername());
         if(old_register != null) {
             dto.setStatus(400);
@@ -79,14 +82,14 @@ public class RegisterServiceImpl implements RegisterService {
             dto.setError("激活用户不存在");
             return dto;
         }
-//        User user = new User();
-//        user.setUsername(register.getUsername());
-//        user.setPassword(register.getPassword());
-//        user.setPhone(register.getPhone());
-//        if(userDao.insert(user) != 1) {
-//            dto.setStatus(500);
-//            dto.setError("用户激活失败");
-//        }
+        User user = new User();
+        user.setUsername(register.getUsername());
+        user.setPassword(register.getPassword());
+        user.setPhone(register.getPhone());
+        if(userService.createUser(user) == null) {
+            dto.setStatus(500);
+            dto.setError("用户激活失败");
+        }
         registerDao.deleteByPrimaryKey(register_id);
         return dto;
     }

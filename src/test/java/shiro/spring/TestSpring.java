@@ -69,7 +69,7 @@ public class TestSpring {
         for(Resource r : resources)
             r_ids.add(r.getId());
 
-        roleService.correlationResourcesL(1L,r_ids);
+        roleService.correlationResources(1L,r_ids);
         //System.out.println(resources);
     }
 

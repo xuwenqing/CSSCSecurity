@@ -26,12 +26,9 @@
     values (#{id,jdbcType=BIGINT}, #{role,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{available,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="model.Role" >
+  <insert id="insertSelective" parameterType="model.Role" useGeneratedKeys="true" keyProperty="id">
     insert into roles
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="role != null" >
         role,
       </if>
@@ -43,9 +40,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
       <if test="role != null" >
         #{role,jdbcType=VARCHAR},
       </if>
@@ -79,4 +73,11 @@
       available = #{available,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectAllIds" resultType="long"  >
+    select id from roles
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap"  >
+    select <include refid="Base_Column_List" /> from roles
+  </select>
 </mapper>

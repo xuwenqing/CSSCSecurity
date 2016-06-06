@@ -33,4 +33,35 @@
       </if>
     </trim>
   </insert>
+
+  <insert id="insertMany" parameterType="map">
+    INSERT INTO users_roles(user_id , role_id)
+    values
+    <foreach collection="role_ids" item="role_id"  separator=",">
+      (
+       #{user_id} , #{role_id}
+      )
+    </foreach>
+  </insert>
+
+  <delete id="deleteMany" parameterType="map">
+    DELETE FROM users_roles where
+    user_id = #{user_id,jdbcType=BIGINT}
+    and role_id in
+    <foreach item="role_id" collection="role_ids" open="(" separator="," close=")">
+      #{role_id}
+    </foreach>
+  </delete>
+
+  <delete id="deleteManyByUserId" parameterType="long">
+    DELETE FROM users_roles where
+    user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+
+  <delete id="deletManyByRoleId" parameterType="long">
+    DELETE FROM users_roles where
+    role_id = #{roleId,jdbcType=BIGINT}
+  </delete>
+
+
 </mapper>

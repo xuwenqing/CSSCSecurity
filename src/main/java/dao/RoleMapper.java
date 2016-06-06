@@ -2,6 +2,8 @@ package dao;
 
 import model.Role;
 
+import java.util.List;
+
 public interface RoleMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +16,7 @@ public interface RoleMapper {
     int updateByPrimaryKeySelective(Role record);
 
     int updateByPrimaryKey(Role record);
+
+    List<Role> selectAll();
+    List<Long> selectAllIds();
 }

@@ -3,6 +3,21 @@ package model;
 import java.io.Serializable;
 
 public class Resource implements Serializable {
+
+    @Override
+    public String toString() {
+        return "Resource{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", url='" + url + '\'' +
+                ", parentId=" + parentId +
+                ", parentIds='" + parentIds + '\'' +
+                ", permission='" + permission + '\'' +
+                ", available=" + available +
+                '}';
+    }
+
     private Long id;
 
     private String name;
