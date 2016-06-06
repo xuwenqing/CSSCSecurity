@@ -1,25 +1,38 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class User implements Serializable {
-    private Integer id;
+    private Long id;
 
     private String username;
 
-    private String phone;
-
     private String password;
 
-    private String role;
+    private String salt;
+
+    private Boolean locked;
+
+    private Date createDate;
+
+    private Boolean deleted;
+
+    private String email;
+
+    private String phone;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
+    public String getCredentialsSalt() {
+        return username + salt;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -31,14 +44,6 @@ public class User implements Serializable {
         this.username = username == null ? null : username.trim();
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
-    }
-
     public String getPassword() {
         return password;
     }
@@ -47,11 +52,51 @@ public class User implements Serializable {
         this.password = password == null ? null : password.trim();
     }
 
-    public String getRole() {
-        return role;
+    public String getSalt() {
+        return salt;
     }
 
-    public void setRole(String role) {
-        this.role = role == null ? null : role.trim();
+    public void setSalt(String salt) {
+        this.salt = salt == null ? null : salt.trim();
+    }
+
+    public Boolean getLocked() {
+        return locked;
+    }
+
+    public void setLocked(Boolean locked) {
+        this.locked = locked;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
     }
 }

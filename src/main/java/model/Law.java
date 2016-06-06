@@ -4,6 +4,21 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Law implements Serializable {
+    @Override
+    public String toString() {
+        return "Law{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", publishInstitution='" + publishInstitution + '\'' +
+                ", documentNumber='" + documentNumber + '\'' +
+                ", publishTime=" + publishTime +
+                ", activeTime=" + activeTime +
+                ", category='" + category + '\'' +
+                ", viewCount=" + viewCount +
+                ", content='" + content + '\'' +
+                '}';
+    }
+
     private Integer id;
 
     private String title;

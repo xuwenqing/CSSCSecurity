@@ -56,6 +56,7 @@ public class PagerModel {
         setStart(builder.start);
         setLimit(builder.limit);
         setOrder(builder.order);
+        setSortby(builder.sortby);
     }
 
     /**

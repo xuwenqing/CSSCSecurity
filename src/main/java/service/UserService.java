@@ -1,11 +1,64 @@
 package service;
 
+import model.Resource;
+import model.Role;
 import model.User;
 
-/**
- * Created by wenqing on 2016/5/29.
- */
+import java.util.Set;
+
 public interface UserService {
-    User getUserById(int id);
-    int insert(User user);
+
+    /**
+     * 创建用户
+     * @param user
+     */
+     User createUser(User user);
+
+    /**
+     * 修改密码
+     * @param userId
+     * @param newPassword
+     */
+     void changePassword(Long userId, String newPassword);
+
+    /**
+     * 添加用户-角色关系
+     * @param userId
+     * @param roleIds
+     */
+     void correlationRoles(Long userId, Long... roleIds);
+
+
+    /**
+     * 移除用户-角色关系
+     * @param userId
+     * @param roleIds
+     */
+     void uncorrelationRoles(Long userId, Long... roleIds);
+
+    /**
+     * 根据用户名查找用户
+     * @param username
+     * @return
+     */
+     User findByUsername(String username);
+
+    /**
+     * 根据用户名查找其角色
+     * @param username
+     * @return
+     */
+     Set<Role> findRoles(String username);
+
+    /**
+     * 根据用户名查找其权限
+     * @param username
+     * @return
+     */
+     Set<Resource> findResources(String username);
+
+     Set<String> findRolesNames(String username);
+
+     Set<String> findResourcePermissions(String username);
+
 }
