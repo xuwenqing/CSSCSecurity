@@ -38,7 +38,6 @@ public class CustomDateConverter implements Converter<String, Date> {
     }
 
     public Date parseDate(String dateStr, String format) {
-        Date date = null;
         DateFormat dateFormat = new SimpleDateFormat(format);
         try {
             return dateFormat.parse(dateStr);

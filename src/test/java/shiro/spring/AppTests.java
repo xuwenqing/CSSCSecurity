@@ -1,4 +1,4 @@
-package spring;
+package shiro.spring;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration("classpath:spring-mvc.xml")
+@ContextConfiguration("classpath:spring-mvc-old.xml")
 public class AppTests {
     private MockMvc mockMvc;
 

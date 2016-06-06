@@ -1,7 +1,6 @@
-package spring;
+package shiro.spring;
 
 import com.alibaba.fastjson.JSON;
-import com.sun.org.apache.bcel.internal.generic.LADD;
 import model.Law;
 import org.junit.Test;
 
