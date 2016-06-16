@@ -19,8 +19,8 @@ public class NewsServiceImpl implements NewsService {
 
     @Autowired
     private NewsMapper newsDao;
-    @Autowired
-    private NewsSortMapper newsSortDao;
+//    @Autowired
+//    private NewsSortMapper newsSortDao;
 
     @Override
     public boolean add(News news) {
@@ -50,15 +50,6 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public List<News> query(NewsCondition condition) {
-        if(condition.getOrderName() != null && !"".equals(condition.getOrderName())) {
-            NewsSort newsSort = newsSortDao.selectByName(condition.getOrderName());
-            if(newsSort != null) {
-                condition.setOrderName(newsSort.getId().toString());
-            }
-            else {
-                condition.setOrderName(null);
-            }
-        }
         return newsDao.selectByCondition(condition);
     }
 

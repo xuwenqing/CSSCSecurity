@@ -6,9 +6,7 @@ import model.News;
 import model.NewsSort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import service.NewsSortService;
 import service.NewsService;
 
@@ -27,10 +25,15 @@ public class NewsController extends BaseController{
     private NewsSortService newsSortService;
 
 
-    @RequestMapping(value = "/add")
-    public @ResponseBody ResponsePackDto add(News news) {
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String add(){
+        return "newsadd";
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public @ResponseBody ResponsePackDto add(@RequestBody News news) {
         newsService.add(news);
-        return null;
+        return new ResponsePackDto(news);
     }
 
     @RequestMapping(value = "/delete")
@@ -38,6 +41,8 @@ public class NewsController extends BaseController{
         newsService.delete(ids);
         return null;
     }
+
+
 
     @RequestMapping(value = "/edit")
     public @ResponseBody ResponsePackDto edit(News oldNews) {
@@ -51,17 +56,15 @@ public class NewsController extends BaseController{
             @RequestParam(value = "limit", defaultValue = "2") int limit,
             @RequestParam(value = "sortby", required = false, defaultValue = "createTime") String sortby,
             @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
-            @RequestParam(value = "title",required = false) String title,
-            @RequestParam(value = "orderName",required = false) String orderName) {
+            @RequestParam(value = "title",required = false) String title) {
         NewsCondition condition = new NewsCondition();
         condition.setStart(start);
         condition.setLimit(limit);
         condition.setSortby(sortby);
         condition.setOrder(order);
         condition.setTitle(title);
-        condition.setOrderName(orderName);
-        newsService.query(condition);
-        return null;
+        List<News> news = newsService.query(condition);
+        return new ResponsePackDto(news);
     }
 
     @RequestMapping(value = "/queryDetail")

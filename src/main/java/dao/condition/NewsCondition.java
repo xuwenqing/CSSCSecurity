@@ -7,7 +7,6 @@ import dao.base.PagerModel;
  */
 public class NewsCondition extends PagerModel {
     private String title;
-    private String orderName;
 
     public String getTitle() {
         return title;
@@ -15,13 +14,5 @@ public class NewsCondition extends PagerModel {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getOrderName() {
-        return orderName;
-    }
-
-    public void setOrderName(String orderName) {
-        this.orderName = orderName;
     }
 }
