@@ -23,7 +23,7 @@
 .search-tab th{text-align: center;padding-right:10px;font-weight: normal;}
 .search-tab td{padding: 0 5px;}
 .common-text{height: 32px;line-height: 32px;padding: 2px 4px;border: 1px solid #ccc;background: #fff;border-radius:5px;}
-.result-wrap{padding:10px 10px;border-bottom: 1px solid #e5e5e5;}
+.result-wrap{padding:5px 0;border-bottom: 1px solid #e5e5e5;}
 .result-title{line-height: 35px;padding-bottom: 5px;overflow: hidden;}
 .comment-title{line-height: 35px;margin-bottom: 10px;overflow: hidden;}
 .result-list a{margin-right: 15px;}
@@ -59,6 +59,11 @@
 .res-lab{color: #909090;}
 .res-info{font-size: 15px;}
 .sort-input{width: 25px;text-align: center;}
+/*
 .main-wrap{
 	display: none;
+}*/
+/*设置ueditor图标*/
+.edui-box{
+	line-height: 0;
 }
