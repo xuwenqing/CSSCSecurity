@@ -4,6 +4,26 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Standard implements Serializable {
+
+    @Override
+    public String toString() {
+        return "Standard{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                ", keywords='" + keywords + '\'' +
+                ", no='" + no + '\'' +
+                ", abstracts='" + abstracts + '\'' +
+                ", publishDep='" + publishDep + '\'' +
+                ", effectiveDate=" + effectiveDate +
+                ", expiredDate=" + expiredDate +
+                ", publisher='" + publisher + '\'' +
+                ", publishDate=" + publishDate +
+                ", viewCount=" + viewCount +
+                ", content='" + content + '\'' +
+                '}';
+    }
+
     private Integer id;
 
     private String name;

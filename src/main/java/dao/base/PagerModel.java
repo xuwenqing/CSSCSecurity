@@ -48,7 +48,8 @@ public class PagerModel {
     public PagerModel() {
         this.start = 0;
         this.limit = 10;
-        this.order = null;
+        this.sortby = null;
+        this.order = "desc";
     }
 
     public PagerModel(Builder builder) {
