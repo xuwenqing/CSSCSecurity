@@ -224,6 +224,7 @@
         <where>
             <if test="name != null">and name like CONCAT('%',#{name,jdbcType=VARCHAR},'%')</if>
             <if test="keywords != null">and keywords like CONCAT('%',#{keywords,jdbcType=VARCHAR},'%')</if>
+            <if test="category != null">and category = #{category,jdbcType=VARCHAR} </if>
         </where>
         <if test="sortby != null">
             ORDER BY ${sortby} ${order}
