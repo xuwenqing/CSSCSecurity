@@ -1,27 +1,31 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="dao.LawMapper" >
-  <resultMap id="BaseResultMap" type="model.Law" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="publish_institution" property="publishInstitution" jdbcType="VARCHAR" />
-    <result column="document_number" property="documentNumber" jdbcType="VARCHAR" />
-    <result column="publish_time" property="publishTime" jdbcType="DATE" />
-    <result column="active_time" property="activeTime" jdbcType="DATE" />
-    <result column="category" property="category" jdbcType="VARCHAR" />
-    <result column="view_count" property="viewCount" jdbcType="INTEGER" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.LawMapper">
+  <resultMap id="BaseResultMap" type="model.Law">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="no" jdbcType="VARCHAR" property="no" />
+    <result column="abstracts" jdbcType="VARCHAR" property="abstracts" />
+    <result column="publish_dep" jdbcType="VARCHAR" property="publishDep" />
+    <result column="effective_date" jdbcType="DATE" property="effectiveDate" />
+    <result column="expired_date" jdbcType="DATE" property="expiredDate" />
+    <result column="publisher" jdbcType="VARCHAR" property="publisher" />
+    <result column="publish_date" jdbcType="DATE" property="publishDate" />
+    <result column="view_count" jdbcType="INTEGER" property="viewCount" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="model.Law" extends="BaseResultMap" >
-    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="model.Law">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    id, title, publish_institution, document_number, publish_time, active_time, category, 
-    view_count
+  <sql id="Base_Column_List">
+    id, name, keywords, category, no, abstracts, publish_dep, effective_date, expired_date, 
+    publisher, publish_date, view_count
   </sql>
-  <sql id="Blob_Column_List" >
+  <sql id="Blob_Column_List">
     content
   </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
     ,
@@ -29,11 +33,419 @@
     from law
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from law
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="model.Law" >
+  <insert id="insert" parameterType="model.Law">
+    insert into law (id, name, keywords, 
+      category, no, abstracts, 
+      publish_dep, effective_date, expired_date, 
+      publisher, publish_date, view_count, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{keywords,jdbcType=VARCHAR}, 
+      #{category,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{abstracts,jdbcType=VARCHAR}, 
+      #{publishDep,jdbcType=VARCHAR}, #{effectiveDate,jdbcType=DATE}, #{expiredDate,jdbcType=DATE}, 
+      #{publisher,jdbcType=VARCHAR}, #{publishDate,jdbcType=DATE}, #{viewCount,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="model.Law">
+    insert into law
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="keywords != null">
+        keywords,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="no != null">
+        no,
+      </if>
+      <if test="abstracts != null">
+        abstracts,
+      </if>
+      <if test="publishDep != null">
+        publish_dep,
+      </if>
+      <if test="effectiveDate != null">
+        effective_date,
+      </if>
+      <if test="expiredDate != null">
+        expired_date,
+      </if>
+      <if test="publisher != null">
+        publisher,
+      </if>
+      <if test="publishDate != null">
+        publish_date,
+      </if>
+      <if test="viewCount != null">
+        view_count,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null">
+        #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="abstracts != null">
+        #{abstracts,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDep != null">
+        #{publishDep,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveDate != null">
+        #{effectiveDate,jdbcType=DATE},
+      </if>
+      <if test="expiredDate != null">
+        #{expiredDate,jdbcType=DATE},
+      </if>
+      <if test="publisher != null">
+        #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null">
+        #{publishDate,jdbcType=DATE},
+      </if>
+      <if test="viewCount != null">
+        #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="model.Law">
+    update law
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null">
+        keywords = #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null">
+        no = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="abstracts != null">
+        abstracts = #{abstracts,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDep != null">
+        publish_dep = #{publishDep,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveDate != null">
+        effective_date = #{effectiveDate,jdbcType=DATE},
+      </if>
+      <if test="expiredDate != null">
+        expired_date = #{expiredDate,jdbcType=DATE},
+      </if>
+      <if test="publisher != null">
+        publisher = #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null">
+        publish_date = #{publishDate,jdbcType=DATE},
+      </if>
+      <if test="viewCount != null">
+        view_count = #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="model.Law">
+    update law
+    set name = #{name,jdbcType=VARCHAR},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      no = #{no,jdbcType=VARCHAR},
+      abstracts = #{abstracts,jdbcType=VARCHAR},
+      publish_dep = #{publishDep,jdbcType=VARCHAR},
+      effective_date = #{effectiveDate,jdbcType=DATE},
+      expired_date = #{expiredDate,jdbcType=DATE},
+      publisher = #{publisher,jdbcType=VARCHAR},
+      publish_date = #{publishDate,jdbcType=DATE},
+      view_count = #{viewCount,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="model.Law">
+    update law
+    set name = #{name,jdbcType=VARCHAR},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      no = #{no,jdbcType=VARCHAR},
+      abstracts = #{abstracts,jdbcType=VARCHAR},
+      publish_dep = #{publishDep,jdbcType=VARCHAR},
+      effective_date = #{effectiveDate,jdbcType=DATE},
+      expired_date = #{expiredDate,jdbcType=DATE},
+      publisher = #{publisher,jdbcType=VARCHAR},
+      publish_date = #{publishDate,jdbcType=DATE},
+      view_count = #{viewCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="model.Law">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="no" jdbcType="VARCHAR" property="no" />
+    <result column="abstract" jdbcType="VARCHAR" property="abstract" />
+    <result column="publish_dep" jdbcType="VARCHAR" property="publishDep" />
+    <result column="effective_date" jdbcType="DATE" property="effectiveDate" />
+    <result column="expired_date" jdbcType="DATE" property="expiredDate" />
+    <result column="publisher" jdbcType="VARCHAR" property="publisher" />
+    <result column="publish_date" jdbcType="DATE" property="publishDate" />
+    <result column="view_count" jdbcType="INTEGER" property="viewCount" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="model.Law">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, keywords, category, no, abstract, publish_dep, effective_date, expired_date, 
+    publisher, publish_date, view_count
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from law
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from law
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="model.Law">
+    insert into law (id, name, keywords, 
+      category, no, abstract, 
+      publish_dep, effective_date, expired_date, 
+      publisher, publish_date, view_count, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{keywords,jdbcType=VARCHAR}, 
+      #{category,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{abstract,jdbcType=VARCHAR}, 
+      #{publishDep,jdbcType=VARCHAR}, #{effectiveDate,jdbcType=DATE}, #{expiredDate,jdbcType=DATE}, 
+      #{publisher,jdbcType=VARCHAR}, #{publishDate,jdbcType=DATE}, #{viewCount,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="model.Law">
+    insert into law
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="keywords != null">
+        keywords,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="no != null">
+        no,
+      </if>
+      <if test="abstract != null">
+        abstract,
+      </if>
+      <if test="publishDep != null">
+        publish_dep,
+      </if>
+      <if test="effectiveDate != null">
+        effective_date,
+      </if>
+      <if test="expiredDate != null">
+        expired_date,
+      </if>
+      <if test="publisher != null">
+        publisher,
+      </if>
+      <if test="publishDate != null">
+        publish_date,
+      </if>
+      <if test="viewCount != null">
+        view_count,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null">
+        #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="abstract != null">
+        #{abstract,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDep != null">
+        #{publishDep,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveDate != null">
+        #{effectiveDate,jdbcType=DATE},
+      </if>
+      <if test="expiredDate != null">
+        #{expiredDate,jdbcType=DATE},
+      </if>
+      <if test="publisher != null">
+        #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null">
+        #{publishDate,jdbcType=DATE},
+      </if>
+      <if test="viewCount != null">
+        #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="model.Law">
+    update law
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null">
+        keywords = #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null">
+        no = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="abstract != null">
+        abstract = #{abstract,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDep != null">
+        publish_dep = #{publishDep,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveDate != null">
+        effective_date = #{effectiveDate,jdbcType=DATE},
+      </if>
+      <if test="expiredDate != null">
+        expired_date = #{expiredDate,jdbcType=DATE},
+      </if>
+      <if test="publisher != null">
+        publisher = #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null">
+        publish_date = #{publishDate,jdbcType=DATE},
+      </if>
+      <if test="viewCount != null">
+        view_count = #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="model.Law">
+    update law
+    set name = #{name,jdbcType=VARCHAR},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      no = #{no,jdbcType=VARCHAR},
+      abstract = #{abstract,jdbcType=VARCHAR},
+      publish_dep = #{publishDep,jdbcType=VARCHAR},
+      effective_date = #{effectiveDate,jdbcType=DATE},
+      expired_date = #{expiredDate,jdbcType=DATE},
+      publisher = #{publisher,jdbcType=VARCHAR},
+      publish_date = #{publishDate,jdbcType=DATE},
+      view_count = #{viewCount,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="model.Law">
+    update law
+    set name = #{name,jdbcType=VARCHAR},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      no = #{no,jdbcType=VARCHAR},
+      abstract = #{abstract,jdbcType=VARCHAR},
+      publish_dep = #{publishDep,jdbcType=VARCHAR},
+      effective_date = #{effectiveDate,jdbcType=DATE},
+      expired_date = #{expiredDate,jdbcType=DATE},
+      publisher = #{publisher,jdbcType=VARCHAR},
+      publish_date = #{publishDate,jdbcType=DATE},
+      view_count = #{viewCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="model.Law">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="publish_institution" jdbcType="VARCHAR" property="publishInstitution" />
+    <result column="document_number" jdbcType="VARCHAR" property="documentNumber" />
+    <result column="publish_time" jdbcType="DATE" property="publishTime" />
+    <result column="active_time" jdbcType="DATE" property="activeTime" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="view_count" jdbcType="INTEGER" property="viewCount" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="model.Law">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, publish_institution, document_number, publish_time, active_time, category, 
+    view_count
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from law
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from law
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="model.Law">
     insert into law (id, title, publish_institution, 
       document_number, publish_time, active_time, 
       category, view_count, content
@@ -43,98 +455,98 @@
       #{category,jdbcType=VARCHAR}, #{viewCount,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="model.Law" >
+  <insert id="insertSelective" parameterType="model.Law">
     insert into law
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="title != null" >
+      <if test="title != null">
         title,
       </if>
-      <if test="publishInstitution != null" >
+      <if test="publishInstitution != null">
         publish_institution,
       </if>
-      <if test="documentNumber != null" >
+      <if test="documentNumber != null">
         document_number,
       </if>
-      <if test="publishTime != null" >
+      <if test="publishTime != null">
         publish_time,
       </if>
-      <if test="activeTime != null" >
+      <if test="activeTime != null">
         active_time,
       </if>
-      <if test="category != null" >
+      <if test="category != null">
         category,
       </if>
-      <if test="viewCount != null" >
+      <if test="viewCount != null">
         view_count,
       </if>
-      <if test="content != null" >
+      <if test="content != null">
         content,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="title != null" >
+      <if test="title != null">
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="publishInstitution != null" >
+      <if test="publishInstitution != null">
         #{publishInstitution,jdbcType=VARCHAR},
       </if>
-      <if test="documentNumber != null" >
+      <if test="documentNumber != null">
         #{documentNumber,jdbcType=VARCHAR},
       </if>
-      <if test="publishTime != null" >
+      <if test="publishTime != null">
         #{publishTime,jdbcType=DATE},
       </if>
-      <if test="activeTime != null" >
+      <if test="activeTime != null">
         #{activeTime,jdbcType=DATE},
       </if>
-      <if test="category != null" >
+      <if test="category != null">
         #{category,jdbcType=VARCHAR},
       </if>
-      <if test="viewCount != null" >
+      <if test="viewCount != null">
         #{viewCount,jdbcType=INTEGER},
       </if>
-      <if test="content != null" >
+      <if test="content != null">
         #{content,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="model.Law" >
+  <update id="updateByPrimaryKeySelective" parameterType="model.Law">
     update law
-    <set >
-      <if test="title != null" >
+    <set>
+      <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="publishInstitution != null" >
+      <if test="publishInstitution != null">
         publish_institution = #{publishInstitution,jdbcType=VARCHAR},
       </if>
-      <if test="documentNumber != null" >
+      <if test="documentNumber != null">
         document_number = #{documentNumber,jdbcType=VARCHAR},
       </if>
-      <if test="publishTime != null" >
+      <if test="publishTime != null">
         publish_time = #{publishTime,jdbcType=DATE},
       </if>
-      <if test="activeTime != null" >
+      <if test="activeTime != null">
         active_time = #{activeTime,jdbcType=DATE},
       </if>
-      <if test="category != null" >
+      <if test="category != null">
         category = #{category,jdbcType=VARCHAR},
       </if>
-      <if test="viewCount != null" >
+      <if test="viewCount != null">
         view_count = #{viewCount,jdbcType=INTEGER},
       </if>
-      <if test="content != null" >
+      <if test="content != null">
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="model.Law" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="model.Law">
     update law
     set title = #{title,jdbcType=VARCHAR},
       publish_institution = #{publishInstitution,jdbcType=VARCHAR},
@@ -146,7 +558,7 @@
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="model.Law" >
+  <update id="updateByPrimaryKey" parameterType="model.Law">
     update law
     set title = #{title,jdbcType=VARCHAR},
       publish_institution = #{publishInstitution,jdbcType=VARCHAR},

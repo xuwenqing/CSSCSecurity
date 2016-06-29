@@ -3,14 +3,14 @@ package model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Law implements Serializable {
+public class Standard implements Serializable {
     private Integer id;
 
     private String name;
 
-    private String keywords;
-
     private String category;
+
+    private String keywords;
 
     private String no;
 
@@ -48,20 +48,20 @@ public class Law implements Serializable {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getKeywords() {
-        return keywords;
-    }
-
-    public void setKeywords(String keywords) {
-        this.keywords = keywords == null ? null : keywords.trim();
-    }
-
     public String getCategory() {
         return category;
     }
 
     public void setCategory(String category) {
         this.category = category == null ? null : category.trim();
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords == null ? null : keywords.trim();
     }
 
     public String getNo() {

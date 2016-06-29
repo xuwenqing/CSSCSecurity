@@ -14,5 +14,4 @@ public interface NewsService {
     boolean edit(News olsNews);
     List<News> query(NewsCondition condition);
     News queryDetail(int id);
-
 }
