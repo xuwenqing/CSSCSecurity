@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Law implements Serializable {
+public class Health implements Serializable {
     private Integer id;
 
     private String name;
@@ -12,15 +12,9 @@ public class Law implements Serializable {
 
     private String category;
 
-    private String no;
-
     private String abstracts;
 
-    private String publishDep;
-
-    private Date effectiveDate;
-
-    private Date expiredDate;
+    private String file;
 
     private String publisher;
 
@@ -64,14 +58,6 @@ public class Law implements Serializable {
         this.category = category == null ? null : category.trim();
     }
 
-    public String getNo() {
-        return no;
-    }
-
-    public void setNo(String no) {
-        this.no = no == null ? null : no.trim();
-    }
-
     public String getAbstracts() {
         return abstracts;
     }
@@ -80,28 +66,12 @@ public class Law implements Serializable {
         this.abstracts = abstracts == null ? null : abstracts.trim();
     }
 
-    public String getPublishDep() {
-        return publishDep;
+    public String getFile() {
+        return file;
     }
 
-    public void setPublishDep(String publishDep) {
-        this.publishDep = publishDep == null ? null : publishDep.trim();
-    }
-
-    public Date getEffectiveDate() {
-        return effectiveDate;
-    }
-
-    public void setEffectiveDate(Date effectiveDate) {
-        this.effectiveDate = effectiveDate;
-    }
-
-    public Date getExpiredDate() {
-        return expiredDate;
-    }
-
-    public void setExpiredDate(Date expiredDate) {
-        this.expiredDate = expiredDate;
+    public void setFile(String file) {
+        this.file = file == null ? null : file.trim();
     }
 
     public String getPublisher() {

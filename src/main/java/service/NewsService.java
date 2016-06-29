@@ -11,8 +11,7 @@ import java.util.List;
 public interface NewsService {
     boolean add(News news);
     boolean delete(List<Integer> ids);
-    boolean edit(News olsNews);
+    boolean edit(News oldNews);
     List<News> query(NewsCondition condition);
     News queryDetail(int id);
-
 }
