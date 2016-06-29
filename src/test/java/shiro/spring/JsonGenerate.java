@@ -12,7 +12,6 @@ public class JsonGenerate {
     @Test
     public void generateLaw() {
         Law law = new Law();
-        law.setTitle("title");
         law.setContent("content");
 
         System.out.println(JSON.toJSON(law));
