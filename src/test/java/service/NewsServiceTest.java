@@ -54,7 +54,7 @@ public class NewsServiceTest {
         condition.setSortby(sortby);
         condition.setOrder(order);
         condition.setTitle(title);
-        condition.setOrderName(orderName);
+//        condition.setOrderName(orderName);
         System.out.println(newsService.query(condition));
 
     }
