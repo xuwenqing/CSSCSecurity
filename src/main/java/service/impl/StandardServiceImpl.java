@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import service.StandardService;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by wenqing on 2016/6/29.
@@ -20,7 +21,6 @@ public class StandardServiceImpl implements StandardService {
 
     @Override
     public boolean add(Standard standard) {
-
         if(standardDao.insertSelective(standard) == 1)
             return true;
         return false;
@@ -28,17 +28,27 @@ public class StandardServiceImpl implements StandardService {
 
     @Override
     public boolean delete(List<Integer> ids) {
+        if(standardDao.deleteMany(ids) >= 1)
+            return true;
         return false;
     }
 
     @Override
     public boolean edit(Standard newStandard) {
+
+        Standard oldStandard = standardDao.selectByPrimaryKey(newStandard.getId());
+        if(oldStandard == null)
+            return false;
+        if(standardDao.updateByPrimaryKeySelective(newStandard) == 1)
+            return true;
         return false;
     }
 
     @Override
     public List<Standard> query(StandardCondition condition) {
-        return null;
+        if(condition.getSortby() == null || "".equals(condition.getSortby()))
+            condition.setSortby("publish_date");
+        return standardDao.selectByCondition(condition);
     }
 
     @Override

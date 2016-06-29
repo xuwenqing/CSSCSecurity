@@ -23,4 +23,6 @@ public interface NewsMapper {
     List<News> selectByCondition(NewsCondition condition);
     List<Integer> selectByClassId(int id);
     int deleteMany(List<Integer> ids);
+
+
 }
