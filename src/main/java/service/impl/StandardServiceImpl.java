@@ -20,7 +20,8 @@ public class StandardServiceImpl implements StandardService {
 
     @Override
     public boolean add(Standard standard) {
-        if( standardDao.insertSelective(standard) == 1)
+
+        if(standardDao.insertSelective(standard) == 1)
             return true;
         return false;
     }
