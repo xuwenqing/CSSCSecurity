@@ -4,6 +4,7 @@ window.Entities = (function() {
         apiEndpoint: ''
     };
     Entities.sync = function(url, data, options) {
+        var data = $.toJSON(data);
         options = options || {};
         var params = {
             url: url,
