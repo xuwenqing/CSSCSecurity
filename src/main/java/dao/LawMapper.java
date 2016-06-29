@@ -1,6 +1,9 @@
 package dao;
 
+import dao.condition.LawCondition;
 import model.Law;
+
+import java.util.List;
 
 public interface LawMapper {
     int deleteByPrimaryKey(Integer id);
@@ -16,4 +19,8 @@ public interface LawMapper {
     int updateByPrimaryKeyWithBLOBs(Law record);
 
     int updateByPrimaryKey(Law record);
+
+    int deleteMany(List<Integer> ids);
+
+    List<Law> selectByCondition(LawCondition condition);
 }

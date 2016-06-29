@@ -8,7 +8,15 @@ import dao.base.PagerModel;
 public class FrockCondition extends PagerModel {
     private String name;
     private String keywords;
+    private String category;
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
     public String getName() {
         return name;
     }

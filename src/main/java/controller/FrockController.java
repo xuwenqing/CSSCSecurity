@@ -1,12 +1,12 @@
 package controller;
 
 import controller.dto.ResponsePackDto;
-import dao.condition.LawCondition;
-import model.Law;
+import dao.condition.FrockCondition;
+import model.Frock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import service.LawService;
+import service.FrockService;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,16 +15,16 @@ import java.util.List;
  * Created by wenqing on 2016/6/29.
  */
 @Controller
-@RequestMapping(value = "/law")
-public class LawController extends BaseController {
+@RequestMapping(value = "/frock")
+public class FrockController extends BaseController {
 
     @Autowired
-    private LawService lawService;
+    private FrockService frockService;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public @ResponseBody ResponsePackDto add(@RequestBody Law law) {
+    public @ResponseBody ResponsePackDto add(@RequestBody Frock Frock) {
         ResponsePackDto dto = new ResponsePackDto();
-        if(lawService.add(law))
+        if(frockService.add(Frock))
             return dto;
         else {
             dto.setStatus(500);
@@ -38,7 +38,7 @@ public class LawController extends BaseController {
         ResponsePackDto dto = new ResponsePackDto();
         List<Integer> ids = new LinkedList<Integer>();
         ids.add(id);
-        if(lawService.delete(ids)) {
+        if(frockService.delete(ids)) {
             return dto;
         }
         else {
@@ -51,7 +51,7 @@ public class LawController extends BaseController {
     @RequestMapping(value = "/deletes", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto delete(List<Integer> ids) {
         ResponsePackDto dto = new ResponsePackDto();
-        if(lawService.delete(ids)) {
+        if(frockService.delete(ids)) {
             return dto;
         }
         else {
@@ -62,9 +62,9 @@ public class LawController extends BaseController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public @ResponseBody ResponsePackDto edit(@RequestBody Law newLaw) {
+    public @ResponseBody ResponsePackDto edit(@RequestBody Frock newFrock) {
         ResponsePackDto dto = new ResponsePackDto();
-        if(lawService.edit(newLaw)) {
+        if(frockService.edit(newFrock)) {
             return dto;
         }
         else {
@@ -75,9 +75,9 @@ public class LawController extends BaseController {
     }
 
     @RequestMapping(value = "/query", method = RequestMethod.POST)
-    public @ResponseBody ResponsePackDto query(@RequestBody LawCondition condition) {
-        List<Law> Laws = lawService.query(condition);
-        return new ResponsePackDto(Laws);
+    public @ResponseBody ResponsePackDto query(@RequestBody FrockCondition condition) {
+        List<Frock> Frocks = frockService.query(condition);
+        return new ResponsePackDto(Frocks);
     }
 
 }

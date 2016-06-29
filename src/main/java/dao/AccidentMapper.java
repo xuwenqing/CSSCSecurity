@@ -1,6 +1,9 @@
 package dao;
 
+import dao.condition.AccidentCondition;
 import model.Accident;
+
+import java.util.List;
 
 public interface AccidentMapper {
     int deleteByPrimaryKey(Integer id);
@@ -16,4 +19,8 @@ public interface AccidentMapper {
     int updateByPrimaryKeyWithBLOBs(Accident record);
 
     int updateByPrimaryKey(Accident record);
+
+    int deleteMany(List<Integer> ids);
+
+    List<Accident> selectByCondition(AccidentCondition condition);
 }
