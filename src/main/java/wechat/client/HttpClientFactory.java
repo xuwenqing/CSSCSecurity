@@ -50,7 +50,7 @@ public class HttpClientFactory {
 
     /**
      *
-     * HttpClient  ³¬Ê±ÖØÊÔ
+     * HttpClient  è¶…æ—¶é‡è¯•
      * @author LiYi
      */
     private static class HttpRequestRetryHandlerImpl implements HttpRequestRetryHandler {

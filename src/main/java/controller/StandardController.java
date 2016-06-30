@@ -28,7 +28,7 @@ public class StandardController extends BaseController {
             return dto;
         else {
             dto.setStatus(500);
-            dto.setError("²åÈëÊı¾İÊ§°Ü");
+            dto.setError("æ’å…¥æ•°æ®å¤±è´¥");
         }
         return dto;
     }
@@ -43,7 +43,7 @@ public class StandardController extends BaseController {
         }
         else {
             dto.setStatus(500);
-            dto.setError("É¾³ıÊı¾İÊ§°Ü");
+            dto.setError("åˆ é™¤æ•°æ®å¤±è´¥");
         }
         return dto;
     }
@@ -56,7 +56,7 @@ public class StandardController extends BaseController {
         }
         else {
             dto.setStatus(500);
-            dto.setError("É¾³ıÊı¾İÊ§°Ü");
+            dto.setError("åˆ é™¤æ•°æ®å¤±è´¥");
         }
         return dto;
     }
@@ -69,7 +69,7 @@ public class StandardController extends BaseController {
         }
         else {
             dto.setStatus(500);
-            dto.setError("ĞŞ¸ÄÊı¾İÊ§°Ü");
+            dto.setError("ä¿®æ”¹æ•°æ®å¤±è´¥");
         }
         return dto;
     }

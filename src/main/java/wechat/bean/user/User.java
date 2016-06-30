@@ -31,15 +31,15 @@ public class User extends BaseResult {
                 '}';
     }
 
-    private Integer subscribe;		//ÓÃ»§ÊÇ·ñ¶©ÔÄ¸Ã¹«ÖÚºÅ±êÊ¶£¬ÖµÎª0Ê±£¬´ú±í´ËÓÃ»§Ã»ÓĞ¹Ø×¢¸Ã¹«ÖÚºÅ£¬À­È¡²»µ½ÆäÓàĞÅÏ¢¡£
+    private Integer subscribe;		//ç”¨æˆ·æ˜¯å¦è®¢é˜…è¯¥å…¬ä¼—å·æ ‡è¯†ï¼Œå€¼ä¸º0æ—¶ï¼Œä»£è¡¨æ­¤ç”¨æˆ·æ²¡æœ‰å…³æ³¨è¯¥å…¬ä¼—å·ï¼Œæ‹‰å–ä¸åˆ°å…¶ä½™ä¿¡æ¯ã€‚
 
-    private String openid;			//ÓÃ»§µÄ±êÊ¶£¬¶Ôµ±Ç°¹«ÖÚºÅÎ¨Ò»
+    private String openid;			//ç”¨æˆ·çš„æ ‡è¯†ï¼Œå¯¹å½“å‰å…¬ä¼—å·å”¯ä¸€
 
     private String nickname;
 
-    private String nickname_emoji;	//êÇ³Æ ±íÇé×ªÒå
+    private String nickname_emoji;	//æ˜µç§° è¡¨æƒ…è½¬ä¹‰
 
-    private Integer sex;			//ÓÃ»§µÄĞÔ±ğ£¬ÖµÎª1Ê±ÊÇÄĞĞÔ£¬ÖµÎª2Ê±ÊÇÅ®ĞÔ£¬ÖµÎª0Ê±ÊÇÎ´Öª
+    private Integer sex;			//ç”¨æˆ·çš„æ€§åˆ«ï¼Œå€¼ä¸º1æ—¶æ˜¯ç”·æ€§ï¼Œå€¼ä¸º2æ—¶æ˜¯å¥³æ€§ï¼Œå€¼ä¸º0æ—¶æ˜¯æœªçŸ¥
 
     private String language;
 
@@ -53,15 +53,15 @@ public class User extends BaseResult {
 
     private Integer subscribe_time;
 
-    private String[] privilege;		//sns ÓÃ»§ÌØÈ¨ĞÅÏ¢£¬json Êı×é£¬ÈçÎ¢ĞÅÎÖ¿¨ÓÃ»§Îª£¨chinaunicom£©
+    private String[] privilege;		//sns ç”¨æˆ·ç‰¹æƒä¿¡æ¯ï¼Œjson æ•°ç»„ï¼Œå¦‚å¾®ä¿¡æ²ƒå¡ç”¨æˆ·ä¸ºï¼ˆchinaunicomï¼‰
 
-    private String unionid;			//¶à¸ö¹«ÖÚºÅÖ®¼äÓÃ»§ÕÊºÅ»¥Í¨UnionID»úÖÆ
+    private String unionid;			//å¤šä¸ªå…¬ä¼—å·ä¹‹é—´ç”¨æˆ·å¸å·äº’é€šUnionIDæœºåˆ¶
 
     private Integer groupid;
 
-    private String remark;			//¹«ÖÚºÅÔËÓªÕß¶Ô·ÛË¿µÄ±¸×¢£¬¹«ÖÚºÅÔËÓªÕß¿ÉÔÚÎ¢ĞÅ¹«ÖÚÆ½Ì¨ÓÃ»§¹ÜÀí½çÃæ¶Ô·ÛË¿Ìí¼Ó±¸×¢
+    private String remark;			//å…¬ä¼—å·è¿è¥è€…å¯¹ç²‰ä¸çš„å¤‡æ³¨ï¼Œå…¬ä¼—å·è¿è¥è€…å¯åœ¨å¾®ä¿¡å…¬ä¼—å¹³å°ç”¨æˆ·ç®¡ç†ç•Œé¢å¯¹ç²‰ä¸æ·»åŠ å¤‡æ³¨
 
-    private Integer[] tagid_list;	//ÓÃ»§±»´òÉÏµÄ±êÇ©IDÁĞ±í
+    private Integer[] tagid_list;	//ç”¨æˆ·è¢«æ‰“ä¸Šçš„æ ‡ç­¾IDåˆ—è¡¨
 
     public Integer getSubscribe() {
         return subscribe;

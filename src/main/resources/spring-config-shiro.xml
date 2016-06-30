@@ -103,7 +103,13 @@
     <!-- Shiro的Web过滤器 sysUser-->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
-        <property name="loginUrl" value="/login"/>
+        <!-- 跳转到登录页面 -->
+        <property name="loginUrl" value="/login"></property>
+        <!-- 成功页面 -->
+        <property name="successUrl" value="/index"></property>
+        <!-- 权限不足的错误提示页面 -->
+        <property name="unauthorizedUrl" value="/login"></property>
+        <!-- 基于URL拦截权限控制 -->
         <property name="filters">
             <util:map>
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
@@ -111,15 +117,22 @@
         </property>
         <property name="filterChainDefinitions">
             <value>
-                /login = authc
+                /** = authc
+                /login = anon
                 /logout = logout
                 /authenticated = authc
-                /** = user
             </value>
         </property>
     </bean>
 
     <!-- Shiro生命周期处理器-->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <!-- 注解支持 -->
+
+    <!--<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>-->
+    <!--<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">-->
+        <!--<property name="securityManager" ref="securityManager"/>-->
+    <!--</bean>-->
 
 </beans>

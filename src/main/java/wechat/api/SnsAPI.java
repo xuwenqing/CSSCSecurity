@@ -11,17 +11,17 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 /**
- * ÍøÒ³ÊÚÈ¨
+ * ç½‘é¡µæˆæƒ
  *
  */
 public class SnsAPI extends BaseAPI{
 
     /**
-     * Éú³ÉÍøÒ³ÊÚÈ¨ URL
+     * ç”Ÿæˆç½‘é¡µæˆæƒ URL
      * @param appid
-     * @param redirect_uri ×Ô¶¯URLEncoder
+     * @param redirect_uri è‡ªåŠ¨URLEncoder
      * @param snsapi_userinfo
-     * @param state ¿ÉÒÔÎª¿Õ
+     * @param state å¯ä»¥ä¸ºç©º
      * @return
      */
     public static String connectOauth2Authorize(String appid,String redirect_uri,boolean snsapi_userinfo,String state){
@@ -29,13 +29,13 @@ public class SnsAPI extends BaseAPI{
     }
 
     /**
-     * Éú³ÉÍøÒ³ÊÚÈ¨ URL  (µÚÈı·½Æ½Ì¨¿ª·¢)
+     * ç”Ÿæˆç½‘é¡µæˆæƒ URL  (ç¬¬ä¸‰æ–¹å¹³å°å¼€å‘)
      * @param appid
-     * @param redirect_uri ×Ô¶¯URLEncoder
+     * @param redirect_uri è‡ªåŠ¨URLEncoder
      * @param snsapi_userinfo
-     * @param state ¿ÉÒÔÎª¿Õ
-     * @param component_appid µÚÈı·½Æ½Ì¨¿ª·¢£¬¿ÉÒÔÎª¿Õ¡£
-     * 			 ·şÎñ·½µÄappid£¬ÔÚÉêÇë´´½¨¹«ÖÚºÅ·şÎñ³É¹¦ºó£¬¿ÉÔÚ¹«ÖÚºÅ·şÎñÏêÇéÒ³ÕÒµ½
+     * @param state å¯ä»¥ä¸ºç©º
+     * @param component_appid ç¬¬ä¸‰æ–¹å¹³å°å¼€å‘ï¼Œå¯ä»¥ä¸ºç©ºã€‚
+     * 			 æœåŠ¡æ–¹çš„appidï¼Œåœ¨ç”³è¯·åˆ›å»ºå…¬ä¼—å·æœåŠ¡æˆåŠŸåï¼Œå¯åœ¨å…¬ä¼—å·æœåŠ¡è¯¦æƒ…é¡µæ‰¾åˆ°
      * @return
      */
     public static String connectOauth2Authorize(String appid,String redirect_uri,boolean snsapi_userinfo,String state,String component_appid){
@@ -59,7 +59,7 @@ public class SnsAPI extends BaseAPI{
     }
 
     /**
-     * Í¨¹ıcode»»È¡ÍøÒ³ÊÚÈ¨access_token
+     * é€šè¿‡codeæ¢å–ç½‘é¡µæˆæƒaccess_token
      * @param appid
      * @param secret
      * @param code
@@ -77,7 +77,7 @@ public class SnsAPI extends BaseAPI{
     }
 
     /**
-     * Ë¢ĞÂaccess_token
+     * åˆ·æ–°access_token
      * @param appid
      * @param refresh_token
      * @return
@@ -93,10 +93,10 @@ public class SnsAPI extends BaseAPI{
     }
 
     /**
-     * À­È¡ÓÃ»§ĞÅÏ¢(ĞèscopeÎª snsapi_userinfo)
+     * æ‹‰å–ç”¨æˆ·ä¿¡æ¯(éœ€scopeä¸º snsapi_userinfo)
      * @param access_token
      * @param openid
-     * @param lang ¹ú¼ÒµØÇøÓïÑÔ°æ±¾£¬zh_CN ¼òÌå£¬zh_TW ·±Ìå£¬en Ó¢Óï
+     * @param lang å›½å®¶åœ°åŒºè¯­è¨€ç‰ˆæœ¬ï¼Œzh_CN ç®€ä½“ï¼Œzh_TW ç¹ä½“ï¼Œen è‹±è¯­
      * @return
      */
     public static User userinfo(String access_token,String openid,String lang){
@@ -104,18 +104,18 @@ public class SnsAPI extends BaseAPI{
     }
 
     /**
-     * À­È¡ÓÃ»§ĞÅÏ¢(ĞèscopeÎª snsapi_userinfo)
+     * æ‹‰å–ç”¨æˆ·ä¿¡æ¯(éœ€scopeä¸º snsapi_userinfo)
      * @since 2.7.1
      * @param access_token
      * @param openid
-     * @param lang ¹ú¼ÒµØÇøÓïÑÔ°æ±¾£¬zh_CN ¼òÌå£¬zh_TW ·±Ìå£¬en Ó¢Óï
-     * @param emoji ±íÇé½âÎö·½Ê½<br>
-     * 0 		  ²»ÉèÖÃ <br>
-     * 1 HtmlHex ¸ñÊ½<br>
-     * 2 HtmlTag ¸ñÊ½<br>
-     * 3 Alias  ¸ñÊ½<br>
-     * 4 HtmlDec ¸ñÊ½<br>
-     * 5 PureText ´¿ÎÄ±¾<br>
+     * @param lang å›½å®¶åœ°åŒºè¯­è¨€ç‰ˆæœ¬ï¼Œzh_CN ç®€ä½“ï¼Œzh_TW ç¹ä½“ï¼Œen è‹±è¯­
+     * @param emoji è¡¨æƒ…è§£ææ–¹å¼<br>
+     * 0 		  ä¸è®¾ç½® <br>
+     * 1 HtmlHex æ ¼å¼<br>
+     * 2 HtmlTag æ ¼å¼<br>
+     * 3 Alias  æ ¼å¼<br>
+     * 4 HtmlDec æ ¼å¼<br>
+     * 5 PureText çº¯æ–‡æœ¬<br>
      * @return
      */
     public static User userinfo(String access_token,String openid,String lang,int emoji){

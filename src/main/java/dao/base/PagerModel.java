@@ -61,7 +61,7 @@ public class PagerModel {
     }
 
     /**
-     * ·ÖÒ³¿ªÊ¼
+     * åˆ†é¡µå¼€å§‹
      * @return
      */
     public Integer getStart() {
@@ -73,7 +73,7 @@ public class PagerModel {
     }
 
     /**
-     * ·ÖÒ³ÊıÁ¿
+     * åˆ†é¡µæ•°é‡
      * @return
      */
     public Integer getLimit() {
@@ -86,7 +86,7 @@ public class PagerModel {
 
 
     /**
-     * ÅÅĞò
+     * æ’åº
      * @return
      */
     public String getOrder() {

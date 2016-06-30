@@ -12,7 +12,7 @@ import wechat.util.EmojiUtil;
 public class UserAPI extends BaseAPI {
 
     /**
-     * »ñÈ¡ÓÃ»§»ù±¾ĞÅÏ¢
+     * è·å–ç”¨æˆ·åŸºæœ¬ä¿¡æ¯
      * @param access_token
      * @param openid
      * @return
@@ -22,17 +22,17 @@ public class UserAPI extends BaseAPI {
     }
 
     /**
-     * »ñÈ¡ÓÃ»§»ù±¾ĞÅÏ¢
+     * è·å–ç”¨æˆ·åŸºæœ¬ä¿¡æ¯
      * @since 2.7.1
      * @param access_token
      * @param openid
-     * @param emoji ±íÇé½âÎö·½Ê½<br>
-     * 0 		  ²»ÉèÖÃ <br>
-     * 1 HtmlHex ¸ñÊ½<br>
-     * 2 HtmlTag ¸ñÊ½<br>
-     * 3 Alias  ¸ñÊ½<br>
-     * 4 HtmlDec ¸ñÊ½<br>
-     * 5 PureText ´¿ÎÄ±¾<br>
+     * @param emoji è¡¨æƒ…è§£ææ–¹å¼<br>
+     * 0 		  ä¸è®¾ç½® <br>
+     * 1 HtmlHex æ ¼å¼<br>
+     * 2 HtmlTag æ ¼å¼<br>
+     * 3 Alias  æ ¼å¼<br>
+     * 4 HtmlDec æ ¼å¼<br>
+     * 5 PureText çº¯æ–‡æœ¬<br>
      * @return
      */
     public static User userInfo(String access_token,String openid,int emoji){

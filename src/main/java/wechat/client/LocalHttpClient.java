@@ -53,7 +53,7 @@ public class LocalHttpClient {
     }
 
     /**
-     * 数据返回自动JSON对象解析
+     * 鏁版嵁杩斿洖鑷姩JSON瀵硅薄瑙ｆ瀽
      * @param request
      * @param clazz
      * @return
@@ -63,7 +63,7 @@ public class LocalHttpClient {
     }
 
     /**
-     * 数据返回自动XML对象解析
+     * 鏁版嵁杩斿洖鑷姩XML瀵硅薄瑙ｆ瀽
      * @param request
      * @param clazz
      * @return
@@ -74,7 +74,7 @@ public class LocalHttpClient {
 
 
     /**
-     * 日志记录
+     * 鏃ュ織璁板綍
      * @param request
      */
     private static String loggerRequest(HttpUriRequest request){
@@ -84,7 +84,7 @@ public class LocalHttpClient {
                 HttpEntityEnclosingRequestBase request_base = (HttpEntityEnclosingRequestBase)request;
                 HttpEntity entity = request_base.getEntity();
                 String content = null;
-                //MULTIPART_FORM_DATA 请求类型判断
+                //MULTIPART_FORM_DATA 璇锋眰绫诲瀷鍒ゆ柇
                 if(entity.getContentType().toString().indexOf(ContentType.MULTIPART_FORM_DATA.getMimeType()) == -1){
                     try {
                         content = EntityUtils.toString(entity);

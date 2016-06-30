@@ -10,7 +10,7 @@ import wechat.client.LocalHttpClient;
  */
 public class TokenAPI extends BaseAPI{
         /**
-         * ªÒ»°access_token
+         * Ëé∑Âèñaccess_token
          * @param appid
          * @param secret
          * @return
