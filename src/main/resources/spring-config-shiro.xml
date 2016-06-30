@@ -108,7 +108,7 @@
         <!-- 成功页面 -->
         <property name="successUrl" value="/index"></property>
         <!-- 权限不足的错误提示页面 -->
-        <property name="unauthorizedUrl" value="/login"></property>
+        <property name="unauthorizedUrl" value="/error/unauthorized"></property>
         <!-- 基于URL拦截权限控制 -->
         <property name="filters">
             <util:map>
@@ -117,22 +117,16 @@
         </property>
         <property name="filterChainDefinitions">
             <value>
-                /** = authc
-                /login = anon
+                /login = authc
                 /logout = logout
                 /authenticated = authc
+                /static/** = anon
+                /** = authc
             </value>
         </property>
     </bean>
 
     <!-- Shiro生命周期处理器-->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
-
-    <!-- 注解支持 -->
-
-    <!--<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>-->
-    <!--<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">-->
-        <!--<property name="securityManager" ref="securityManager"/>-->
-    <!--</bean>-->
 
 </beans>

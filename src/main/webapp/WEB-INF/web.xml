@@ -82,27 +82,27 @@
 	<!-- 出错页面定义 -->
 	<error-page>
 		<error-code>400</error-code>
-		<location>/WEB-INF/pages/error/400.jsp</location>
+		<location>/WEB-INF/pages/error/400.html</location>
 	</error-page>
 
 	<error-page>
 		<error-code>403</error-code>
-		<location>/WEB-INF/pages/error/403.jsp</location>
+		<location>/WEB-INF/pages/error/403.html</location>
 	</error-page>
 
 	<error-page>
 		<error-code>404</error-code>
-		<location>/WEB-INF/pages/error/404.jsp</location>
+		<location>/WEB-INF/pages/error/404.html</location>
 	</error-page>
 
 	<error-page>
 		<error-code>405</error-code>
-		<location>/WEB-INF/pages/error/405.jsp</location>
+		<location>/WEB-INF/pages/error/405.html</location>
 	</error-page>
 
 	<error-page>
 		<error-code>500</error-code>
-		<location>/WEB-INF/pages/error/500.jsp</location>
+		<location>/WEB-INF/pages/error/500.html</location>
 	</error-page>
 
 	<!-- 这里可继续增加服务器错误号的处理及对应显示的页面 -->
