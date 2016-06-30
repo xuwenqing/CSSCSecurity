@@ -6,7 +6,8 @@
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 缓存管理器 -->
     <bean id="cacheManager" class="shiro.spring.SpringCacheManagerWrapper">
@@ -98,17 +99,18 @@
         <property name="passwordParam" value="password"/>
         <property name="rememberMeParam" value="rememberMe"/>
         <property name="loginUrl" value="/login"/>
+        <property name="successUrl" value="/pages/index.html"/>
     </bean>
 
     <!-- Shiro的Web过滤器 sysUser-->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <!-- 跳转到登录页面 -->
-        <property name="loginUrl" value="/login"></property>
+        <!--<property name="loginUrl" value="/login"></property>-->
         <!-- 成功页面 -->
-        <property name="successUrl" value="/index"></property>
+        <!--<property name="successUrl" value="/index"></property>-->
         <!-- 权限不足的错误提示页面 -->
-        <property name="unauthorizedUrl" value="/error/unauthorized"></property>
+        <!--<property name="unauthorizedUrl" value="/error/unauthorized"></property>-->
         <!-- 基于URL拦截权限控制 -->
         <property name="filters">
             <util:map>
@@ -119,9 +121,8 @@
             <value>
                 /login = authc
                 /logout = logout
-                /authenticated = authc
                 /static/** = anon
-                /** = authc
+                /** = anon
             </value>
         </property>
     </bean>

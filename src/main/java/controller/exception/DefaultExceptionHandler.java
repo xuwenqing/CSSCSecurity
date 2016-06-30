@@ -1,5 +1,6 @@
 package controller.exception;
 
+import org.apache.shiro.authz.AuthorizationException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,6 +21,10 @@ class DefaultExceptionHandler implements HandlerExceptionResolver {
         model.put("ex", ex);
 
         // 根据不同错误转向不同页面
+        if(ex instanceof AuthorizationException) {
+            return new ModelAndView("error/unauthorized", model);
+        }
+
 //        if(ex instanceof BusinessException) {
 //            return new ModelAndView("error-business", model);
 //        }else if(ex instanceof ParameterException) {

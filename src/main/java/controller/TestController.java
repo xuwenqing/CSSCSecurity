@@ -40,6 +40,14 @@ public class TestController extends BaseController {
         return new ResponsePackDto("exception");
     }
 
+    @RequiresPermissions("wenqing:xu")
+    @RequestMapping("/unauthorized")
+    public @ResponseBody
+    ResponsePackDto unauthorized() {
+        System.out.print("test - unauthorized");
+        return new ResponsePackDto("unauthorized");
+    }
+
     @RequestMapping(value = "/normal",method = RequestMethod.POST)
     public @ResponseBody
     ResponsePackDto normal() {
