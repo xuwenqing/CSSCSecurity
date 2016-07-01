@@ -16,23 +16,24 @@ Entities.Standrd = (function(Backbone, Entities,_) {
         },
         delete: function(){
             var model = this;
-            var data = {id:model.id};
+            var data = model.id;
+            console.log(data);
             return Entities.sync(API_DESTROY,data).then(function(res){
                 model.stopListening();
-                model.trigger('destroy', model,model.collection,{ removeSelf: true });
+                model.trigger('destroy', model,{ removeSelf: true });
             });
         },
     });
 
     var Collection = Backbone.Collection.extend({
         model:Model,
-        fetch: function(){
+        fetch: function(data){
             var collection=this;
-            return Entities.sync(API_FETCH).then(function(res){
+            return Entities.sync(API_FETCH,data).then(function(res){
                 collection.reset(res);
             });
         },
-        add: function(data){
+        create: function(data){
             var collection=this;
             return Entities.sync(API_SAVE,data).then(function(res){
                 collection.unshift(_.extend(data,res));
