@@ -1,29 +1,38 @@
 package controller.exception;
 
-import org.apache.shiro.authz.UnauthorizedException;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.context.request.NativeWebRequest;
+import org.apache.shiro.authz.AuthorizationException;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- * Created by wenqing on 2016/6/5.
+ * Created by wenqing on 2016/6/30.
+ * ÂÖ®Â±ÄÂºÇÂ∏∏Â§ÑÁêÜÂô®
  */
-@ControllerAdvice
-public class DefaultExceptionHandler {
-    /**
-     * √ª”–»®œﬁ “Ï≥£
-     * <p/>
-     * ∫Û–¯∏˘æ›≤ªÕ¨µƒ–Ë«Û∂®÷∆º¥ø…
-     */
-    @ExceptionHandler({UnauthorizedException.class})
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ModelAndView processUnauthenticatedException(NativeWebRequest request, UnauthorizedException e) {
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("exception", e);
-        mv.setViewName("unauthorized");
-        return mv;
+class DefaultExceptionHandler implements HandlerExceptionResolver {
+    @Override
+    public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+
+        Map<String, Object> model = new HashMap<String, Object>();
+        model.put("ex", ex);
+
+        // Ê†πÊçÆ‰∏çÂêåÈîôËØØËΩ¨Âêë‰∏çÂêåÈ°µÈù¢
+        if(ex instanceof AuthorizationException) {
+            return new ModelAndView("error/unauthorized", model);
+        }
+
+//        if(ex instanceof BusinessException) {
+//            return new ModelAndView("error-business", model);
+//        }else if(ex instanceof ParameterException) {
+//            return new ModelAndView("error-parameter", model);
+//        } else {
+//            return new ModelAndView("error", model);
+//        }
+
+        return new ModelAndView("error/500", model);
     }
 }

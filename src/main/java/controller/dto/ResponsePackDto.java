@@ -4,7 +4,7 @@ import controller.enumerate.ResponseStatusEnum;
 
 /**
  * Created by wenqing on 2016/5/26.
- * ·µ»Ø½á¹û°ü×°DTO
+ * è¿”å›ç»“æœåŒ…è£…DTO
  */
 public class ResponsePackDto {
     private Integer status;
@@ -22,7 +22,7 @@ public class ResponsePackDto {
     }
 
     /**
-     * ·µ»Ø½á¹û×´Ì¬£¬Èç¹ûÃ»ÓĞÒì³£Ôò¶ÁÈ¡body£¬Èç¹ûÓĞÒì³£Ôò¶ÁÈ¡error×Ö¶Î£¬²é¿´¾ßÌåÎÊÌâ¡£
+     * è¿”å›ç»“æœçŠ¶æ€ï¼Œå¦‚æœæ²¡æœ‰å¼‚å¸¸åˆ™è¯»å–bodyï¼Œå¦‚æœæœ‰å¼‚å¸¸åˆ™è¯»å–errorå­—æ®µï¼ŒæŸ¥çœ‹å…·ä½“é—®é¢˜ã€‚
      * @return
      */
     public Integer getStatus() {
@@ -34,7 +34,7 @@ public class ResponsePackDto {
     }
 
     /**
-     * ´íÎóÔ­Òò
+     * é”™è¯¯åŸå› 
      * @return
      */
     public String getError() {
@@ -46,7 +46,7 @@ public class ResponsePackDto {
     }
 
     /**
-     * ·µ»ØµÄÏêÏ¸ÄÚÈİ£¬Èç¹û³É¹¦·µ»ØÔò¶ÁÈ¡Õâ¸ö×Ö¶Î¡£
+     * è¿”å›çš„è¯¦ç»†å†…å®¹ï¼Œå¦‚æœæˆåŠŸè¿”å›åˆ™è¯»å–è¿™ä¸ªå­—æ®µã€‚
      * @return
      */
     public Object getData() {

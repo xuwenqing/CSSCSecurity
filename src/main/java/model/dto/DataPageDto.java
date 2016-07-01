@@ -3,7 +3,7 @@ package model.dto;
 import java.io.Serializable;
 
 /**
- * ºóÌ¨¹ÜÀíÓÃ·ÖÒ³Êı¾İ½á¹¹
+ * åå°ç®¡ç†ç”¨åˆ†é¡µæ•°æ®ç»“æ„
  * Created by wenqing on 2016/6/2.
  */
 public class DataPageDto implements Serializable {

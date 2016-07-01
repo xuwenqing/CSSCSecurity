@@ -19,9 +19,9 @@ import java.nio.charset.Charset;
 public class MenuAPI extends BaseAPI {
 
     /**
-     * ´´½¨²Ëµ¥
+     * åˆ›å»ºèœå•
      * @param access_token
-     * @param menuJson ²Ëµ¥json Êı¾İ ÀıÈç{\"button\":[{\"type\":\"click\",\"name\":\"½ñÈÕ¸èÇú\",\"key\":\"V1001_TODAY_MUSIC\"},{\"type\":\"click\",\"name\":\"¸èÊÖ¼ò½é\",\"key\":\"V1001_TODAY_SINGER\"},{\"name\":\"²Ëµ¥\",\"sub_button\":[{\"type\":\"view\",\"name\":\"ËÑË÷\",\"url\":\"http://www.soso.com/\"},{\"type\":\"view\",\"name\":\"ÊÓÆµ\",\"url\":\"http://v.qq.com/\"},{\"type\":\"click\",\"name\":\"ÔŞÒ»ÏÂÎÒÃÇ\",\"key\":\"V1001_GOOD\"}]}]}
+     * @param menuJson èœå•json æ•°æ® ä¾‹å¦‚{\"button\":[{\"type\":\"click\",\"name\":\"ä»Šæ—¥æ­Œæ›²\",\"key\":\"V1001_TODAY_MUSIC\"},{\"type\":\"click\",\"name\":\"æ­Œæ‰‹ç®€ä»‹\",\"key\":\"V1001_TODAY_SINGER\"},{\"name\":\"èœå•\",\"sub_button\":[{\"type\":\"view\",\"name\":\"æœç´¢\",\"url\":\"http://www.soso.com/\"},{\"type\":\"view\",\"name\":\"è§†é¢‘\",\"url\":\"http://v.qq.com/\"},{\"type\":\"click\",\"name\":\"èµä¸€ä¸‹æˆ‘ä»¬\",\"key\":\"V1001_GOOD\"}]}]}
      * @return
      */
     public static BaseResult menuCreate(String access_token,String menuJson){
@@ -35,7 +35,7 @@ public class MenuAPI extends BaseAPI {
     }
 
     /**
-     * ´´½¨²Ëµ¥
+     * åˆ›å»ºèœå•
      * @param access_token
      * @param menuButtons
      * @return
@@ -46,7 +46,7 @@ public class MenuAPI extends BaseAPI {
     }
 
     /**
-     * »ñÈ¡²Ëµ¥
+     * è·å–èœå•
      * @param access_token
      * @return
      */
@@ -59,7 +59,7 @@ public class MenuAPI extends BaseAPI {
     }
 
     /**
-     * É¾³ı²Ëµ¥
+     * åˆ é™¤èœå•
      * @param access_token
      * @return
      */
@@ -73,11 +73,11 @@ public class MenuAPI extends BaseAPI {
 
 
     /**
-     * »ñÈ¡×Ô¶¨Òå²Ëµ¥ÅäÖÃ
-     * ±¾½Ó¿Ú½«»áÌá¹©¹«ÖÚºÅµ±Ç°Ê¹ÓÃµÄ×Ô¶¨Òå²Ëµ¥µÄÅäÖÃ£¬
-     * Èç¹û¹«ÖÚºÅÊÇÍ¨¹ıAPIµ÷ÓÃÉèÖÃµÄ²Ëµ¥£¬Ôò·µ»Ø²Ëµ¥µÄ¿ª·¢ÅäÖÃ£¬
-     * ¶øÈç¹û¹«ÖÚºÅÊÇÔÚ¹«ÖÚÆ½Ì¨¹ÙÍøÍ¨¹ıÍøÕ¾¹¦ÄÜ·¢²¼²Ëµ¥£¬
-     * Ôò±¾½Ó¿Ú·µ»ØÔËÓªÕßÉèÖÃµÄ²Ëµ¥ÅäÖÃ¡£
+     * è·å–è‡ªå®šä¹‰èœå•é…ç½®
+     * æœ¬æ¥å£å°†ä¼šæä¾›å…¬ä¼—å·å½“å‰ä½¿ç”¨çš„è‡ªå®šä¹‰èœå•çš„é…ç½®ï¼Œ
+     * å¦‚æœå…¬ä¼—å·æ˜¯é€šè¿‡APIè°ƒç”¨è®¾ç½®çš„èœå•ï¼Œåˆ™è¿”å›èœå•çš„å¼€å‘é…ç½®ï¼Œ
+     * è€Œå¦‚æœå…¬ä¼—å·æ˜¯åœ¨å…¬ä¼—å¹³å°å®˜ç½‘é€šè¿‡ç½‘ç«™åŠŸèƒ½å‘å¸ƒèœå•ï¼Œ
+     * åˆ™æœ¬æ¥å£è¿”å›è¿è¥è€…è®¾ç½®çš„èœå•é…ç½®ã€‚
      * @param access_token
      * @return
      */
@@ -90,7 +90,7 @@ public class MenuAPI extends BaseAPI {
     }
 
     /**
-     * ´´½¨¸öĞÔ»¯²Ëµ¥
+     * åˆ›å»ºä¸ªæ€§åŒ–èœå•
      * @param access_token
      * @param menuButtons
      * @return
@@ -101,7 +101,7 @@ public class MenuAPI extends BaseAPI {
     }
 
     /**
-     * ´´½¨¸öĞÔ»¯²Ëµ¥
+     * åˆ›å»ºä¸ªæ€§åŒ–èœå•
      * @since 2.7.1
      * @param access_token
      * @param menuJson
@@ -118,7 +118,7 @@ public class MenuAPI extends BaseAPI {
     }
 
     /**
-     * É¾³ı¸öĞÔ»¯²Ëµ¥
+     * åˆ é™¤ä¸ªæ€§åŒ–èœå•
      * @param access_token
      * @param menuid
      * @return
@@ -134,9 +134,9 @@ public class MenuAPI extends BaseAPI {
     }
 
     /**
-     * ²âÊÔ¸öĞÔ»¯²Ëµ¥Æ¥Åä½á¹û
+     * æµ‹è¯•ä¸ªæ€§åŒ–èœå•åŒ¹é…ç»“æœ
      * @param access_token
-     * @param user_id ¿ÉÒÔÊÇ·ÛË¿µÄOpenID£¬Ò²¿ÉÒÔÊÇ·ÛË¿µÄÎ¢ĞÅºÅ¡£
+     * @param user_id å¯ä»¥æ˜¯ç²‰ä¸çš„OpenIDï¼Œä¹Ÿå¯ä»¥æ˜¯ç²‰ä¸çš„å¾®ä¿¡å·ã€‚
      * @return
      */
     public static TrymatchResult menuTrymatch(String access_token,String user_id){

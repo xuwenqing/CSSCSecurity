@@ -5,6 +5,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,8 +15,14 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 public class LoginController extends BaseController{
-    @RequestMapping(value = "/login"    )
-    public String showLoginForm(HttpServletRequest req, Model model) {
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String showLoginPage() {
+        return "login";
+    }
+
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    public String loginFailed(HttpServletRequest req, Model model) {
         String exceptionClassName = (String)req.getAttribute("shiroLoginFailure");
         String error = null;
         if(UnknownAccountException.class.getName().equals(exceptionClassName)) {

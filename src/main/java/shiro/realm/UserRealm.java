@@ -18,6 +18,11 @@ public class UserRealm extends AuthorizingRealm {
     @Autowired
     private UserService userService;
 
+    /**
+     * 权限验证
+     * @param principals
+     * @return
+     */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String username = (String)principals.getPrimaryPrincipal();
@@ -28,6 +33,12 @@ public class UserRealm extends AuthorizingRealm {
         return authorizationInfo;
     }
 
+    /**
+     * 用户验证
+     * @param token
+     * @return
+     * @throws AuthenticationException
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
@@ -36,17 +47,18 @@ public class UserRealm extends AuthorizingRealm {
         User user = userService.findByUsername(username);
 
         if(user == null) {
-            throw new UnknownAccountException();//???????
+            throw new UnknownAccountException();//用户不存在
         }
 
         if(Boolean.TRUE.equals(user.getLocked())) {
-            throw new LockedAccountException(); //???????
+            throw new LockedAccountException(); //用户被锁定
         }
 
-        //????AuthenticatingRealm???CredentialsMatcher????????????????????????????????????
+        //设置AuthenticationInfo的用户名，密码，盐
+        //会到AuthenticatingRealm中与AuthenticationToken的密码进行匹配
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-                user.getUsername(), //?????
-                user.getPassword(), //????
+                user.getUsername(), //用户名
+                user.getPassword(), //密码
                 ByteSource.Util.bytes(user.getCredentialsSalt()),//salt=username+salt
                 getName()  //realm name
         );

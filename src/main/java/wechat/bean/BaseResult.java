@@ -1,7 +1,7 @@
 package wechat.bean;
 
 /**
- * Î¢ĞÅÇëÇó×´Ì¬Êı¾İ
+ * å¾®ä¿¡è¯·æ±‚çŠ¶æ€æ•°æ®
  *
  * @author xuwenqing
  */

@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
-        //¼ÓÃÜÃÜÂë
+        //åŠ å¯†å¯†ç 
         passwordHelper.encryptPassword(user);
         if(userDao.insertSelective(user) == 1)
             return user;

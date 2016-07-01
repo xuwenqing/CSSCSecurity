@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Ğ£ÑéÇëÇó£¬ÑéÖ¤ÊÇ·ñ¿ÉÒÔ½øĞĞÕı³£ÇëÇó£¬Èç¹ûÃ»ÓĞÈ¨ÏŞ£¬ÔòÍ£Ö¹¼ÌĞø½øĞĞ´¦Àí¡£
+ * æ ¡éªŒè¯·æ±‚ï¼ŒéªŒè¯æ˜¯å¦å¯ä»¥è¿›è¡Œæ­£å¸¸è¯·æ±‚ï¼Œå¦‚æœæ²¡æœ‰æƒé™ï¼Œåˆ™åœæ­¢ç»§ç»­è¿›è¡Œå¤„ç†ã€‚
  * Created by wenqing on 2016/5/26.
  */
 public class CheckTokenInterceptorAdapter extends HandlerInterceptorAdapter {

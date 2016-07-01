@@ -1,11 +1,13 @@
 package controller;
 
+import controller.dto.ResponsePackDto;
 import model.Resource;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import service.ResourceService;
 import service.UserService;
 
@@ -24,16 +26,18 @@ public class IndexController {
     private UserService userService;
 
     @RequestMapping("/")
-    public String index(HttpServletRequest req, Model model) {
+    public @ResponseBody
+    ResponsePackDto index(HttpServletRequest req, Model model) {
         String username = (String) SecurityUtils.getSubject().getPrincipal();
         Set<Resource> resources = userService.findResources(username);
-        model.addAttribute("resources", resources);
-        //request.setAttribute(Constants.CURRENT_USER, userService.findByUsername(username));
-        //String username = (String)req.getAttribute("username");
-        //       Set<String> permissions = userService.findPermissions(username);
+//        model.addAttribute("resources", resources);
+//        request.setAttribute(Constants.CURRENT_USER, userService.findByUsername(username));
+//        String username = (String)req.getAttribute("username");
+//        Set<String> permissions = userService.findPermissions(username);
 //        List<Resource> menus = permissionService.findMenus(permissions);
 //        model.addAttribute("menus", menus);
-        return "index";
+//        return "index";
+        return new ResponsePackDto(resources);
     }
 
     @RequestMapping("/welcome")
