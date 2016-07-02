@@ -7,212 +7,154 @@
     <link rel="stylesheet" type="text/css" href="../../asset/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
-    <!-- Javascript -->
-    <script src="../../js/jquery-1.8.0.min.js" ></script>
-    <script type="text/javascript" src="../../js/modernizr.min.js"></script>
 </head>
 <body>
-    <div class="container clearfix" id = "standardList">
-        <div class="crumb-wrap">
-        基础数据管理>>标准管理
-        </div>
-        <div class="search-wrap">
-            <div class="search-content">
-                <form action="/jscss/admin/design/index" method="post">
-                    <table class="search-tab">
-                        <tr>
-                            <th width="70">关键字:</th>
-                            <td><input class="common-text" placeholder="关键字" name="keywords" value="" id="" type="text"></td>
-                            <td><button type="button" class="btn btn-primary">查询</button></td>
-                        </tr>
-                    </table>
-                </form>
-            </div>
-        </div>
-        <div class="result-wrap">
-            <h3 class="controll-title">信息管理</h3>
-            <form name="myform" id="myform" method="post">
-                <div class="result-title">
-                    <div class="result-list">
-                        <a href="javascript:void(0);" id = 'js_create' class="btn btn-success"><i class="icon-plus icon-large"></i>添加</a>
-                        <a  href="#" class="btn btn-danger">
-                           <i class="icon-trash icon-large"></i>删除</a>
-                       </div>
-                   </div>
-                   <div class="result-content">
-                    <table class="result-tab" width="100%">
-                        <tr>
-                            <!-- <th class="tc" width="5%"><input class="allChoose" name="" type="checkbox"></th> -->
-                            <th>排序</th>
-                            <th>ID</th>
-                            <th>标准名称</th>
-                            <th>标准号</th>
-                            <th>标准内容 </th>
-                            <th>标准发布单位</th>
-                            <th>标准生效日期</th>
-                            <th>标准预计失效日期</th>                
-                            <th>浏览次数</th>
-                            <th>操作</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input name="ids[]" value="59" type="hidden">
-                                <input class="common-input sort-input" name="ord[]" value="0" type="text">
-                            </td>
-                            <td>59121</td>
-                            <td title="发哥经典"><a target="_blank" href="#" title="发哥经典">林木种子生产经营许可证</a>
-                            </td>
-                            <td>标准号</td>
-                            <td>标准内容 </td>
-                            <td>标准发布单位</td>
-                            <td>>标准生效日期</td>
-                            <td>标准预计失效日期</td>                     
-                            <td>浏览次数</td>
-                            <td>
-                                <a class="link-update" href="#"> 
-                                    <i class="icon-edit icon-large"></i>
-                                </a>
-                                <a class="link-del" href="#">
-                                    <i class="icon-trash icon-large"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                           <!--  <td class="tc"><input name="id" value="59" type="checkbox"></td> -->
-                           <td>
-                            <input name="ids[]" value="59" type="hidden">
-                            <input class="common-input sort-input" name="ord[]" value="1" type="text">
-                        </td>
-                        <td >59122</td>
-                        <td title="发哥经典"><a target="_blank" href="#" title="发哥经典">林木种子生产经营许可证</a>
-                        </td>
-                        <td>标准号</td>
-                        <td>标准内容 </td>
-                        <td>标准发布单位</td>
-                        <td>标准生效日期</td>
-                        <td>标准预计失效日期</td>                     
-                        <td>浏览次数</td>
-                        <td>
-                            <a class="link-update" href="#"> 
-                                <i class="icon-edit icon-large"></i>
-                            </a>
-                            <a class="link-del" href="#">
-                                <i class="icon-trash icon-large"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                       <!--  <td class="tc"><input name="id" value="59" type="checkbox"></td> -->
-                       <td>
-                        <input name="ids[]" value="59" type="hidden">
-                        <input class="common-input sort-input" name="ord[]" value="2" type="text">
-                    </td>
-                    <td>59123</td>
-                    <td title="发哥经典"><a target="_blank" href="#" title="发哥经典">林木种子生产经营许可证</a>
-                    </td>
-                    <td>标准号</td>
-                    <td>标准内容 </td>
-                    <td>标准发布单位</td>
-                    <td>标准生效日期</td>
-                    <td>标准预计失效日期</td>                     
-                    <td>浏览次数</td>
-                    <td>
-                        <a class="link-update" href="#"> 
-                            <i class="icon-edit icon-large"></i>
-                        </a>
-                        <a class="link-del" href="#">
-                            <i class="icon-trash icon-large"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                   <!--  <td class="tc"><input name="id" value="59" type="checkbox"></td> -->
-                   <td>
-                    <input name="ids[]" value="59" type="hidden">
-                    <input class="common-input sort-input" name="ord[]" value="3" type="text">
-                </td>
-                <td>59124</td>
-                <td title="发哥经典"><a target="_blank" href="#" title="发哥经典">林木种子生产经营许可证</a>
-                </td>
-                <td>标准号</td>
-                <td>标准内容 </td>
-                <td>标准发布单位</td>
-                <td>标准生效日期</td>
-                <td>标准预计失效日期</td>                     
-                <td>浏览次数</td>
-                <td>
-                    <a class="link-update" href="#"> 
-                        <i class="icon-edit icon-large"></i>
-                    </a>
-                    <a class="link-del" href="#">
-                        <i class="icon-trash icon-large"></i>
-                    </a>
-                </td>
-            </tr>
-
-            <tr>
-               <!--  <td class="tc"><input name="id" value="59" type="checkbox"></td> -->
-               <td>
-                <input name="ids[]" value="59" type="hidden">
-                <input class="common-input sort-input" name="ord[]" value="4" type="text">
-            </td>
-            <td>59125</td>
-            <td title="发哥经典"><a target="_blank" href="#" title="发哥经典">林木种子生产经营许可证</a>
-            </td>
-            <td>标准号</td>
-            <td>标准内容 </td>
-            <td>标准发布单位</td>
-            <td>标准生效日期</td>
-            <td>标准预计失效日期</td>                     
-            <td>浏览次数</td>
-            <td>
-                <a class="link-update" href="#"> 
-                    <i class="icon-edit icon-large"></i>
-                </a>
-                <a class="link-del" href="#">
-                    <i class="icon-trash icon-large"></i>
-                </a>
-            </td>
-        </tr>
-
-        <tr>
-           <!--  <td class="tc"><input name="id" value="59" type="checkbox"></td> -->
-           <td>
-            <input name="ids[]" value="59" type="hidden">
-            <input class="common-input sort-input" name="ord[]" value="5" type="text">
-        </td>
-        <td>59126</td>
-        <td title="发哥经典"><a target="_blank" href="#" title="发哥经典">林木种子生产经营许可证</a>
-        </td>
-        <td>标准号</td>
-        <td>标准内容 </td>
-        <td>标准发布单位</td>
-        <td>标准生效日期</td>
-        <td>标准预计失效日期</td>                     
-        <td>浏览次数</td>
-        <td>
-            <a class="link-update" href="#"> 
-                <i class="icon-edit icon-large"></i>
-            </a>
-            <a class="link-del" href="#">
-                <i class="icon-trash icon-large"></i>
-            </a>
-        </td>
-    </tr>
-</table>
-</div>
-</form>
-</div>
-<!--/main-->
-</div>
-<div class="container clearfix" style="display:none;" id  = "standard">
+<!--<div class="container clearfix" style="display:none;" id  = "standard">
    <iframe id = 'ifra'  width='100%' height=600 frameborder=0 scrolling=auto src='standard.html'></iframe>
+</div>-->
+<div class="container" id = "MainView">
 </div>
-</body>
-<script type = "text/javascript">
-    $('#js_create').click(function(){
-       $('#standardList').hide();
-       $('#standard').show();
-   });
+<script type="text/template"  id="mainView_template">
+    <div class="crumb-wrap">
+        基础数据管理>>标准管理
+    </div>
+    <div class="search-wrap">
+        <div class="search-content">
+            <table class="search-tab">
+                <tr>
+                    <th width="70">关键字:</th>
+                    <td><input class="common-text" placeholder="关键字" name="keywords" value="" id="" type="text"></td>
+                    <td><button type="button" class="btn btn-primary" id = "js_query">查询</button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="result-wrap">
+        <h3 class="controll-title">信息管理</h3>
+        <div class="result-title">
+            <div class="result-list">
+                <a href="javascript:void(0);" id = 'js_create' class="btn btn-success"><i class="icon-plus icon-large"></i>添加</a>
+                <a  href="#" class="btn btn-danger">
+                    <i class="icon-trash icon-large"></i>删除</a>
+                </div>
+            </div>
+            <div class="result-content">
+                <table class="result-tab" width="100%">
+                    <thead>
+                        <tr>
+                         <!--      <th class="tc" width="5%"><input class="allChoose" name="" type="checkbox"></th> -->
+                         <th>排序</th>
+                         <th>ID</th>
+                         <th class = "xxx">标准名称</th>
+                         <th>标准号</th>
+                         <th>标准内容 </th>
+                         <th>标准发布单位</th>
+                         <th>标准生效日期</th>
+                         <th>标准预计失效日期</th>
+                         <th>浏览次数</th>
+                         <th>操作</th>
+                     </tr>
+                 </thead>
+                 <tbody id="RowView">
+                 </tbody>
+             </table>
+         </div>
+     </div>
+ </script>
+
+ <script type="text/template" id="rowView-template">
+    <td>
+        <input class="common-input sort-input" name="ord[]" value='<%=id %>' type="text">
+    </td>
+    <td ><%=id %></td>
+    <td><a target="_blank" href="#"><%= name %></a></td>
+    <td><%= no %></td>
+    <td><%= abstracts %></td>
+    <td><%= publishDep %></td>
+    <td><%= this.switchDate(effectiveDate) %></td>
+    <td><%= this.switchDate(expiredDate) %></td>
+    <td><%= viewCount %></td>
+    <td>
+        <a class="link-update" href="#" id = "js-edit">
+            <i class="icon-edit icon-large"></i>
+        </a>
+        <a class="link-del" href="#" id = "js-delete">
+            <i class="icon-trash icon-large"></i>
+        </a>
+    </td>
 </script>
+
+
+</body>
+<!-- Javascript -->
+<script type = "text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+<script type = "text/javascript" src="../../js/moment.js" ></script>
+<script type = "text/javascript" src="../../js/jquery.json.js" ></script>
+<script type = "text/javascript" src="../../js/Underscore.js" ></script>
+<script type = "text/javascript" src="../../js/Backbone.js" ></script>
+<script type = "text/javascript" src="../../js/backbone.layoutmanager.js" ></script>
+<script type = "text/javascript" src = "../../entities/entities.js"></script>
+<script type = "text/javascript" src = "../../handle/standard/standard.js"></script>
 </html>
+<script type = "text/javascript">
+    (function(Backbone,_){
+        var StandardCollection = new Entities.Standrd.Collection();
+        var StandardModel = new Entities.Standrd.Model();
+        var EventBus = _.extend({},Backbone.Events);
+        var Msgs ={
+         MainView: {
+            QueryStandard:'mainView:queryStandard'
+        }
+    };
+    Backbone.Layout.configure({
+        manage:true
+    });
+    var RowView =Backbone.View.extend({
+        template: '#rowView-template',
+        tagName: 'tr',
+        initialize: function(){
+            this.listenTo(this.model,'change',this.render);
+            this.listenTo(this.model,'destroy',this.remove);
+
+        },
+        events:{
+           'click #js-edit':'_onEditStandard',
+           'click #js-delete':'_onDeleteStandard',
+       },
+       switchDate: function(data){
+           var date =moment(data).format('YYYY-MM-DD');
+           return date;
+       },
+       _onEditStandard:function(){
+
+       },
+       _onDeleteStandard:function(){
+        console.log(this.$('.sort-input').val());
+           // this.model.delete();
+       }
+
+   });
+    var MainView = Backbone.View.extend({
+        template: '#mainView_template',
+        initialize: function(){
+            this.listenTo(StandardCollection, 'reset', this.addAll);
+            this.listenTo(StandardCollection, 'update change', this.render);
+            StandardCollection.fetch({name:'xiaozhu'}); 
+        },
+        events: {
+            "click #js_query" : '_onShowStandardList'
+        },
+        _onShowStandardList: function(){
+            EventBus.trigger(Msgs.MainView.QueryStandard);
+        },
+        addOne: function(StandardModel) {
+            var rowView = new RowView({model:StandardModel});
+             this.insertView('#RowView', rowView).render();
+        },
+        addAll: function() {
+            StandardCollection.each(this.addOne, this);
+        },
+    });
+    new MainView({el:'#MainView'}).render();
+})(Backbone,_);
+</script>

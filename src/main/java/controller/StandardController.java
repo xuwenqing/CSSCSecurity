@@ -77,7 +77,9 @@ public class StandardController extends BaseController {
 
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto query(@RequestBody StandardCondition condition) {
+
         List<Standard> standards = standardService.query(condition);
+        System.out.println(standards);
         return new ResponsePackDto(standards);
     }
 
