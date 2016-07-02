@@ -121,7 +121,7 @@
             <value>
                 /login = authc
                 /logout = logout
-                /static/** = anon
+                /static/** =anon
                 /** = anon
             </value>
         </property>

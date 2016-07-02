@@ -9,9 +9,10 @@
     <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
 </head>
 <body>
-<!--<div class="container clearfix" style="display:none;" id  = "standard">
-   <iframe id = 'ifra'  width='100%' height=600 frameborder=0 scrolling=auto src='standard.html'></iframe>
-</div>-->
+<div class="container clearfix" style="display:none;" id  = "standard">
+    <iframe width='100%' height=600 frameborder=0 scrolling=auto src='standard.html?id=2' >
+   </iframe>
+</div>
 <div class="container" id = "MainView">
 </div>
 <script type="text/template"  id="mainView_template">
@@ -22,8 +23,18 @@
         <div class="search-content">
             <table class="search-tab">
                 <tr>
-                    <th width="70">关键字:</th>
-                    <td><input class="common-text" placeholder="关键字" name="keywords" value="" id="" type="text"></td>
+                    <!--<th width="70">关键字:</th>-->
+                    <td>
+                        <select name="condition"  class="required" style="width:150px;height:30px;">
+                            <option value="">输入查询条件</option>
+                            <option value="category">分类</option>
+                            <option value="keywords">关键词</option>
+                            <option value="name">标准名称</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input class="common-text required"  size="30" value="" type="text">
+                    </td>
                     <td><button type="button" class="btn btn-primary" id = "js_query">查询</button></td>
                 </tr>
             </table>
@@ -33,7 +44,7 @@
         <h3 class="controll-title">信息管理</h3>
         <div class="result-title">
             <div class="result-list">
-                <a href="javascript:void(0);" id = 'js_create' class="btn btn-success"><i class="icon-plus icon-large"></i>添加</a>
+                <a href="standard.html" id = 'js_create' class="btn btn-success" target="_blank"><i class="icon-plus icon-large"></i>添加</a>
                 <a  href="#" class="btn btn-danger">
                     <i class="icon-trash icon-large"></i>删除</a>
                 </div>
@@ -69,13 +80,13 @@
     <td ><%=id %></td>
     <td><a target="_blank" href="#"><%= name %></a></td>
     <td><%= no %></td>
-    <td><%= abstracts %></td>
+    <td><%= content %></td>
     <td><%= publishDep %></td>
     <td><%= this.switchDate(effectiveDate) %></td>
     <td><%= this.switchDate(expiredDate) %></td>
     <td><%= viewCount %></td>
     <td>
-        <a class="link-update" href="#" id = "js-edit">
+        <a class="link-update" href="standard.html?id=<%=id %>" target="_blank" >
             <i class="icon-edit icon-large"></i>
         </a>
         <a class="link-del" href="#" id = "js-delete">
@@ -101,11 +112,6 @@
         var StandardCollection = new Entities.Standrd.Collection();
         var StandardModel = new Entities.Standrd.Model();
         var EventBus = _.extend({},Backbone.Events);
-        var Msgs ={
-         MainView: {
-            QueryStandard:'mainView:queryStandard'
-        }
-    };
     Backbone.Layout.configure({
         manage:true
     });
@@ -114,8 +120,11 @@
         tagName: 'tr',
         initialize: function(){
             this.listenTo(this.model,'change',this.render);
-            this.listenTo(this.model,'destroy',this.remove);
+            this.listenTo(this.model,'destroy',this.handle);
 
+        },
+        handle:function(){
+           this.remove();
         },
         events:{
            'click #js-edit':'_onEditStandard',
@@ -125,30 +134,40 @@
            var date =moment(data).format('YYYY-MM-DD');
            return date;
        },
-       _onEditStandard:function(){
+       /*_onEditStandard:function(){
+           $('#MainView').hide();
+           $('#standard').show().attr('id',this.model.id);
+       },*/
 
-       },
        _onDeleteStandard:function(){
-        console.log(this.$('.sort-input').val());
-           // this.model.delete();
+           this.model.delete();
        }
-
    });
     var MainView = Backbone.View.extend({
         template: '#mainView_template',
         initialize: function(){
             this.listenTo(StandardCollection, 'reset', this.addAll);
-            this.listenTo(StandardCollection, 'update change', this.render);
-            StandardCollection.fetch({name:'xiaozhu'}); 
+            StandardCollection.fetch();
         },
         events: {
             "click #js_query" : '_onShowStandardList'
         },
+        handle:function(){
+          console.log("MainView");
+        },
         _onShowStandardList: function(){
-            EventBus.trigger(Msgs.MainView.QueryStandard);
+          var key = $('select').val();
+            var value = $("input").val();
+            var data={};
+            if(key&&value){
+                data[key]=value;
+                StandardCollection.fetch(data);
+                this.render();
+
+            }
         },
         addOne: function(StandardModel) {
-            var rowView = new RowView({model:StandardModel});
+             var rowView = new RowView({model:StandardModel});
              this.insertView('#RowView', rowView).render();
         },
         addAll: function() {
