@@ -48,4 +48,9 @@ public class FrockServiceImpl implements FrockService {
             condition.setSortby("publish_date");
         return frockDao.selectByCondition(condition);
     }
+
+    @Override
+    public Frock queryDetail(Integer id) {
+        return frockDao.selectByPrimaryKey(id);
+    }
 }

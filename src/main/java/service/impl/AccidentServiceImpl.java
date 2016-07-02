@@ -47,4 +47,9 @@ public class AccidentServiceImpl implements AccidentService {
             condition.setSortby("publish_date");
         return accidentDao.selectByCondition(condition);
     }
+
+    @Override
+    public Accident queryDetail(Integer id) {
+        return accidentDao.selectByPrimaryKey(id);
+    }
 }

@@ -64,11 +64,6 @@ public class StandardController extends BaseController {
         return dto;
     }
 
-    @RequestMapping(value = "/queryDetail", method = RequestMethod.POST)
-    public @ResponseBody ResponsePackDto edit(@RequestBody IdDto id) {
-        return new ResponsePackDto(standardService.queryDetail(id.getId()));
-    }
-
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto edit(@RequestBody Standard newStandard) {
         ResponsePackDto dto = new ResponsePackDto();
@@ -88,6 +83,11 @@ public class StandardController extends BaseController {
             condition = new StandardCondition();
         List<Standard> standards = standardService.query(condition);
         return new ResponsePackDto(standards);
+    }
+
+    @RequestMapping(value = "/queryDetail", method = RequestMethod.POST)
+    public @ResponseBody ResponsePackDto edit(@RequestBody IdDto id) {
+        return new ResponsePackDto(standardService.queryDetail(id.getId()));
     }
 
 }

@@ -14,4 +14,5 @@ public interface LawService {
     boolean delete(List<Integer> ids);
     boolean edit(Law newLaw);
     List<Law> query(LawCondition condition);
+    Law queryDetail(Integer id);
 }

@@ -48,4 +48,9 @@ public class HealthServiceImpl implements HealthService{
             condition.setSortby("publish_date");
         return healthDao.selectByCondition(condition);
     }
+
+    @Override
+    public Health queryDetail(Integer id) {
+        return healthDao.selectByPrimaryKey(id);
+    }
 }

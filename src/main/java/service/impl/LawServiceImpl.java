@@ -47,4 +47,9 @@ public class LawServiceImpl implements LawService {
             condition.setSortby("publish_date");
         return lawDao.selectByCondition(condition);
     }
+
+    @Override
+    public Law queryDetail(Integer id) {
+        return lawDao.selectByPrimaryKey(id);
+    }
 }

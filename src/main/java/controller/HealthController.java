@@ -81,4 +81,9 @@ public class HealthController extends BaseController {
         return new ResponsePackDto(Healths);
     }
 
+    @RequestMapping(value = "/queryDetail", method = RequestMethod.POST)
+    public @ResponseBody ResponsePackDto edit(@RequestBody IdDto id) {
+        return new ResponsePackDto(healthService.queryDetail(id.getId()));
+    }
+
 }

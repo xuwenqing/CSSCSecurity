@@ -48,4 +48,9 @@ public class TechniqueServiceImpl implements TechniqueService {
             condition.setSortby("publish_date");
         return techniqueDao.selectByCondition(condition);
     }
+
+    @Override
+    public Technique queryDetail(Integer id) {
+        return techniqueDao.selectByPrimaryKey(id);
+    }
 }

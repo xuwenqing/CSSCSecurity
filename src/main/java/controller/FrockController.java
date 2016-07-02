@@ -81,4 +81,9 @@ public class FrockController extends BaseController {
         return new ResponsePackDto(Frocks);
     }
 
+    @RequestMapping(value = "/queryDetail", method = RequestMethod.POST)
+    public @ResponseBody ResponsePackDto edit(@RequestBody IdDto id) {
+        return new ResponsePackDto(frockService.queryDetail(id.getId()));
+    }
+
 }
