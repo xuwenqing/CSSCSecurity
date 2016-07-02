@@ -38,7 +38,7 @@ public class FrockController extends BaseController {
     public @ResponseBody ResponsePackDto delete(@RequestBody IdDto id) {
         ResponsePackDto dto = new ResponsePackDto();
         List<Integer> ids = new LinkedList<Integer>();
-        ids.add(Integer.parseInt(id.getId()));
+        ids.add(id.getId());
         if(frockService.delete(ids)) {
             return dto;
         }

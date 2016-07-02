@@ -40,7 +40,7 @@ public class StandardController extends BaseController {
         System.out.println(id);
         ResponsePackDto dto = new ResponsePackDto();
         List<Integer> ids = new LinkedList<Integer>();
-        ids.add(Integer.parseInt(id.getId()));
+        ids.add(id.getId());
         if(standardService.delete(ids)) {
             return dto;
         }
@@ -64,9 +64,9 @@ public class StandardController extends BaseController {
         return dto;
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public @ResponseBody ResponsePackDto edit(IdDto id) {
-        return  new ResponsePackDto(standardService.queryDetail(Integer.parseInt(id.getId())));
+    @RequestMapping(value = "/queryDetail", method = RequestMethod.POST)
+    public @ResponseBody ResponsePackDto edit(@RequestBody IdDto id) {
+        return new ResponsePackDto(standardService.queryDetail(id.getId()));
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
