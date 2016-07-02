@@ -9,18 +9,15 @@ Entities.Standrd = (function(Backbone, Entities,_) {
         edit: function(data){
             var model = this;
             data = _.extend({id:model.id},data);
-            console.log(model.id);
             return Entities.sync(API_EDIT,data).then(function(res){
                 model.set(_.extend(data,res));
             });
         },
         delete: function(){
             var model = this;
-            var data = model.id;
-            console.log(data);
+            var data = {id:model.id};
             return Entities.sync(API_DESTROY,data).then(function(res){
-                model.stopListening();
-                model.trigger('destroy', model,{ removeSelf: true });
+                model.trigger('destroy', model, model.collection,{removeself:true});
             });
         },
     });

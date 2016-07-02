@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by wenqing on 2016/6/29.
  */
-@RunWith(SpringJUnit4ClassRunner.class)     //��ʾ�̳���SpringJUnit4ClassRunner��
+@RunWith(SpringJUnit4ClassRunner.class)     //表示继承了SpringJUnit4ClassRunner类
 @ContextConfiguration(locations = {"classpath:spring-config.xml"})
 public class StandardTest {
     @Autowired
@@ -29,9 +29,9 @@ public class StandardTest {
         s1.setPublishDate(new Date());
 
         Standard s2 = new Standard();
-        s2.setName("stand2");
-        s2.setContent("content2");
-        s2.setKeywords("keywords2");
+        s2.setName("独守空房123");
+        s2.setContent("士大夫");
+        s2.setKeywords("广泛大概");
         s2.setPublishDate(new Date());
         //System.out.println(standardService.add(s1));
 

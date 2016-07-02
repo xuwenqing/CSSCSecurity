@@ -1,5 +1,6 @@
 package controller;
 
+import controller.dto.IdDto;
 import controller.dto.ResponsePackDto;
 import dao.condition.FrockCondition;
 import model.Frock;
@@ -34,10 +35,10 @@ public class FrockController extends BaseController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public @ResponseBody ResponsePackDto delete(Integer id) {
+    public @ResponseBody ResponsePackDto delete(@RequestBody IdDto id) {
         ResponsePackDto dto = new ResponsePackDto();
         List<Integer> ids = new LinkedList<Integer>();
-        ids.add(id);
+        ids.add(Integer.parseInt(id.getId()));
         if(frockService.delete(ids)) {
             return dto;
         }
