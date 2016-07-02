@@ -53,6 +53,6 @@ public class StandardServiceImpl implements StandardService {
 
     @Override
     public Standard queryDetail(Integer id) {
-        return null;
+        return standardDao.selectByPrimaryKey(id);
     }
 }

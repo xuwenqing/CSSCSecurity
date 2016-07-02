@@ -24,6 +24,7 @@ public class StandardController extends BaseController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto add(@RequestBody Standard standard) {
+        System.out.println(standard);
         ResponsePackDto dto = new ResponsePackDto();
         if(standardService.add(standard))
             return dto;
@@ -60,6 +61,11 @@ public class StandardController extends BaseController {
             dto.setError("删除数据失败");
         }
         return dto;
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public @ResponseBody ResponsePackDto edit(IdDto id) {
+        return standardService.queryDetail();
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
