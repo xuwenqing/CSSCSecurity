@@ -35,10 +35,10 @@ public class FrockController extends BaseController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public @ResponseBody ResponsePackDto delete(IdDto id) {
+    public @ResponseBody ResponsePackDto delete(@RequestBody IdDto id) {
         ResponsePackDto dto = new ResponsePackDto();
         List<Integer> ids = new LinkedList<Integer>();
-        ids.add(id.getId());
+        ids.add(Integer.parseInt(id.getId()));
         if(frockService.delete(ids)) {
             return dto;
         }

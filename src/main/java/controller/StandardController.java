@@ -36,10 +36,11 @@ public class StandardController extends BaseController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public @ResponseBody ResponsePackDto delete(IdDto id) {
+    public @ResponseBody ResponsePackDto delete(@RequestBody IdDto id) {
+        System.out.println(id);
         ResponsePackDto dto = new ResponsePackDto();
         List<Integer> ids = new LinkedList<Integer>();
-        ids.add(id.getId());
+        ids.add(Integer.parseInt(id.getId()));
         if(standardService.delete(ids)) {
             return dto;
         }
@@ -82,10 +83,10 @@ public class StandardController extends BaseController {
     }
 
     @RequestMapping(value = "/query", method = RequestMethod.POST)
-    public @ResponseBody ResponsePackDto query(@RequestBody StandardCondition condition) {
-
+    public @ResponseBody ResponsePackDto query(@RequestBody(required = false) StandardCondition condition) {
+        if(condition == null)
+            condition = new StandardCondition();
         List<Standard> standards = standardService.query(condition);
-        System.out.println(standards);
         return new ResponsePackDto(standards);
     }
 
