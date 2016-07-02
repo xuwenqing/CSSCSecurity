@@ -66,7 +66,7 @@ public class StandardController extends BaseController {
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public @ResponseBody ResponsePackDto edit(IdDto id) {
-        return standardService.queryDetail();
+        return  new ResponsePackDto(standardService.queryDetail(Integer.parseInt(id.getId())));
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
