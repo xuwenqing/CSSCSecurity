@@ -82,7 +82,7 @@ public class TechniqueController extends BaseController {
     }
 
     @RequestMapping(value = "/queryDetail", method = RequestMethod.POST)
-    public @ResponseBody ResponsePackDto edit(@RequestBody IdDto id) {
+    public @ResponseBody ResponsePackDto queryDetail(@RequestBody IdDto id) {
         return new ResponsePackDto(techniqueService.queryDetail(id.getId()));
     }
 }
