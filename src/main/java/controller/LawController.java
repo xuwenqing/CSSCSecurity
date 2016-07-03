@@ -76,7 +76,9 @@ public class LawController extends BaseController {
     }
 
     @RequestMapping(value = "/query", method = RequestMethod.POST)
-    public @ResponseBody ResponsePackDto query(@RequestBody LawCondition condition) {
+    public @ResponseBody ResponsePackDto query(@RequestBody(required = false) LawCondition condition) {
+        if(condition == null)
+            condition = new LawCondition();
         List<Law> Laws = lawService.query(condition);
         return new ResponsePackDto(Laws);
     }

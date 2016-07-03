@@ -76,7 +76,9 @@ public class FrockController extends BaseController {
     }
 
     @RequestMapping(value = "/query", method = RequestMethod.POST)
-    public @ResponseBody ResponsePackDto query(@RequestBody FrockCondition condition) {
+    public @ResponseBody ResponsePackDto query(@RequestBody(required = false) FrockCondition condition) {
+        if(condition == null)
+            condition = new FrockCondition();
         List<Frock> Frocks = frockService.query(condition);
         return new ResponsePackDto(Frocks);
     }
