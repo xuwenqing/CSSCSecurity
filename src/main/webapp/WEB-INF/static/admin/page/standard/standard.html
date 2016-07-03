@@ -34,7 +34,7 @@
 			<tr>
 				<th width="120">分类：</th>
 				<td>
-					<select name="category"  class="required" style="width:120px;">
+					<select name="category" value="<%= category %>"  class="required" style="width:120px;" >
 						<option value="">请选择</option>
 						<option value="国标">国标</option>
 						<option value="地标">地标</option>
@@ -48,7 +48,7 @@
 			<tr>
 				<th><i class="require-red">*</i>关键词：</th>
 				<td>
-					<input class="common-text required"  name="keywords" size="50" value="" type="text">
+					<input class="common-text required"  name="keywords" size="50" value="2" type="text">
 					<i class="require-red">关键词以逗号隔开</i>
 				</td>
 
@@ -57,60 +57,147 @@
 			<tr>
 				<th><i class="require-red">*</i>标准号：</th>
 				<td>
-					<input class="common-text required"  name="no" size="50" value="" type="text">
+					<input class="common-text required"  name="no" size="50" value="<%= no %>" type="text">
 				</td>
 			</tr>
 
 			<tr>
 				<th><i class="require-red">*</i>标准内容：</th>
-				<td><textarea name="content" class="common-textarea" id="content" cols="30" style="width: 99%;" rows="10"></textarea></td>
+				<td><textarea name="content" class="common-textarea" id="content" cols="30" style="width: 99%;" rows="10"><%= content %></textarea></td>
 			</tr>
 
 			<tr>
 				<th><i class="require-red">*</i>标准发布单位：</th>
 				<td>
-					<input class="common-text required"  name="publishDep" size="50" value="" type="text">
+					<input class="common-text required"  name="publishDep" size="50" value="<%=publishDep %>" type="text">
 				</td>
 			</tr>
 
 			<tr>
 				<th  width="150"><i class="require-red">*</i>标准生效日期：</th>
 				<td>
-					<input class="common-text laydate-icon required"  name="effectiveDate" size="50" value="" type="text" onclick="laydate()">
+					<input class="common-text laydate-icon required"  name="effectiveDate" size="50" value="<%= this.switchDate(effectiveDate) %>" type="text" onclick="laydate()">
 				</td>
 			</tr>
 
 			<tr>
 				<th><i class="require-red">*</i>标准预计失效日期：</th>
 				<td>
-					<input class="common-text required laydate-icon"  name="expiredDate" size="50" value="" type="text" onclick="laydate()">
+					<input class="common-text required laydate-icon"  name="expiredDate" size="50" value="<%= this.switchDate(expiredDate) %>" type="text" onclick="laydate()">
 				</td>
 			</tr>
 
 			<tr>
 				<th><i class="require-red">*</i>发布人：</th>
 				<td>
-					<input class="common-text required"  name="publisher" size="50" value="" type="text">
+					<input class="common-text required"  name="publisher" size="50" value="<%= publisher %>" type="text">
 				</td>
 			</tr>
 
 			<tr>
 				<th><i class="require-red">*</i>发布日期：</th>
 				<td>
-					<input class="common-text required laydate-icon"  name="publishDate" size="50" value="" type="text" onclick="laydate()">
+					<input class="common-text required laydate-icon"  name="publishDate" size="50" value="<%= this.switchDate(effectiveDate) %>" type="text" onclick="laydate()">
 				</td>
 			</tr>
 			<tr>
 				<th></th>
 				<td>
-					<a class="btn btn-primary btn6 mr10"  href="javascript:void(0);" id ="js_create">提交</a>
+					<a class="btn btn-primary btn6 mr10"  href="javascript:void(0);" id ="js_edit">提交</a>
 					<a class="btn btn-info btn6 mr10"  href="standardList.html">返回</a>
 				</td>
 			</tr>
+			</script>
+
+			<script type = "text/template" id = "createView-template">
+				<tr>
+					<th width="120">标准名称：</th>
+					<td>
+						<input class="common-text required"  name="name" size="50" value="" type="text">
+						<i class="require-red">*</i>
+					</td>
+				</tr>
+				<tr>
+					<th width="120">分类：</th>
+					<td>
+						<select name="category"   class="required" style="width:120px;" >
+							<option value="">请选择</option>
+							<option value="国标">国标</option>
+							<option value="地标">地标</option>
+							<option value="行标">行标</option>
+							<option value="企标">企标</option>
+						</select>
+						<i class="require-red">*</i>
+					</td>
+				</tr>
+
+				<tr>
+					<th><i class="require-red">*</i>关键词：</th>
+					<td>
+						<input class="common-text required"  name="keywords" size="50" value="" type="text">
+						<i class="require-red">关键词以逗号隔开</i>
+					</td>
+
+				</tr>
+
+				<tr>
+					<th><i class="require-red">*</i>标准号：</th>
+					<td>
+						<input class="common-text required"  name="no" size="50"  type="text">
+					</td>
+				</tr>
+
+				<tr>
+					<th><i class="require-red">*</i>标准内容：</th>
+					<td><textarea name="content" class="common-textarea"  cols="30" style="width: 99%;" rows="10"></textarea></td>
+				</tr>
+
+				<tr>
+					<th><i class="require-red">*</i>标准发布单位：</th>
+					<td>
+						<input class="common-text required"  name="publishDep" size="50" value="" type="text">
+					</td>
+				</tr>
+
+				<tr>
+					<th  width="150"><i class="require-red">*</i>标准生效日期：</th>
+					<td>
+						<input class="common-text laydate-icon required"  name="effectiveDate" size="50" value="" type="text" onclick="laydate()">
+					</td>
+				</tr>
+
+				<tr>
+					<th><i class="require-red">*</i>标准预计失效日期：</th>
+					<td>
+						<input class="common-text required laydate-icon"  name="expiredDate" size="50" value="" type="text" onclick="laydate()">
+					</td>
+				</tr>
+
+				<tr>
+					<th><i class="require-red">*</i>发布人：</th>
+					<td>
+						<input class="common-text required"  name="publisher" size="50" value="" type="text">
+					</td>
+				</tr>
+
+				<tr>
+					<th><i class="require-red">*</i>发布日期：</th>
+					<td>
+						<input class="common-text required laydate-icon"  name="publishDate" size="50" value="" type="text" onclick="laydate()">
+					</td>
+				</tr>
+				<tr>
+					<th></th>
+					<td>
+						<a class="btn btn-primary btn6 mr10"  href="javascript:void(0);" id ="js_create">提交</a>
+						<a class="btn btn-info btn6 mr10"  href="standardList.html">返回</a>
+					</td>
+				</tr>
 		</script>
 	</body>
 		<!-- 配置文件 -->
 <script type = "text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+<script type = "text/javascript" src="../../js/moment.js" ></script>
 <script type = "text/javascript" src="../calender/laydate.js" ></script>
 <script type = "text/javascript" src="../../js/jquery.json.js" ></script>
 <script type = "text/javascript" src="../../js/Underscore.js" ></script>
@@ -130,15 +217,59 @@
 		Backbone.Layout.configure({
 			manage:true
 		});
+		var CreateView =Backbone.View.extend({
+			template: '#createView-template',
+			tagName: 'tbody',
+			initialize:function(){
+				this.listenTo(this.model,'change',this.render);
+			}
+		});
 		var StandardView =Backbone.View.extend({
 			template: '#standardView-template',
 			tagName: 'tbody',
+			initialize:function(){
+               this.listenTo(this.model,'change',this.render);
+			},
+			switchDate: function(data){
+				var date =moment(data).format('YYYY-MM-DD');
+				return date;
+			},
+		});
+		var MainView = Backbone.View.extend({
+			template: '#mainView-template',
 			initialize: function(){
+				this.listenTo(StandardCollection, 'reset', this.addAll);
+				this.listenTo(StandardCollection, 'update change', this.render);
 				var key = this.UrlSearch();
-				this.fetch({id:key});
+				if(key){
+					StandardCollection.query({id:key});
+				}
+				else{
+					console.log(2112);
+					this.createView = new CreateView();
+					this.insertView('#StandardView', this.createView).render();
+				}
+			},
+			events:{
+				'click #js_edit':'_onEditStandard',
+				'click #js_create':'_onCreateStandard',
+			},
+			_onEditStandard:function(){
+				var jsonData = this.$('form').serializeArray();
+				console.log(this.value);
+				var data= _.extend(this._toJSON(jsonData),{id:this.value});
+				console.log(data);
+				StandardModel.edit(data);
+			},
+			_onCreateStandard:function(){
+				alert(123);
+				var jsonData = this.$('form').serializeArray();
+				var data= this._toJSON(jsonData);
+				StandardCollection.create(data);
 			},
 			UrlSearch: function(){
-				var name,value;
+				var name;
+				this.value;
 				var str=location.href; //取得整个地址栏
 				var num=str.indexOf("?");
 				str=str.substr(num+1); //取得所有参数   stringvar.substr(start [, length ]
@@ -147,32 +278,18 @@
 					num=arr[i].indexOf("=");
 					if(num>0){
 						name=arr[i].substring(0,num);
-						value=arr[i].substr(num+1);
-						this[name]=value;
+						this.value=arr[i].substr(num+1);
+						this[name]=this.value;
 					}
 				}
-				return value;
-			  }
-		});
-		var MainView = Backbone.View.extend({
-			template: '#mainView-template',
-			initialize: function(){
-				this.listenTo(StandardCollection, 'reset', this.addAll);
-				this.listenTo(StandardCollection, 'update change', this.render);
-				this.listenTo(StandardCollection,'add',this.show);
+				return this.value;
+			},
+			addOne: function(StandardModel) {
 				var standardView = new StandardView({model:StandardModel});
 				this.insertView('#StandardView', standardView).render();
 			},
-			events:{
-				'click #js_create':'_onCreateStandard',
-			},
-			show:function(mod){
-				console.log('MainView add');
-			},
-			_onCreateStandard:function(){
-				var jsonData = this.$('form').serializeArray();
-				var data=this._toJSON(jsonData);
-			    StandardCollection.create(data);
+			addAll: function() {
+				StandardCollection.each(this.addOne, this);
 			},
 			_toJSON: function(data){
 				var data_json  ={};
