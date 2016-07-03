@@ -76,7 +76,9 @@ public class TechniqueController extends BaseController {
     }
 
     @RequestMapping(value = "/query", method = RequestMethod.POST)
-    public @ResponseBody ResponsePackDto query(@RequestBody TechniqueCondition condition) {
+    public @ResponseBody ResponsePackDto query(@RequestBody(required = false) TechniqueCondition condition) {
+        if(condition == null)
+            condition = new TechniqueCondition();
         List<Technique> Techniques = techniqueService.query(condition);
         return new ResponsePackDto(Techniques);
     }

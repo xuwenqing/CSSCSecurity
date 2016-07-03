@@ -76,7 +76,9 @@ public class AccidentController extends BaseController {
     }
 
     @RequestMapping(value = "/query", method = RequestMethod.POST)
-    public @ResponseBody ResponsePackDto query(@RequestBody AccidentCondition condition) {
+    public @ResponseBody ResponsePackDto query(@RequestBody(required = false) AccidentCondition condition) {
+        if(condition == null)
+            condition = new AccidentCondition();
         List<Accident> Accidents = accidentService.query(condition);
         return new ResponsePackDto(Accidents);
     }

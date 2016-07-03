@@ -76,7 +76,9 @@ public class HealthController extends BaseController {
     }
 
     @RequestMapping(value = "/query", method = RequestMethod.POST)
-    public @ResponseBody ResponsePackDto query(@RequestBody HealthCondition condition) {
+    public @ResponseBody ResponsePackDto query(@RequestBody(required = false) HealthCondition condition) {
+        if(condition == null)
+            condition = new HealthCondition();
         List<Health> Healths = healthService.query(condition);
         return new ResponsePackDto(Healths);
     }
