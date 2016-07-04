@@ -48,6 +48,7 @@
     $('.type').click(function(){
         var text1 = $(this).parents('ul').prev().find('a').text();
         var type = $(this).text();
+        $("#ifra").attr({'data_category':type,'data_parent':text1});
         switch(text1){
           case "标准管理":
           $('#ifra').attr('src','page/standard/standardList.html');
@@ -198,7 +199,7 @@
         </div>
         <!--/sidebar-->
         <div class="main-wrap">
-            <iframe id = 'ifra' width='100%' height=700  frameborder=0 scrolling="no" src='page/standard/standardList.html'></iframe>
+            <iframe id = 'ifra' width='100%' height=1000   frameborder=0 scrolling="no" src='page/standard/standardList.html'></iframe>
         </div>
         <!--/main-->
     </div>

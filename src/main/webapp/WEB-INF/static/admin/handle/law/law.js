@@ -3,16 +3,17 @@
  */
 Entities.Law = (function (Backbone, Entities, _) {
     var base = 'http://localhost:8080';
-    var API_SAVE = base + '/law/add';//添加法律法规
-    var API_EDIT = base + '/law/edit';//编辑法律法规
-    var API_QUERY = base + '/law/queryDetail';//查询指定id内容
-    var API_FETCH = base + '/law/query';//查询法律法规
-    var API_DESTROY = base + '/law/delete';//删除法律法规
+    var API_SAVE = base + '/law/add';//娣诲姞娉曞緥娉曡
+    var API_EDIT = base + '/law/edit';//缂栬緫娉曞緥娉曡
+    var API_QUERY = base + '/law/queryDetail';//鏌ヨ鎸囧畾id鍐呭
+    var API_FETCH = base + '/law/query';//鏌ヨ娉曞緥娉曡
+    var API_DESTROY = base + '/law/delete';//鍒犻櫎娉曞緥娉曡
     var Model = Backbone.Model.extend({
         idAttribute: 'id',
         edit: function (data) {
             var model = this;
             data = _.extend({id: model.id}, data);
+            console.log(data);
             return Entities.sync(API_EDIT, data).then(function (res) {
                 model.set(_.extend(data, res));
             });
@@ -29,6 +30,7 @@ Entities.Law = (function (Backbone, Entities, _) {
     var Collection = Backbone.Collection.extend({
         model: Model,
         fetch: function (data) {
+            console.log(data);
             var collection = this;
             return Entities.sync(API_FETCH, data).then(function (res) {
                 collection.reset(res);
@@ -43,7 +45,7 @@ Entities.Law = (function (Backbone, Entities, _) {
         create: function (data) {
             var collection = this;
             return Entities.sync(API_SAVE, data).then(function (res) {
-                collection.unshift(_.extend(data, res));
+                collection.unshift(_.extend(data,res));
             });
         }
     });
