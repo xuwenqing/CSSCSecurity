@@ -4,6 +4,23 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class User implements Serializable {
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", locked=" + locked +
+                ", createDate=" + createDate +
+                ", deleted=" + deleted +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
+
     private Long id;
 
     private String username;

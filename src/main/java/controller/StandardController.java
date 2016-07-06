@@ -1,6 +1,7 @@
 package controller;
 
 import controller.dto.IdDto;
+import controller.dto.IdsDto;
 import controller.dto.ResponsePackDto;
 import dao.condition.StandardCondition;
 import model.Standard;
@@ -52,9 +53,9 @@ public class StandardController extends BaseController {
     }
 
     @RequestMapping(value = "/deletes", method = RequestMethod.POST)
-    public @ResponseBody ResponsePackDto delete(List<Integer> ids) {
+    public @ResponseBody ResponsePackDto delete(@RequestBody IdsDto ids) {
         ResponsePackDto dto = new ResponsePackDto();
-        if(standardService.delete(ids)) {
+        if(standardService.delete(ids.getIds())) {
             return dto;
         }
         else {

@@ -1,5 +1,6 @@
 package dao;
 
+import dao.condition.UserCondition;
 import model.Resource;
 import model.Role;
 import model.User;
@@ -33,4 +34,6 @@ public interface UserMapper {
     Set<String> selectResourcePermissionsByUsername(String name);
 
     List<User> selectAll();
+
+    List<User> selectByCondition(UserCondition condition);
 }
