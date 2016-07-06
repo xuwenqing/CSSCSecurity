@@ -1,10 +1,12 @@
 package controller;
 
 import controller.dto.ResponsePackDto;
+import controller.dto.RoleUpdateDto;
 import dao.condition.RoleCondition;
 import model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.RoleService;
@@ -21,27 +23,41 @@ public class RoleController extends BaseController {
     private RoleService roleService;
 
     @RequestMapping("/add")
-    public @ResponseBody ResponsePackDto add(Role role,List<Long> resource_ids) {
-        role = roleService.createRole(role);
-        roleService.correlationResources(role.getId(),resource_ids);
-        return null;
+    public
+    @ResponseBody
+    ResponsePackDto add(@RequestBody RoleUpdateDto dto) {
+        Role role = roleService.createRole(dto.getRole());
+        roleService.correlationResources(role.getId(), dto.getIds());
+        return new ResponsePackDto();
     }
 
     @RequestMapping("/delete")
-    public @ResponseBody ResponsePackDto delete(Long roleId) {
+    public
+    @ResponseBody
+    ResponsePackDto delete(Long roleId) {
         roleService.deleteRole(roleId);
         return null;
     }
 
     @RequestMapping("/edit")
-    public @ResponseBody ResponsePackDto edit(Role role,List<Long> resource_ids) {
-        roleService.updateRole(role, resource_ids);
-        return null;
+    public
+    @ResponseBody
+    ResponsePackDto edit(@RequestBody RoleUpdateDto dto) {
+        roleService.updateRole(dto.getRole(), dto.getIds());
+        return new ResponsePackDto();
     }
 
     @RequestMapping("/query")
-    public @ResponseBody ResponsePackDto query(RoleCondition condition) {
-        roleService.query(condition);
-        return null;
+    public
+    @ResponseBody
+    ResponsePackDto query(@RequestBody(required = false) RoleCondition condition) {
+        ResponsePackDto dto = new ResponsePackDto();
+        if (condition == null)
+            condition = new RoleCondition();
+        if (condition.getSortby() == null) {
+            condition.setSortby("role");
+        }
+        dto.setData(roleService.query(condition));
+        return dto;
     }
 }
