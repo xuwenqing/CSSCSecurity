@@ -2,6 +2,7 @@ Entities.Standrd = (function(Backbone, Entities,_) {
     var base = 'http://localhost:8080';
     var API_SAVE =base+'/standard/add';//添加标准管理
     var API_EDIT = base+'/standard/edit';//编辑标准管理
+    var API_QUERY = base+'/standard/queryDetail';//查询指定id内容
     var API_FETCH = base +'/standard/query';//查询标准管理
     var API_DESTROY = base+'/standard/delete';//删除标准管理
     var Model = Backbone.Model.extend({
@@ -27,6 +28,12 @@ Entities.Standrd = (function(Backbone, Entities,_) {
         fetch: function(data){
             var collection=this;
             return Entities.sync(API_FETCH,data).then(function(res){
+                collection.reset(res);
+            });
+        },
+        query:function(data){
+            var collection=this;
+            return Entities.sync(API_QUERY,data).then(function(res){
                 collection.reset(res);
             });
         },

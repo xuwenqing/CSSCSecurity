@@ -67,3 +67,7 @@
 .edui-box{
 	line-height: 0;
 }
+label.error{
+	color:#f00;
+	padding-left: 8px;
+}

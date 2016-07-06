@@ -9,13 +9,9 @@
     <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
 </head>
 <body>
-<div class="container clearfix" style="display:none;" id  = "standard">
-    <iframe width='100%' height=600 frameborder=0 scrolling=auto src='standard.html?id=2' >
-   </iframe>
+<div class="container" id="MainView">
 </div>
-<div class="container" id = "MainView">
-</div>
-<script type="text/template"  id="mainView_template">
+<script type="text/template" id="mainView_template">
     <div class="crumb-wrap">
         基础数据管理>>标准管理
     </div>
@@ -25,7 +21,7 @@
                 <tr>
                     <!--<th width="70">关键字:</th>-->
                     <td>
-                        <select name="condition"  class="required" style="width:150px;height:30px;">
+                        <select name="condition" class="required" style="width:150px;height:30px;">
                             <option value="">输入查询条件</option>
                             <option value="category">分类</option>
                             <option value="keywords">关键词</option>
@@ -33,51 +29,55 @@
                         </select>
                     </td>
                     <td>
-                        <input class="common-text required"  size="30" value="" type="text">
+                        <input class="common-text required" size="30" value="" type="text">
                     </td>
-                    <td><button type="button" class="btn btn-primary" id = "js_query">查询</button></td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="js_query">查询</button>
+                    </td>
                 </tr>
             </table>
         </div>
     </div>
     <div class="result-wrap">
         <h3 class="controll-title">信息管理</h3>
+
         <div class="result-title">
             <div class="result-list">
-                <a href="standard.html" id = 'js_create' class="btn btn-success" target="_blank"><i class="icon-plus icon-large"></i>添加</a>
-                <a  href="#" class="btn btn-danger">
+                <a href="standard.html" id='js_create' class="btn btn-success" target="_blank"><i
+                        class="icon-plus icon-large"></i>添加</a>
+                <a href="#" class="btn btn-danger">
                     <i class="icon-trash icon-large"></i>删除</a>
-                </div>
             </div>
-            <div class="result-content">
-                <table class="result-tab" width="100%">
-                    <thead>
-                        <tr>
-                         <!--      <th class="tc" width="5%"><input class="allChoose" name="" type="checkbox"></th> -->
-                         <th>排序</th>
-                         <th>ID</th>
-                         <th class = "xxx">标准名称</th>
-                         <th>标准号</th>
-                         <th>标准内容 </th>
-                         <th>标准发布单位</th>
-                         <th>标准生效日期</th>
-                         <th>标准预计失效日期</th>
-                         <th>浏览次数</th>
-                         <th>操作</th>
-                     </tr>
-                 </thead>
-                 <tbody id="RowView">
-                 </tbody>
-             </table>
-         </div>
-     </div>
- </script>
+        </div>
+        <div class="result-content">
+            <table class="result-tab" width="100%">
+                <thead>
+                <tr>
+                    <!--      <th class="tc" width="5%"><input class="allChoose" name="" type="checkbox"></th> -->
+                    <th>排序</th>
+                    <th>ID</th>
+                    <th class="xxx">标准名称</th>
+                    <th>标准号</th>
+                    <th>标准内容</th>
+                    <th>标准发布单位</th>
+                    <th>标准生效日期</th>
+                    <th>标准预计失效日期</th>
+                    <th>浏览次数</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="RowView">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</script>
 
- <script type="text/template" id="rowView-template">
+<script type="text/template" id="rowView-template">
     <td>
         <input class="common-input sort-input" name="ord[]" value='<%=id %>' type="text">
     </td>
-    <td ><%=id %></td>
+    <td><%=id %></td>
     <td><a target="_blank" href="#"><%= name %></a></td>
     <td><%= no %></td>
     <td><%= content %></td>
@@ -86,10 +86,10 @@
     <td><%= this.switchDate(expiredDate) %></td>
     <td><%= viewCount %></td>
     <td>
-        <a class="link-update" href="standard.html?id=<%=id %>" target="_blank" >
+        <a class="link-update" href="standard.html?id=<%=id %>" target="_blank">
             <i class="icon-edit icon-large"></i>
         </a>
-        <a class="link-del" href="#" id = "js-delete">
+        <a class="link-del" href="#" id="js-delete">
             <i class="icon-trash icon-large"></i>
         </a>
     </td>
@@ -98,82 +98,73 @@
 
 </body>
 <!-- Javascript -->
-<script type = "text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
-<script type = "text/javascript" src="../../js/moment.js" ></script>
-<script type = "text/javascript" src="../../js/jquery.json.js" ></script>
-<script type = "text/javascript" src="../../js/Underscore.js" ></script>
-<script type = "text/javascript" src="../../js/Backbone.js" ></script>
-<script type = "text/javascript" src="../../js/backbone.layoutmanager.js" ></script>
-<script type = "text/javascript" src = "../../entities/entities.js"></script>
-<script type = "text/javascript" src = "../../handle/standard/standard.js"></script>
+<script type="text/javascript" src="../../js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="../../js/moment.js"></script>
+<script type="text/javascript" src="../../js/jquery.json.js"></script>
+<script type="text/javascript" src="../../js/Underscore.js"></script>
+<script type="text/javascript" src="../../js/Backbone.js"></script>
+<script type="text/javascript" src="../../js/backbone.layoutmanager.js"></script>
+<script type="text/javascript" src="../../entities/entities.js"></script>
+<script type="text/javascript" src="../../handle/standard/standard.js"></script>
 </html>
-<script type = "text/javascript">
-    (function(Backbone,_){
+<script type="text/javascript">
+    (function (Backbone, _) {
         var StandardCollection = new Entities.Standrd.Collection();
         var StandardModel = new Entities.Standrd.Model();
-        var EventBus = _.extend({},Backbone.Events);
-    Backbone.Layout.configure({
-        manage:true
-    });
-    var RowView =Backbone.View.extend({
-        template: '#rowView-template',
-        tagName: 'tr',
-        initialize: function(){
-            this.listenTo(this.model,'change',this.render);
-            this.listenTo(this.model,'destroy',this.handle);
+        var EventBus = _.extend({}, Backbone.Events);
+        Backbone.Layout.configure({
+            manage: true
+        });
+        var RowView = Backbone.View.extend({
+            template: '#rowView-template',
+            tagName: 'tr',
+            initialize: function () {
+                this.listenTo(this.model, 'change', this.render);
+                this.listenTo(this.model, 'destroy', this.handle);
 
-        },
-        handle:function(){
-           this.remove();
-        },
-        events:{
-           'click #js-edit':'_onEditStandard',
-           'click #js-delete':'_onDeleteStandard',
-       },
-       switchDate: function(data){
-           var date =moment(data).format('YYYY-MM-DD');
-           return date;
-       },
-       /*_onEditStandard:function(){
-           $('#MainView').hide();
-           $('#standard').show().attr('id',this.model.id);
-       },*/
-
-       _onDeleteStandard:function(){
-           this.model.delete();
-       }
-   });
-    var MainView = Backbone.View.extend({
-        template: '#mainView_template',
-        initialize: function(){
-            this.listenTo(StandardCollection, 'reset', this.addAll);
-            StandardCollection.fetch();
-        },
-        events: {
-            "click #js_query" : '_onShowStandardList'
-        },
-        handle:function(){
-          console.log("MainView");
-        },
-        _onShowStandardList: function(){
-          var key = $('select').val();
-            var value = $("input").val();
-            var data={};
-            if(key&&value){
-                data[key]=value;
-                StandardCollection.fetch(data);
-                this.render();
-
+            },
+            handle: function () {
+                this.remove();
+            },
+            events: {
+                'click #js-edit': '_onEditStandard',
+                'click #js-delete': '_onDeleteStandard',
+            },
+            switchDate: function (data) {
+                var date = moment(data).format('YYYY-MM-DD');
+                return date;
+            },
+            _onDeleteStandard: function () {
+                this.model.delete();
             }
-        },
-        addOne: function(StandardModel) {
-             var rowView = new RowView({model:StandardModel});
-             this.insertView('#RowView', rowView).render();
-        },
-        addAll: function() {
-            StandardCollection.each(this.addOne, this);
-        },
-    });
-    new MainView({el:'#MainView'}).render();
-})(Backbone,_);
+        });
+        var MainView = Backbone.View.extend({
+            template: '#mainView_template',
+            initialize: function () {
+                this.listenTo(StandardCollection, 'reset', this.addAll);
+                StandardCollection.fetch();
+            },
+            events: {
+                "click #js_query": '_onShowStandardList'
+            },
+            _onShowStandardList: function () {
+                var key = $('select').val();
+                var value = $("input").val();
+                var data = {};
+                if (key && value) {
+                    data[key] = value;
+                    StandardCollection.fetch(data);
+                    this.render();
+                }
+            },
+            addOne: function (StandardModel) {
+                var rowView = new RowView({model: StandardModel});
+                this.insertView('#RowView', rowView).render();
+            },
+            addAll: function () {
+                StandardCollection.each(this.addOne, this);
+            },
+        });
+        new MainView({el: '#MainView'}).render();
+    })(Backbone, _);
 </script>

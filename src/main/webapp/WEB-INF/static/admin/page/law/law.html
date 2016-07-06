@@ -1,127 +1,132 @@
 <!doctype html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>后台管理</title>
-	<link rel="stylesheet" type="text/css" href="../../asset/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../../asset/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
-	<link rel="stylesheet" type="text/css" href="../../css/main.css"/>
-	<script type="text/javascript" src="../js/modernizr.min.js"></script>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="../../asset/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../asset/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
 </head>
 <body>
-	<div class="main-wrap" style="margin-left:0;">
-		<div class="crumb-wrap">
-			<a href="../design.html">基础数据管理</a> >> <a>法律法规管理</a>
-		</div>
-		<div class="result-wrap">
-			<div class="result-content">
-				<form action="/jscss/admin/design/add" method="post" id="myform" name="myform" enctype="multipart/form-data">
-					<table class="insert-tab" width="100%">
-						<tbody>
-							<tr>
-								<th width="120">法律法规名称：</th>
-								<td>
-									<input class="common-text required" id="title" name="title" size="50" value="" type="text">
-									<i class="require-red">*</i>
-								</td>
-							</tr>
-							<tr>
-								<th width="120">类别：</th>
-								<td>
-									<select name="colId" id="catid" class="required" style="width:120px;">
-										<option value="">请选择</option>
-										<option value="20">法律</option>
-										<option value="20">法规</option>
-										<option value="20">地方性法规</option>
-									</select>
-									<i class="require-red">*</i>
-								</td>
-							</tr>
+<div class="main-wrap" id="MainView" style="margin-left:0;"></div>
+<script type="text/template" id="mainView-template">
+    <div class="crumb-wrap">
+        <a href="../design.html">基础数据管理</a> >> <a>法律法规管理</a>
+    </div>
+    <div class="result-wrap">
+        <div class="result-content">
+            <form>
+                <table class="insert-tab" width="100%" id="LawView">
+                </table>
+            </form>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="lawView-template">
+    <tr>
+        <th width="120">法律法规名称：</th>
+        <td>
+            <input class="common-text required" name="title" size="50" value="" type="text">
+            <i class="require-red">*</i>
+        </td>
+    </tr>
+    <tr>
+        <th width="120">类别：</th>
+        <td>
+            <select name="colId" class="required" style="width:120px;">
+                <option value="">请选择</option>
+                <option value="法律">法律</option>
+                <option value="法规">法规</option>
+                <option value="地方性法规">地方性法规</option>
+            </select>
+            <i class="require-red">*</i>
+        </td>
+    </tr>
 
-							<tr>
-								<th>法律法规文号：</th>
-								<td>
-									<input class="common-text required" id="title" name="title" size="50" value="" type="text">
-									<i class="require-red">*</i>
-								</td>
-							</tr>
+    <tr>
+        <th>法律法规文号：</th>
+        <td>
+            <input class="common-text required" name="title" size="50" value="" type="text">
+            <i class="require-red">*</i>
+        </td>
+    </tr>
 
-							<tr>
-								<th>法律法规内容：</th>
-								<td><textarea name="content" class="common-textarea" id="content" cols="30" style="width: 99%;" rows="10"></textarea>
-									<i class="require-red">*</i>
-								</td>
-							</tr>
+    <tr>
+        <th>法律法规内容：</th>
+        <td><textarea name="content" class="common-textarea" cols="30" style="width: 99%;"
+                      rows="10"></textarea>
+            <i class="require-red">*</i>
+        </td>
+    </tr>
 
-							<tr>
-								<th>法律法规发布单位：</th>
-								<td>
-									<input class="common-text required" id="title" name="title" size="50" value="" type="text">
-									<i class="require-red">*</i>
-								</td>
-							</tr>
+    <tr>
+        <th>法律法规发布单位：</th>
+        <td>
+            <input class="common-text required" name="title" size="50" value="" type="text">
+            <i class="require-red">*</i>
+        </td>
+    </tr>
 
-							<tr>
-								<th  width="150">法律法规生效日期：</th>
-								<td>
-									<input class="common-text required" id="title" name="title" size="50" value="" type="text">
-									<i class="require-red">*</i>
-								</td>
-							</tr>
+    <tr>
+        <th width="150">法律法规生效日期：</th>
+        <td>
+            <input class="common-text required" name="title" size="50" value="" type="text">
+            <i class="require-red">*</i>
+        </td>
+    </tr>
 
-							<tr>
-								<th>标准预计失效日期：</th>
-								<td>
-									<input class="common-text required" id="title" name="title" size="50" value="" type="text">
-									<i class="require-red">*</i>
-								</td>
-							</tr>
+    <tr>
+        <th>标准预计失效日期：</th>
+        <td>
+            <input class="common-text required" name="title" size="50" value="" type="text">
+            <i class="require-red">*</i>
+        </td>
+    </tr>
 
-							<tr>
-								<th>发布人：</th>
-								<td>
-									<input class="common-text required" id="title" name="title" size="50" value="" type="text">
-									<i class="require-red">*</i>
-								</td>
-							</tr>
+    <tr>
+        <th>发布人：</th>
+        <td>
+            <input class="common-text required" name="title" size="50" value="" type="text">
+            <i class="require-red">*</i>
+        </td>
+    </tr>
 
-							<tr>
-								<th>发布日期：</th>
-								<td>
-									<input class="common-text required" id="title" name="title" size="50" value="" type="text">
-									<i class="require-red">*</i>
-								</td>
-							</tr>
+    <tr>
+        <th>发布日期：</th>
+        <td>
+            <input class="common-text required" name="title" size="50" value="" type="text" onclick="laydate()">
+            <i class="require-red">*</i>
+        </td>
+    </tr>
 
-							<tr>
-								<th>关键词：</th>
-								<td>
-									<input class="common-text required" id="title" name="title" size="50" value="" type="text">
-									<i class="require-red">关键词以逗号隔开</i>
-								</td>
-							</tr>
-							<tr>
-								<th></th>
-								<td>
-									<input class="btn btn-primary btn6 mr10" value="提交" type="submit">
-									<input class="btn btn6" onclick="history.go(-1)" value="返回" type="button">
-								</td>
-							</tr>
-						</tbody></table>
-					</form>
-				</div>
-			</div>
-		</div>
-	</body>
-	<!-- 配置文件 -->
-	<script type="text/javascript" src="../../plugins/ueditor/ueditor.config.js"></script>
-	<!-- 编辑器源码文件 -->
-	<script type="text/javascript" src="../../plugins/ueditor/ueditor.all.js"></script>
-	<script type="text/javascript" src="../../plugins/glDatePicker/glDatePicker.min.js"></script>
-	<!-- 实例化编辑器 -->
-	<script type="text/javascript">
-		var ue = UE.getEditor('content');
-		$('input').glDatePicker();
-	</script>
-	</html>
+    <tr>
+        <th>关键词：</th>
+        <td>
+            <input class="common-text required" name="title" size="50" value="" type="text">
+            <i class="require-red">关键词以逗号隔开</i>
+        </td>
+    </tr>
+    <tr>
+        <th></th>
+        <td>
+            <a class="btn btn-primary btn6 mr10" href="javascript:void(0);" id="js_edit">提交</a>
+            <a class="btn btn-info btn6 mr10" href="standardList.html">返回</a>
+        </td>
+    </tr>
+</script>
+</body>
+<!-- 配置文件 -->
+<script type = "text/javascript" src="../../js/jquery-1.8.0.min.js" ></script>
+<script type = "text/javascript" src="../../js/moment.js" ></script>
+<script type = "text/javascript" src="../calender/laydate.js" ></script>
+<script type = "text/javascript" src="../../js/jquery.json.js" ></script>
+<script type = "text/javascript" src="../../js/Underscore.js" ></script>
+<script type = "text/javascript" src="../../js/Backbone.js" ></script>
+<script type = "text/javascript" src="../../js/backbone.layoutmanager.js" ></script>
+<script type = "text/javascript" src = "../../entities/entities.js"></script>
+<script type = "text/javascript" src = "../../handle/standard/law.js"></script>
+<script type="text/javascript" src="../../plugins/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="../../plugins/ueditor/ueditor.all.js"></script>
+</html>
