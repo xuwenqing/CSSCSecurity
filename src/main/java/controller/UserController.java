@@ -41,7 +41,7 @@ public class UserController extends BaseController {
         return dto;
     }
 
-    @RequestMapping("/deletes")
+    @RequestMapping("/delete")
     public
     @ResponseBody
     ResponsePackDto delete(@RequestBody LongIdDto id) {
@@ -50,7 +50,7 @@ public class UserController extends BaseController {
         ids.add(id.getId());
         if (!userService.deleteUser(ids)) {
             dto.setStatus(500);
-            dto.setError("删除用户失败");
+            dto.setError("删除用户失败!");
         }
         return dto;
     }

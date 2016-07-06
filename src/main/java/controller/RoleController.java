@@ -1,7 +1,7 @@
 package controller;
 
 import controller.dto.ResponsePackDto;
-import controller.dto.RoleUpdateDto;
+import controller.dto.RoleDto;
 import dao.condition.RoleCondition;
 import model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.RoleService;
-
-import java.util.List;
 
 /**
  * Created by wenqing on 2016/6/6.
@@ -25,8 +23,13 @@ public class RoleController extends BaseController {
     @RequestMapping("/add")
     public
     @ResponseBody
-    ResponsePackDto add(@RequestBody RoleUpdateDto dto) {
-        Role role = roleService.createRole(dto.getRole());
+    ResponsePackDto add(@RequestBody RoleDto dto) {
+        Role role = new Role();
+        role.setId(dto.getId());
+        role.setRole(dto.getRole());
+        role.setDescription(dto.getDescription());
+        role.setAvailable(dto.getAvailable());
+        role = roleService.createRole(role);
         roleService.correlationResources(role.getId(), dto.getIds());
         return new ResponsePackDto();
     }
@@ -42,8 +45,13 @@ public class RoleController extends BaseController {
     @RequestMapping("/edit")
     public
     @ResponseBody
-    ResponsePackDto edit(@RequestBody RoleUpdateDto dto) {
-        roleService.updateRole(dto.getRole(), dto.getIds());
+    ResponsePackDto edit(@RequestBody RoleDto dto) {
+        Role role = new Role();
+        role.setId(dto.getId());
+        role.setRole(dto.getRole());
+        role.setDescription(dto.getDescription());
+        role.setAvailable(dto.getAvailable());
+        roleService.updateRole(role, dto.getIds());
         return new ResponsePackDto();
     }
 
