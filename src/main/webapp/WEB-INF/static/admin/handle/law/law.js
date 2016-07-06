@@ -8,6 +8,7 @@ Entities.Law = (function (Backbone, Entities, _) {
     var API_QUERY = base + '/law/queryDetail';//查询指定id内容
     var API_FETCH = base + '/law/query';//查询法律法规
     var API_DESTROY = base + '/law/delete';//删除法律法规
+    var API_DELETES = base + '/law/deletes';//删除法律法规
     var Model = Backbone.Model.extend({
         idAttribute: 'id',
         edit: function (data) {
@@ -39,12 +40,19 @@ Entities.Law = (function (Backbone, Entities, _) {
         query: function (data) {
             var collection = this;
             return Entities.sync(API_QUERY, data).then(function (res) {
+                console.log(res);
                 collection.reset(res);
             });
         },
         create: function (data) {
             var collection = this;
             return Entities.sync(API_SAVE, data).then(function (res) {
+                collection.unshift(_.extend(data,res));
+            });
+        },
+        deletes: function (data) {
+            var collection = this;
+            return Entities.sync(API_DELETES, data).then(function (res) {
                 collection.unshift(_.extend(data,res));
             });
         }

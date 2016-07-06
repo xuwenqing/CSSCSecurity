@@ -40,19 +40,20 @@
         </div>
         <div class="result-wrap">
             <h3 class="controll-title">信息管理</h3>
+
             <div class="result-title">
                 <div class="result-list">
                     <a href="javascript:void(0);" id='js_create' class="btn btn-success"><i
                             class="icon-plus icon-large"></i>添加</a>
-                    <a href="#" class="btn btn-danger">
-                        <i class="icon-trash icon-large"></i>删除</a>
+                    <a href="#" class="btn btn-danger" id='delete_items'>
+                        <i class="icon-trash icon-large"></i>批量删除</a>
                 </div>
             </div>
             <div class="result-content">
                 <table class="result-tab" width="100%">
                     <thead>
                     <tr>
-                        <th class="tc" width="5%"><input class="allChoose" name="" type="checkbox"></th>
+                        <th class="tc" width="5%"><input id="all_Id" type="checkbox" class="js_choose"></th>
                         <th>ID</th>
                         <th>名称</th>
                         <th>文号</th>
@@ -75,7 +76,7 @@
     <div class="LawSaveView" style="display: none;">
         <div class="result-wrap">
             <div class="result-content">
-                <form>
+                <form id = "validate-data" method="get" action="#">
                     <table class="insert-tab" width="100%" id="LawView">
 
                     </table>
@@ -87,10 +88,10 @@
 
 <script type="text/template" id="lawListView-template">
     <td>
-        <input class="allChoose" name="" type="checkbox">
+        <input name="items" type="checkbox" value="<%=id %>">
     </td>
     <td><%=id %></td>
-    <td><a  href="javascript:void(0);"><%= name %></a></td>
+    <td><a href="javascript:void(0);"><%= name %></a></td>
     <td><%=no %></td>
     <td><%=publishDep %></td>
     <td><%=this.switchDate(effectiveDate) %></td>
@@ -113,7 +114,7 @@
     <tr>
         <th width="120">法律法规名称：</th>
         <td>
-            <input class="common-text required" name="name" size="50" value="" type="text">
+            <input class="common-text required" name="name" size="50" value="" type="text" required>
             <i class="require-red">*</i>
         </td>
     </tr>
@@ -157,16 +158,18 @@
     <tr>
         <th width="150">法律法规生效日期：</th>
         <td>
-            <input class="common-text required laydate-icon" name="effectiveDate" size="50" value="" type="text"  onclick="laydate()">
-            <i class="require-red">*</i>
+            <input class="common-text laydate-icon" name="effectiveDate" size="50" value="" type="text"
+                   onclick="laydate()">
+            <!--<i class="require-red">*</i>-->
         </td>
     </tr>
 
     <tr>
         <th>标准预计失效日期：</th>
         <td>
-            <input class="common-text required laydate-icon" name="expiredDate" size="50" value="" type="text"  onclick="laydate()">
-            <i class="require-red">*</i>
+            <input class="common-text  laydate-icon" name="expiredDate" size="50" value="" type="text"
+                   onclick="laydate()">
+            <!--<i class="require-red">*</i>-->
         </td>
     </tr>
 
@@ -181,9 +184,9 @@
     <tr>
         <th>发布日期：</th>
         <td>
-            <input class="common-text required laydate-icon" name="publishDate" size="50" value="" type="text"
+            <input class="common-text  laydate-icon" name="publishDate" size="50" value="" type="text"
                    onclick="laydate()">
-            <i class="require-red">*</i>
+            <!--<i class="require-red">*</i>-->
         </td>
     </tr>
 
@@ -197,7 +200,8 @@
     <tr>
         <th></th>
         <td>
-            <a class="btn btn-primary btn6 mr10" href="javascript:void(0);" id="js_new">提交</a>
+            <!--<a class="btn btn-primary btn6 mr10 " href="javascript:void(0);" id="js_new">提交</a>-->
+            <input class="btn btn-primary btn6 mr10 " type="submit" id="js_new" value="提交">
             <a class="btn btn-info btn6 mr10" href="lawList.html">返回</a>
         </td>
     </tr>
@@ -207,6 +211,8 @@
 
 <!-- Javascript -->
 <script type="text/javascript" src="../../js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../../js/messages_zh.js"></script>
 <script type="text/javascript" src="../../js/moment.js"></script>
 <script type="text/javascript" src="../calender/laydate.js"></script>
 <script type="text/javascript" src="../../js/jquery.json.js"></script>
@@ -220,9 +226,10 @@
     (function (Backbone, _) {
         var LawCollection = new Entities.Law.Collection();
         var LawModel = new Entities.Law.Model();
-        var EventBus = _.extend({},Backbone.Events);
-        var Msgs={
-            LawListView:"editLaw"
+        var EventBus = _.extend({}, Backbone.Events);
+        var Msgs = {
+            LawListView: "editLaw",
+            MainView: {DeleteItems:"mainView-deleteItems"}
         };
         Backbone.Layout.configure({
             manage: true
@@ -232,10 +239,8 @@
             tagName: 'tr',
             initialize: function () {
                 this.listenTo(this.model, 'change', this.render);
-                this.listenTo(this.model, 'destroy', this.handle);
-            },
-            handle: function () {
-                this.remove();
+                this.listenTo(this.model, 'destroy', this.remove);
+//                this.listenTo(LawCollection, 'remove', this.remove);
             },
             events: {
                 'click .js_edit': '_onEditLaw',
@@ -245,12 +250,11 @@
                 var date = moment(data).format('YYYY-MM-DD');
                 return date;
             },
-            _onEditLaw:function(){
-                var data=this.model.toJSON();
+            _onEditLaw: function () {
+                var data = this.model.toJSON();
                 $('.LawListView').hide();
                 $('.LawSaveView').show();
-//                console.log(data);
-                EventBus.trigger(Msgs.LawListView,data);
+                EventBus.trigger(Msgs.LawListView, data);
             },
             _onDeleteLaw: function () {
                 this.model.delete();
@@ -261,69 +265,86 @@
             tagName: 'tbody',
             initialize: function () {
                 this.listenTo(this.model, 'change', this.render);
-                this.listenTo(EventBus,Msgs.LawListView,this._onEditLaw);
+                this.listenTo(EventBus, Msgs.LawListView, this._onEditLaw);
             },
             events: {
-                "click #js_new": '_onSaveLaw'
+                "click #js_new": '_onValidator'
             },
             switchDate: function (data) {
                 var date = moment(data).format('YYYY-MM-DD');
                 return date;
             },
-            parseTime:function(a,b,c){
+            parseTime: function (a, b, c) {
                 $('input[name="publishDate"]').val(a);
                 $('input[name="effectiveDate"]').val(b);
                 $('input[name="expiredDate"]').val(c);
             },
-//           向表单填充数据
-            _onEditLaw:function(data){
-                this.model_id =data.id;
-                var obj=data;
-                var time=[];
-                var key,value,tagName,type,arr;
-                for(x in obj){
+            /*向表单填充数据*/
+            _onEditLaw: function (data) {
+                this.model_id = data.id;
+                var obj = data;
+                var time = [];
+                var key, value, tagName, type, arr;
+                for (x in obj) {
                     key = x;
                     value = obj[x];
-                    $("[name='"+key+"'],[name='"+key+"[]']").each(function(){
+                    $("[name='" + key + "'],[name='" + key + "[]']").each(function () {
                         tagName = $(this)[0].tagName;
                         type = $(this).attr('type');
-                        if(tagName=='INPUT'){
-                            if(type=='radio'){
-                                $(this).attr('checked',$(this).val()==value);
-                            }else if(type=='checkbox'){
+                        if (tagName == 'INPUT') {
+                            if (type == 'radio') {
+                                $(this).attr('checked', $(this).val() == value);
+                            } else if (type == 'checkbox') {
                                 arr = value.split(',');
-                                for(var i =0;i<arr.length;i++){
-                                    if($(this).val()==arr[i]){
-                                        $(this).attr('checked',true);
+                                for (var i = 0; i < arr.length; i++) {
+                                    if ($(this).val() == arr[i]) {
+                                        $(this).attr('checked', true);
                                         break;
                                     }
                                 }
-                            }else{
+                            } else {
                                 $(this).val(value);
                             }
-                        }else if(tagName=='SELECT' || tagName=='TEXTAREA'){
+                        } else if (tagName == 'SELECT' || tagName == 'TEXTAREA') {
                             $(this).val(value);
                         }
                     });
                 }
-                var publishDate=this.switchDate(parseInt($('input[name="publishDate"]').val()));
-                var effectiveDate=this.switchDate(parseInt($('input[name="effectiveDate"]').val()));
-                var expiredDate=this.switchDate(parseInt($('input[name="expiredDate"]').val()));
-                this.parseTime(publishDate,effectiveDate,expiredDate);
+                var publishDate = this.switchDate(parseInt($('input[name="publishDate"]').val()));
+                var effectiveDate = this.switchDate(parseInt($('input[name="effectiveDate"]').val()));
+                var expiredDate = this.switchDate(parseInt($('input[name="expiredDate"]').val()));
+                this.parseTime(publishDate, effectiveDate, expiredDate);
             },
-            _onSaveLaw: function () {
+             /*验证表单*/
+            _onValidator:function(){
+                var parent=this;
+                $('#validate-data').validate({
+                    rules:{
+                        name:'required'
+                    },
+                    messages:{
+                        name:'请输入法律法规'
+                    },
+                    submitHandler:function() {
+                         parent._onSubmit();
+                    }
+                });
+            },
+            /*验证通过提交表单*/
+            _onSubmit: function(){
                 var jsonData = $('form').serializeArray();
+                console.log(jsonData);
                 var data = this._toJSON(jsonData);
-                if(this.model_id){
-                    var flag =LawModel.edit(_.extend(data,{id:this.model_id}));
-                    if(flag){
-                        window.location.href="http://localhost:8080/static/admin/page/law/lawList.html";
+                if (this.model_id) {
+                    var flag = LawModel.edit(_.extend(data, {id: this.model_id}));
+                    if (flag) {
+                        window.location.href = "http://localhost:8080/static/admin/page/law/lawList.html";
                     }
                 }
-                else{
-                    var flag=LawCollection.create(data);
-                    if(flag){
-                        window.location.href="http://localhost:8080/static/admin/page/law/lawList.html";
+                else {
+                    var flag = LawCollection.create(data);
+                    if (flag) {
+                        window.location.href = "http://localhost:8080/static/admin/page/law/lawList.html";
                     }
                 }
             },
@@ -340,31 +361,60 @@
         var MainView = Backbone.View.extend({
             template: '#mainView_template',
             initialize: function () {
+                this._onCreate();
                 this.listenTo(LawCollection, 'reset', this.addAll);
                 var lawSaveView = new LawSaveView({model: LawModel});
                 this.insertView('#LawView', lawSaveView).render();
             },
-            afterRender:function(){
-                var $info=$("#ifra",parent.document);
-                var base=$info.attr('data_parent');
-                this.type=$info.attr('data_category');
-                this.$('.crumb-wrap').append('基础数据管理'+">>"+base+">>"+this.type);
-                console.log( this.parent);
-                LawCollection.fetch({category:this.type});
+            _onCreate: function () {
+                var $info = $("#ifra", parent.document);
+                var base = $info.attr('data_parent');
+                this.type = $info.attr('data_category');
+                LawCollection.fetch({category: this.type});
+                this.$('.crumb-wrap').append('基础数据管理' + ">>" + base + ">>" + this.type);
             },
             events: {
                 "click #js_query": '_onShowLawList',
-                "click #js_create": '_onCreateLaw'
+                "click #js_create": '_onCreateLaw',
+                "click .js_choose": '_onChooseItems',
+                "click #delete_items": '_onDeleteItems'
             },
             _onShowLawList: function () {
+                console.log("_onShowLawList");
                 var key = $('select').val();
                 var value = $("input").val();
                 var data = {};
                 if (key && value) {
                     data[key] = value;
+                    this.render();
                     LawCollection.fetch(data);
-                   this.render();
                 }
+            },
+            _onChooseItems: function () {
+                if (this.$('#all_Id').attr("checked")) {
+                    $("input[name=items]").each(function () {
+                        $(this).attr("checked", true);
+                    });
+                }
+                else {
+                    $("input[name=items]").each(function () {
+                        $(this).attr("checked", false);
+                    });
+                }
+            },
+            _onDeleteItems: function () {
+                var ids=[];
+                this.$("input[name=items]").each(function(index) {
+                    if ($(this).attr("checked")) {
+                        ids[index]=+$(this).val();
+                    }
+                });
+               var result =  _.filter(LawCollection.toJSON(), function(obj){
+                  return  _.contains(ids, obj.id);
+                });
+                _.each(result,function(obj){
+                    LawCollection.get(obj.id).delete();
+                });
             },
             _onCreateLaw: function () {
                 this.$('.LawListView').hide();
@@ -381,3 +431,4 @@
         new MainView({el: '#MainView'}).render();
     })(Backbone, _);
 </script>
+
