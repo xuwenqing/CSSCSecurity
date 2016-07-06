@@ -55,8 +55,10 @@
                         <th class="tc" width="5%"><input id="all_Id" type="checkbox" class="js_choose"></th>
                         <th>ID</th>
                         <th>名称</th>
+                        <th>摘要</th>
+                        <th>关键词</th>
                         <th>发布人</th>
-                        <th>发布时间</th>
+                        <th>发布日期</th>
                         <th>浏览次数</th>
                         <th>操作</th>
                     </tr>
@@ -87,10 +89,8 @@
     </td>
     <td><%=id %></td>
     <td><a href="javascript:void(0);"><%= name %></a></td>
-    <td><%=no %></td>
-    <td><%=publishDep %></td>
-    <td><%=this.switchDate(effectiveDate) %></td>
-    <td><%=this.switchDate(expiredDate) %></td>
+    <td><%=abstracts %></td>
+    <td><%=keywords %></td>
     <td><%=publisher %></td>
     <td><%= this.switchDate(publishDate) %></td>
     <td><%=viewCount %></td>

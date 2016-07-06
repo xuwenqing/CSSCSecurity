@@ -14,7 +14,6 @@ Entities.User = (function (Backbone, Entities, _) {
         edit: function (data) {
             var model = this;
             data = _.extend({id: model.id}, data);
-            console.log(data);
             return Entities.sync(API_EDIT, data).then(function (res) {
                 model.set(_.extend(data, res));
             });
@@ -31,7 +30,6 @@ Entities.User = (function (Backbone, Entities, _) {
     var Collection = Backbone.Collection.extend({
         model: Model,
         fetch: function (data) {
-            console.log(data);
             var collection = this;
             return Entities.sync(API_FETCH, data).then(function (res) {
                 collection.reset(res);
