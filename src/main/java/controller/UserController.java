@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.UserService;
 
@@ -40,7 +41,7 @@ public class UserController extends BaseController {
         return dto;
     }
 
-    @RequestMapping("/delete")
+    @RequestMapping("/deletes")
     public
     @ResponseBody
     ResponsePackDto delete(@RequestBody LongIdDto id) {
@@ -78,7 +79,7 @@ public class UserController extends BaseController {
         return dto;
     }
 
-    @RequestMapping("/edit")
+    @RequestMapping(value = "/edit",method = RequestMethod.POST)
     public
     @ResponseBody
     ResponsePackDto edit(@RequestBody UserUpdateDto userDto) {
