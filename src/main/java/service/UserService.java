@@ -65,6 +65,8 @@ public interface UserService {
 
      boolean deleteUser(List<Long> userId);
 
+     boolean updateUser(User user);
+
      boolean updateUser(User user,List<Long> roleIds);
 
      List<User> query(UserCondition userCondition);

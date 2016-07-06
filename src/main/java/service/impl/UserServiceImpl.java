@@ -100,6 +100,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean updateUser(User user) {
+        if(user == null)
+            return true;
+        User oldUser = userDao.selectByPrimaryKey(user.getId());
+        if(oldUser == null)
+            return false;
+        oldUser.setUsername(user.getUsername());
+        oldUser.setEmail(user.getEmail());
+        oldUser.setPhone(user.getPhone());
+        oldUser.setPassword(user.getPassword());
+        oldUser.setDeleted(user.getDeleted());
+        oldUser.setLocked(user.getLocked());
+        if(user.getPassword() != null)
+            passwordHelper.equals(oldUser);
+        userDao.updateByPrimaryKeySelective(oldUser);
+        return true;
+    }
+
+    @Override
     public boolean updateUser(User user, List<Long> roleIds) {
         if(user == null)
             return true;
@@ -136,6 +155,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> query(UserCondition userCondition) {
-        return userDao.selectAll();
+        return userDao.selectByCondition(userCondition);
     }
 }
