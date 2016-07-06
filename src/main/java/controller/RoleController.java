@@ -1,5 +1,6 @@
 package controller;
 
+import controller.dto.LongIdDto;
 import controller.dto.ResponsePackDto;
 import controller.dto.RoleDto;
 import dao.condition.RoleCondition;
@@ -37,8 +38,8 @@ public class RoleController extends BaseController {
     @RequestMapping("/delete")
     public
     @ResponseBody
-    ResponsePackDto delete(Long roleId) {
-        roleService.deleteRole(roleId);
+    ResponsePackDto delete(@RequestBody LongIdDto roleId) {
+        roleService.deleteRole(roleId.getId());
         return null;
     }
 
