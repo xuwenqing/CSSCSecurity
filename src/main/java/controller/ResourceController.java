@@ -18,26 +18,35 @@ public class ResourceController extends BaseController {
     private ResourceService resourceService;
 
     @RequestMapping("/add")
-    public @ResponseBody ResponsePackDto add(Resource resource) {
+    public
+    @ResponseBody
+    ResponsePackDto add(Resource resource) {
         resourceService.createResource(resource);
         return null;
     }
 
     @RequestMapping("/delete")
-    public @ResponseBody ResponsePackDto delete(Long id) {
+    public
+    @ResponseBody
+    ResponsePackDto delete(Long id) {
         resourceService.deleteResource(id);
         return null;
     }
 
     @RequestMapping("/edit")
-    public @ResponseBody ResponsePackDto edit(Resource resource) {
+    public
+    @ResponseBody
+    ResponsePackDto edit(Resource resource) {
         resourceService.updateResource(resource);
         return null;
     }
 
     @RequestMapping("/query")
-    public @ResponseBody ResponsePackDto query() {
-        resourceService.query();
-        return null;
+    public
+    @ResponseBody
+    ResponsePackDto query() {
+        ResponsePackDto dto = new ResponsePackDto();
+        dto.setData(resourceService.query());
+        return dto;
     }
 }
