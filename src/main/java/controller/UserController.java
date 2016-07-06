@@ -41,7 +41,7 @@ public class UserController extends BaseController {
         return dto;
     }
 
-    @RequestMapping("/deletes")
+    @RequestMapping("/delete")
     public
     @ResponseBody
     ResponsePackDto delete(@RequestBody LongIdDto id) {
