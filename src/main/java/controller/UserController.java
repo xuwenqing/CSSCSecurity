@@ -3,7 +3,7 @@ package controller;
 import controller.dto.LongIdDto;
 import controller.dto.LongIdsDto;
 import controller.dto.ResponsePackDto;
-import controller.dto.UserUpdateDto;
+import controller.dto.UserDto;
 import dao.condition.UserCondition;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,9 +82,21 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/edit",method = RequestMethod.POST)
     public
     @ResponseBody
-    ResponsePackDto edit(@RequestBody UserUpdateDto userDto) {
+    ResponsePackDto edit(@RequestBody UserDto userDto) {
         ResponsePackDto dto = new ResponsePackDto();
-        if(!userService.updateUser(userDto.getUser(), userDto.getRoleIds())) {
+        User user = new User();
+
+        user.setId(userDto.getId());
+        user.setUsername(userDto.getUsername());
+        user.setPhone(userDto.getPhone());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(userDto.getPassword());
+        user.setSalt(userDto.getSalt());
+        user.setLocked(userDto.getLocked());
+        user.setDeleted(userDto.getDeleted());
+        user.setCreateDate(userDto.getCreateDate());
+
+        if(!userService.updateUser(user, userDto.getRoleIds())) {
             dto.setStatus(500);
             dto.setError("用户角色授予失败");
         }
