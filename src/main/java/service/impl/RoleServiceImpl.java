@@ -71,8 +71,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<Role> query(RoleCondition condition) {
-        roleDao.selectAll();
-        return null;
+        return roleDao.selectByCondition(condition);
     }
 
     @Override

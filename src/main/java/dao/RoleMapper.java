@@ -1,5 +1,6 @@
 package dao;
 
+import dao.condition.RoleCondition;
 import model.Role;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface RoleMapper {
 
     List<Role> selectAll();
     List<Long> selectAllIds();
+
+    List<Role> selectByCondition(RoleCondition condition);
 }

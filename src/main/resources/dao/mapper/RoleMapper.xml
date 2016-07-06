@@ -80,4 +80,19 @@
   <select id="selectAll" resultMap="BaseResultMap"  >
     select <include refid="Base_Column_List" /> from roles
   </select>
+
+
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="dao.condition.RoleCondition" >
+    select
+    <include refid="Base_Column_List" />
+    from roles
+    <where>
+      <if test="role != null">and role= #{role,jdbcType=VARCHAR}</if>
+    </where>
+    <if test="sortby != null">
+      ORDER BY ${sortby} ${order}
+    </if>
+    limit #{start,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+  </select>
+
 </mapper>

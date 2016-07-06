@@ -1,6 +1,8 @@
 package service;
 
+import dao.condition.RoleCondition;
 import dao.condition.UserCondition;
+import model.Role;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +17,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class UserServiceTest {
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
 
     @Test
-    public void select() {
+    public void selectUsers() {
         UserCondition condition = new UserCondition();
         condition.setSortby("username");
         condition.setUsername("admin");
@@ -25,5 +29,12 @@ public class UserServiceTest {
         //
         System.out.println(userService.query(condition).size());
         System.out.println(userService.query(condition));
+    }
+
+    @Test
+    public void selectRoles() {
+        RoleCondition condition = new RoleCondition();
+        condition.setRole("admin");
+        System.out.println(roleService.query(condition));
     }
 }
