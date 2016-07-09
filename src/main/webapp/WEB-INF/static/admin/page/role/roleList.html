@@ -14,11 +14,12 @@
 <script type="text/template" id="mainView_template">
     <div class="crumb-wrap">
     </div>
-    <div class="TechnologyListView">
+    <div class="LawListView">
         <div class="search-wrap">
             <div class="search-content">
                 <table class="search-tab">
                     <tr>
+                        <!--<th width="70">关键字:</th>-->
                         <td>
                             <select name="condition" class="required" style="width:150px;height:30px;">
                                 <option value="">输入查询条件</option>
@@ -55,10 +56,12 @@
                         <th class="tc" width="5%"><input id="all_Id" type="checkbox" class="js_choose"></th>
                         <th>ID</th>
                         <th>名称</th>
-                        <th>摘要</th>
-                        <th>关键词</th>
+                        <th>文号</th>
+                        <th>单位</th>
+                        <th>生效日期</th>
+                        <th>预计失效日期</th>
                         <th>发布人</th>
-                        <th>发布日期</th>
+                        <th>发布时间</th>
                         <th>浏览次数</th>
                         <th>操作</th>
                     </tr>
@@ -70,11 +73,11 @@
             </div>
         </div>
     </div>
-    <div class="TechnologySaveView" style="display: none;">
+    <div class="LawSaveView" style="display: none;">
         <div class="result-wrap">
             <div class="result-content">
                 <form id = "validate-data" method="get" action="#">
-                    <table class="insert-tab" width="100%" id="TechnologyView">
+                    <table class="insert-tab" width="100%" id="LawView">
 
                     </table>
                 </form>
@@ -83,14 +86,16 @@
     </div>
 </script>
 
-<script type="text/template" id="TechnologyListView-template">
+<script type="text/template" id="lawListView-template">
     <td>
         <input name="items" type="checkbox" value="<%=id %>">
     </td>
     <td><%=id %></td>
     <td><a href="javascript:void(0);"><%= name %></a></td>
-    <td><%=abstracts %></td>
-    <td><%=keywords %></td>
+    <td><%=no %></td>
+    <td><%=publishDep %></td>
+    <td><%=this.switchDate(effectiveDate) %></td>
+    <td><%=this.switchDate(expiredDate) %></td>
     <td><%=publisher %></td>
     <td><%= this.switchDate(publishDate) %></td>
     <td><%=viewCount %></td>
@@ -105,7 +110,7 @@
 </script>
 
 
-<script type="text/template" id="TechnologySaveView-template">
+<script type="text/template" id="lawSaveView-template">
     <tr>
         <th width="120">法律法规名称：</th>
         <td>
@@ -197,7 +202,7 @@
         <td>
             <!--<a class="btn btn-primary btn6 mr10 " href="javascript:void(0);" id="js_new">提交</a>-->
             <input class="btn btn-primary btn6 mr10 " type="submit" id="js_new" value="提交">
-            <a class="btn btn-info btn6 mr10" href="TechnologyList.html">返回</a>
+            <a class="btn btn-info btn6 mr10" href="lawList.html">返回</a>
         </td>
     </tr>
 </script>
@@ -215,52 +220,52 @@
 <script type="text/javascript" src="../../js/Backbone.js"></script>
 <script type="text/javascript" src="../../js/backbone.layoutmanager.js"></script>
 <script type="text/javascript" src="../../entities/entities.js"></script>
-<script type="text/javascript" src="../../handle/Technology/Technology.js"></script>
+<script type="text/javascript" src="../../handle/law/law.js"></script>
 </html>
 <script type="text/javascript">
     (function (Backbone, _) {
-        var TechnologyCollection = new Entities.Technology.Collection();
-        var TechnologyModel = new Entities.Technology.Model();
+        var LawCollection = new Entities.Law.Collection();
+        var LawModel = new Entities.Law.Model();
         var EventBus = _.extend({}, Backbone.Events);
         var Msgs = {
-            TechnologyListView: "editTechnology",
+            LawListView: "editLaw",
             MainView: {DeleteItems:"mainView-deleteItems"}
         };
         Backbone.Layout.configure({
             manage: true
         });
-        var TechnologyListView = Backbone.View.extend({
-            template: '#TechnologyListView-template',
+        var LawListView = Backbone.View.extend({
+            template: '#lawListView-template',
             tagName: 'tr',
             initialize: function () {
                 this.listenTo(this.model, 'change', this.render);
                 this.listenTo(this.model, 'destroy', this.remove);
-//                this.listenTo(TechnologyCollection, 'remove', this.remove);
+//                this.listenTo(LawCollection, 'remove', this.remove);
             },
             events: {
-                'click .js_edit': '_onEditTechnology',
-                'click .js_delete': '_onDeleteTechnology'
+                'click .js_edit': '_onEditLaw',
+                'click .js_delete': '_onDeleteLaw'
             },
             switchDate: function (data) {
                 var date = moment(data).format('YYYY-MM-DD');
                 return date;
             },
-            _onEditTechnology: function () {
+            _onEditLaw: function () {
                 var data = this.model.toJSON();
-                $('.TechnologyListView').hide();
-                $('.TechnologySaveView').show();
-                EventBus.trigger(Msgs.TechnologyListView, data);
+                $('.LawListView').hide();
+                $('.LawSaveView').show();
+                EventBus.trigger(Msgs.LawListView, data);
             },
-            _onDeleteTechnology: function () {
+            _onDeleteLaw: function () {
                 this.model.delete();
             }
         });
-        var TechnologySaveView = Backbone.View.extend({
-            template: '#TechnologySaveView-template',
+        var LawSaveView = Backbone.View.extend({
+            template: '#lawSaveView-template',
             tagName: 'tbody',
             initialize: function () {
                 this.listenTo(this.model, 'change', this.render);
-                this.listenTo(EventBus, Msgs.TechnologyListView, this._onEditTechnology);
+                this.listenTo(EventBus, Msgs.LawListView, this._onEditLaw);
             },
             events: {
                 "click #js_new": '_onValidator'
@@ -275,7 +280,7 @@
                 $('input[name="expiredDate"]').val(c);
             },
             /*向表单填充数据*/
-            _onEditTechnology: function (data) {
+            _onEditLaw: function (data) {
                 this.model_id = data.id;
                 var obj = data;
                 var time = [];
@@ -331,15 +336,15 @@
                 console.log(jsonData);
                 var data = this._toJSON(jsonData);
                 if (this.model_id) {
-                    var flag = TechnologyModel.edit(_.extend(data, {id: this.model_id}));
+                    var flag = LawModel.edit(_.extend(data, {id: this.model_id}));
                     if (flag) {
-                        window.location.href = "http://localhost:8080/static/admin/page/Technology/TechnologyList.html";
+                        window.location.href = "http://localhost:8080/static/admin/page/law/lawList.html";
                     }
                 }
                 else {
-                    var flag = TechnologyCollection.create(data);
+                    var flag = LawCollection.create(data);
                     if (flag) {
-                        window.location.href = "http://localhost:8080/static/admin/page/Technology/TechnologyList.html";
+                        window.location.href = "http://localhost:8080/static/admin/page/law/lawList.html";
                     }
                 }
             },
@@ -357,32 +362,32 @@
             template: '#mainView_template',
             initialize: function () {
                 this._onCreate();
-                this.listenTo(TechnologyCollection, 'reset', this.addAll);
-                var TechnologySaveView = new TechnologySaveView({model: TechnologyModel});
-                this.insertView('#TechnologyView', TechnologySaveView).render();
+                this.listenTo(LawCollection, 'reset', this.addAll);
+                var lawSaveView = new LawSaveView({model: LawModel});
+                this.insertView('#LawView', lawSaveView).render();
             },
             _onCreate: function () {
                 var $info = $("#ifra", parent.document);
                 var base = $info.attr('data_parent');
                 this.type = $info.attr('data_category');
-                TechnologyCollection.fetch({category: this.type});
+                LawCollection.fetch({category: this.type});
                 this.$('.crumb-wrap').append('基础数据管理' + ">>" + base + ">>" + this.type);
             },
             events: {
-                "click #js_query": '_onShowTechnologyList',
-                "click #js_create": '_onCreateTechnology',
+                "click #js_query": '_onShowLawList',
+                "click #js_create": '_onCreateLaw',
                 "click .js_choose": '_onChooseItems',
                 "click #delete_items": '_onDeleteItems'
             },
-            _onShowTechnologyList: function () {
-                console.log("_onShowTechnologyList");
+            _onShowLawList: function () {
+                console.log("_onShowLawList");
                 var key = $('select').val();
                 var value = $("input").val();
                 var data = {};
                 if (key && value) {
                     data[key] = value;
                     this.render();
-                    TechnologyCollection.fetch(data);
+                    LawCollection.fetch(data);
                 }
             },
             _onChooseItems: function () {
@@ -404,23 +409,23 @@
                         ids[index]=+$(this).val();
                     }
                 });
-                var result =  _.filter(TechnologyCollection.toJSON(), function(obj){
+                var result =  _.filter(LawCollection.toJSON(), function(obj){
                     return  _.contains(ids, obj.id);
                 });
                 _.each(result,function(obj){
-                    TechnologyCollection.get(obj.id).delete();
+                    LawCollection.get(obj.id).delete();
                 });
             },
-            _onCreateTechnology: function () {
-                this.$('.TechnologyListView').hide();
-                this.$('.TechnologySaveView').show();
+            _onCreateLaw: function () {
+                this.$('.LawListView').hide();
+                this.$('.LawSaveView').show();
             },
-            addOne: function (TechnologyModel) {
-                var TechnologyListView = new TechnologyListView({model: TechnologyModel});
-                this.insertView('#RowView', TechnologyListView).render();
+            addOne: function (LawModel) {
+                var lawListView = new LawListView({model: LawModel});
+                this.insertView('#RowView', lawListView).render();
             },
             addAll: function () {
-                TechnologyCollection.each(this.addOne, this);
+                LawCollection.each(this.addOne, this);
             }
         });
         new MainView({el: '#MainView'}).render();
