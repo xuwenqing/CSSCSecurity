@@ -94,11 +94,12 @@ public class UserController extends BaseController {
         return dto;
     }
 
-    @RequestMapping(value = "/getRoles",method = RequestMethod.POST)
+    @RequestMapping(value = "/queryUserRoles",method = RequestMethod.POST)
     public
     @ResponseBody
     ResponsePackDto queryUserRoles(@RequestBody LongIdDto dto) {
         Set<Role> roles = userService.findRoles(dto.getId());
+        System.out.println(roles);
         return new ResponsePackDto(roles);
     }
 
