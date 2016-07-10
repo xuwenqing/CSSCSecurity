@@ -1,14 +1,14 @@
 /**
- * Created by huchao on 2016/7/6.
+ * Created by huchao on 2016/7/8.
  */
-Entities.Technique = (function (Backbone, Entities, _) {
+Entities.Accident = (function (Backbone, Entities, _) {
     var base = 'http://localhost:8080';
-    var API_SAVE = base + '/technique/add';//添加法律法规
-    var API_EDIT = base + '/technique/edit';//编辑法律法规
-    var API_QUERY = base + '/technique/queryDetail';//查询指定id内容
-    var API_FETCH = base + '/technique/query';//查询法律法规
-    var API_DESTROY = base + '/technique/delete';//删除法律法规
-    var API_DELETES = base + '/technique/deletes';//删除法律法规
+    var API_SAVE = base + '/accident/add';//添加安全职业健康
+    var API_EDIT = base + '/accident/edit';//编辑安全职业健康
+    var API_QUERY = base + '/accident/queryDetail';//查询指定id内容
+    var API_FETCH = base + '/accident/query';//查询安全职业健康
+    var API_DESTROY = base + '/accident/delete';//删除安全职业健康
+    var API_DELETES = base + '/accident/deletes';//删除安全职业健康
     var Model = Backbone.Model.extend({
         idAttribute: 'id',
         edit: function (data) {
@@ -25,7 +25,7 @@ Entities.Technique = (function (Backbone, Entities, _) {
             return Entities.sync(API_DESTROY, data).then(function (res) {
                 model.trigger('destroy', model, model.collection, {removeself: true});
             });
-        }
+        },
     });
 
     var Collection = Backbone.Collection.extend({

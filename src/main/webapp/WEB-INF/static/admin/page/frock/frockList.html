@@ -14,7 +14,7 @@
 <script type="text/template" id="mainView_template">
     <div class="crumb-wrap">
     </div>
-    <div class="TechnologyListView">
+    <div class="FrockListView">
         <div class="search-wrap">
             <div class="search-content">
                 <table class="search-tab">
@@ -70,11 +70,11 @@
             </div>
         </div>
     </div>
-    <div class="TechnologySaveView" style="display: none;">
+    <div class="FrockSaveView" style="display: none;">
         <div class="result-wrap">
             <div class="result-content">
                 <form id = "validate-data" method="get" action="#">
-                    <table class="insert-tab" width="100%" id="TechnologyView">
+                    <table class="insert-tab" width="100%" id="FrockView">
 
                     </table>
                 </form>
@@ -83,7 +83,7 @@
     </div>
 </script>
 
-<script type="text/template" id="TechnologyListView-template">
+<script type="text/template" id="FrockListView-template">
     <td>
         <input name="items" type="checkbox" value="<%=id %>">
     </td>
@@ -105,23 +105,26 @@
 </script>
 
 
-<script type="text/template" id="TechnologySaveView-template">
+<script type="text/template" id="FrockSaveView-template">
     <tr>
-        <th width="120">技术名称：</th>
+        <th width="120">名称：</th>
         <td>
             <input class="common-text required" name="name" size="50" value="" type="text" required>
             <i class="require-red">*</i>
         </td>
     </tr>
     <tr>
-        <th width="120">技术类型：</th>
+        <th width="120">类别：</th>
         <td>
             <select name="category" class="required" style="width:120px;">
                 <option value="">请选择</option>
-                <option value="国内新技术">国内新技术</option>
-                <option value="韩国新技术">韩国新技术</option>
-                <option value="日本新技术">日本新技术</option>
-                <option value="欧美新技术">欧美新技术</option>
+                <option value="防坠落工装">防坠落工装</option>
+                <option value="防夹伤卷入工装">防夹伤卷入工装</option>
+                <option value="防倾倒工装">防倾倒工装</option>
+                <option value="防撞击工装">防撞击工装</option>
+                <option value="防掉落工装">防掉落工装</option>
+                <option value="防火防爆工装">防火防爆工装</option>
+                <option value="其他5S工装">其他5S工装</option>
             </select>
             <i class="require-red">*</i>
         </td>
@@ -169,7 +172,7 @@
         <th></th>
         <td>
             <input class="btn btn-primary btn6 mr10 " type="submit" id="js_new" value="提交">
-            <a class="btn btn-info btn6 mr10" href="technologyList.html">返回</a>
+            <a class="btn btn-info btn6 mr10" href="frockList.html">返回</a>
         </td>
     </tr>
 </script>
@@ -187,51 +190,51 @@
 <script type="text/javascript" src="../../js/Backbone.js"></script>
 <script type="text/javascript" src="../../js/backbone.layoutmanager.js"></script>
 <script type="text/javascript" src="../../entities/entities.js"></script>
-<script type="text/javascript" src="../../handle/technology/technology.js"></script>
+<script type="text/javascript" src="../../handle/frock/frock.js"></script>
 </html>
 <script type="text/javascript">
     (function (Backbone, _) {
-        var TechnologyCollection = new Entities.Technique.Collection();
-        var TechnologyModel = new Entities.Technique.Model();
+        var FrockCollection = new Entities.Frock.Collection();
+        var FrockModel = new Entities.Frock.Model();
         var EventBus = _.extend({}, Backbone.Events);
         var Msgs = {
-            TechnologyListView: "editTechnology",
+            FrockListView: "editFrock",
             MainView: {DeleteItems:"mainView-deleteItems"}
         };
         Backbone.Layout.configure({
             manage: true
         });
-        var TechnologyListView = Backbone.View.extend({
-            template: '#TechnologyListView-template',
+        var FrockListView = Backbone.View.extend({
+            template: '#FrockListView-template',
             tagName: 'tr',
             initialize: function () {
                 this.listenTo(this.model, 'change', this.render);
                 this.listenTo(this.model, 'destroy', this.remove);
             },
             events: {
-                'click .js_edit': '_onEditTechnology',
-                'click .js_delete': '_onDeleteTechnology'
+                'click .js_edit': '_onEditFrock',
+                'click .js_delete': '_onDeleteFrock'
             },
             switchDate: function (data) {
                 var date = moment(data).format('YYYY-MM-DD');
                 return date;
             },
-            _onEditTechnology: function () {
+            _onEditFrock: function () {
                 var data = this.model.toJSON();
-                $('.TechnologyListView').hide();
-                $('.TechnologySaveView').show();
-                EventBus.trigger(Msgs.TechnologyListView, data);
+                $('.FrockListView').hide();
+                $('.FrockSaveView').show();
+                EventBus.trigger(Msgs.FrockListView, data);
             },
-            _onDeleteTechnology: function () {
+            _onDeleteFrock: function () {
                 this.model.delete();
             }
         });
-        var TechnologySaveView = Backbone.View.extend({
-            template: '#TechnologySaveView-template',
+        var FrockSaveView = Backbone.View.extend({
+            template: '#FrockSaveView-template',
             tagName: 'tbody',
             initialize: function () {
                 this.listenTo(this.model, 'change', this.render);
-                this.listenTo(EventBus, Msgs.TechnologyListView, this._onEditTechnology);
+                this.listenTo(EventBus, Msgs.FrockListView, this._onEditFrock);
             },
             events: {
                 "click #js_new": '_onValidator'
@@ -244,7 +247,7 @@
                 $('input[name="publishDate"]').val(a);
             },
             /*向表单填充数据*/
-            _onEditTechnology: function (data) {
+            _onEditFrock: function (data) {
                 this.model_id = data.id;
                 var obj = data;
                 var time = [];
@@ -286,7 +289,7 @@
                         name:'required'
                     },
                     messages:{
-                        name:'请输入技术名称'
+                        name:'请输入名称'
                     },
                     submitHandler:function() {
                         parent._onSubmit();
@@ -299,15 +302,15 @@
                 console.log(jsonData);
                 var data = this._toJSON(jsonData);
                 if (this.model_id) {
-                    var flag = TechnologyModel.edit(_.extend(data, {id: this.model_id}));
+                    var flag = FrockModel.edit(_.extend(data, {id: this.model_id}));
                     if (flag) {
-                        window.location.href = "http://localhost:8080/static/admin/page/technology/technologyList.html";
+                        window.location.href = "http://localhost:8080/static/admin/page/frock/frockList.html";
                     }
                 }
                 else {
-                    var flag = TechnologyCollection.create(data);
+                    var flag = FrockCollection.create(data);
                     if (flag) {
-                        window.location.href = "http://localhost:8080/static/admin/page/technology/technologyList.html";
+                        window.location.href = "http://localhost:8080/static/admin/page/frock/frockList.html";
                     }
                 }
             },
@@ -325,32 +328,32 @@
             template: '#mainView_template',
             initialize: function () {
                 this._onCreate();
-                this.listenTo(TechnologyCollection, 'reset', this.addAll);
-                var technologySaveView = new TechnologySaveView({model: TechnologyModel});
-                this.insertView('#TechnologyView', technologySaveView).render();
+                this.listenTo(FrockCollection, 'reset', this.addAll);
+                var frockSaveView = new FrockSaveView({model: FrockModel});
+                this.insertView('#FrockView', frockSaveView).render();
             },
             _onCreate: function () {
                 var $info = $("#ifra", parent.document);
                 var base = $info.attr('data_parent');
                 this.type = $info.attr('data_category');
-                TechnologyCollection.fetch({category: this.type});
+                FrockCollection.fetch({category: this.type});
                 this.$('.crumb-wrap').append('基础数据管理' + ">>" + base + ">>" + this.type);
             },
             events: {
-                "click #js_query": '_onShowTechnologyList',
-                "click #js_create": '_onCreateTechnology',
+                "click #js_query": '_onShowFrockList',
+                "click #js_create": '_onCreateFrock',
                 "click .js_choose": '_onChooseItems',
                 "click #delete_items": '_onDeleteItems'
             },
-            _onShowTechnologyList: function () {
-                console.log("_onShowTechnologyList");
+            _onShowFrockList: function () {
+                console.log("_onShowFrockList");
                 var key = $('select').val();
                 var value = $("input").val();
                 var data = {};
                 if (key && value) {
                     data[key] = value;
                     this.render();
-                    TechnologyCollection.fetch(data);
+                    FrockCollection.fetch(data);
                 }
             },
             _onChooseItems: function () {
@@ -372,23 +375,23 @@
                         ids[index]=+$(this).val();
                     }
                 });
-                var result =  _.filter(TechnologyCollection.toJSON(), function(obj){
+                var result =  _.filter(FrockCollection.toJSON(), function(obj){
                     return  _.contains(ids, obj.id);
                 });
                 _.each(result,function(obj){
-                    TechnologyCollection.get(obj.id).delete();
+                    FrockCollection.get(obj.id).delete();
                 });
             },
-            _onCreateTechnology: function () {
-                this.$('.TechnologyListView').hide();
-                this.$('.TechnologySaveView').show();
+            _onCreateFrock: function () {
+                this.$('.FrockListView').hide();
+                this.$('.FrockSaveView').show();
             },
-            addOne: function (TechnologyModel) {
-                var technologyListView = new TechnologyListView({model: TechnologyModel});
-                this.insertView('#RowView', technologyListView).render();
+            addOne: function (FrockModel) {
+                var frockListView = new FrockListView({model: FrockModel});
+                this.insertView('#RowView', frockListView).render();
             },
             addAll: function () {
-                TechnologyCollection.each(this.addOne, this);
+                FrockCollection.each(this.addOne, this);
             }
         });
         new MainView({el: '#MainView'}).render();
