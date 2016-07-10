@@ -4,13 +4,17 @@ import controller.dto.LongIdDto;
 import controller.dto.ResponsePackDto;
 import controller.dto.RoleDto;
 import dao.condition.RoleCondition;
+import model.Resource;
 import model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import service.ResourceService;
 import service.RoleService;
+
+import java.util.List;
 
 /**
  * Created by wenqing on 2016/6/6.
@@ -20,6 +24,9 @@ import service.RoleService;
 public class RoleController extends BaseController {
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private ResourceService resourceService;
 
     @RequestMapping("/add")
     public
@@ -41,6 +48,16 @@ public class RoleController extends BaseController {
     ResponsePackDto delete(@RequestBody LongIdDto roleId) {
         roleService.deleteRole(roleId.getId());
         return null;
+    }
+
+    @RequestMapping(value = "/getResources")
+    public
+    @ResponseBody
+    ResponsePackDto getResources() {
+        ResponsePackDto dto = new ResponsePackDto();
+        List<Resource> roles = resourceService.query();
+        dto.setData(roles);
+        return dto;
     }
 
     @RequestMapping("/edit")

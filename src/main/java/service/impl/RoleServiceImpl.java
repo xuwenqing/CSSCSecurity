@@ -75,6 +75,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public List<Role> queryAll() {
+        return roleDao.selectAll();
+    }
+
+    @Override
     public void correlationResources(Long roleId, List<Long> resourceIds) {
         if(roleId == null || resourceIds == null ||  resourceIds.size() == 0) {
             return;

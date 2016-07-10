@@ -5,6 +5,7 @@ import controller.dto.LongIdsDto;
 import controller.dto.ResponsePackDto;
 import controller.dto.UserDto;
 import dao.condition.UserCondition;
+import model.Role;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import service.RoleService;
 import service.UserService;
 
 import java.util.LinkedList;
@@ -26,6 +28,8 @@ public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    protected RoleService roleService;
 
     @RequestMapping("/add")
     public
@@ -76,6 +80,16 @@ public class UserController extends BaseController {
             dto.setStatus(500);
             dto.setError("用户信息更新失败");
         }
+        return dto;
+    }
+
+    @RequestMapping(value = "/getRoles")
+    public
+    @ResponseBody
+    ResponsePackDto getRoles() {
+        ResponsePackDto dto = new ResponsePackDto();
+        List<Role> roles = roleService.queryAll();
+        dto.setData(roles);
         return dto;
     }
 

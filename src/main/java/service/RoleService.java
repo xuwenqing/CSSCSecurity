@@ -15,6 +15,8 @@ public interface RoleService {
 
      List<Role> query(RoleCondition condition);
 
+     List<Role> queryAll();
+
     /**
      * 添加角色-权限之间关系
      * @param roleId
