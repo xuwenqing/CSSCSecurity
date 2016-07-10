@@ -1,4 +1,4 @@
-Entities.Standrd = (function(Backbone, Entities,_) {
+Entities.Standard = (function(Backbone, Entities,_) {
     var base = 'http://localhost:8080';
     var API_SAVE =base+'/standard/add';//添加标准管理
     var API_EDIT = base+'/standard/edit';//编辑标准管理
