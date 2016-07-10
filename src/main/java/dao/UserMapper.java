@@ -25,6 +25,8 @@ public interface UserMapper {
 
     Set<Role> selectRolesByUsername(String name);
 
+    Set<Role> selectRolesById(Long id);
+
     List<Long> selectRoleIdsByUsername(String name);
 
     Set<String> selectRoleNamesByUsername(String name);

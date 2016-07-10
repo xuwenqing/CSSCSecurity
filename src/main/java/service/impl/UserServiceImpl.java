@@ -72,6 +72,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Set<Role> findRoles(Long id) {
+        return userDao.selectRolesById(id);
+    }
+
+    @Override
     public Set<Resource> findResources(String username) {
         return userDao.selectResourcesByUsername(username);
     }

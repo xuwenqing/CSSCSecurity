@@ -52,6 +52,8 @@ public interface UserService {
      */
      Set<Role> findRoles(String username);
 
+     Set<Role> findRoles(Long id);
+
     /**
      * 根据用户名查找其权限
      * @param username

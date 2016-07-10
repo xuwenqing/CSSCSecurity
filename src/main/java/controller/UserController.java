@@ -18,6 +18,7 @@ import service.UserService;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by wenqing on 2016/5/29.
@@ -91,6 +92,14 @@ public class UserController extends BaseController {
         List<Role> roles = roleService.queryAll();
         dto.setData(roles);
         return dto;
+    }
+
+    @RequestMapping(value = "/getRoles",method = RequestMethod.POST)
+    public
+    @ResponseBody
+    ResponsePackDto queryUserRoles(@RequestBody LongIdDto dto) {
+        Set<Role> roles = userService.findRoles(dto.getId());
+        return new ResponsePackDto(roles);
     }
 
     @RequestMapping(value = "/edit",method = RequestMethod.POST)
