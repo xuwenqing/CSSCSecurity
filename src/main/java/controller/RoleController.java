@@ -31,15 +31,20 @@ public class RoleController extends BaseController {
     @RequestMapping("/add")
     public
     @ResponseBody
-    ResponsePackDto add(@RequestBody RoleDto dto) {
-        Role role = new Role();
-        role.setId(dto.getId());
-        role.setRole(dto.getRole());
-        role.setDescription(dto.getDescription());
-        role.setAvailable(dto.getAvailable());
+    ResponsePackDto add(@RequestBody Role role) {
+//        Role role = new Role();
+//        role.setId(dto.getId());
+//        role.setRole(dto.getRole());
+//        role.setDescription(dto.getDescription());
+//        role.setAvailable(dto.getAvailable());
+        ResponsePackDto dto = new ResponsePackDto();
         role = roleService.createRole(role);
-        roleService.correlationResources(role.getId(), dto.getIds());
-        return new ResponsePackDto();
+        if(role == null) {
+            dto.setStatus(500);
+            dto.setError("角色信息更新失败");
+        }
+        //roleService.correlationResources(role.getId(), dto.getIds());
+        return dto;
     }
 
     @RequestMapping("/delete")
