@@ -24,7 +24,6 @@
                                 <option value="">输入查询条件</option>
                                 <option value="username">姓名</option>
                                 <option value="role">角色</option>
-                                <!--<option value="name">名称</option>-->
                             </select>
                         </td>
                         <td>
@@ -111,9 +110,8 @@
     </tr>
     <tr>
         <th>角色: </th>
-        <td class = "Role">
-            <span> <input  type="checkbox"  size="50"></span>
-            <span> <input  type="checkbox"  size="50"></span>
+        <td class = "RoleView">
+
         </td>
     </tr>
     <tr>
@@ -157,8 +155,9 @@
     </tr>
 </script>
 
-<script type = "text/template" id = "Role-template">
-
+<script type = "text/template" id = "roleList-template">
+    <%=description %><input name="description" type="checkbox" >
+    <!--<input  type="checkbox"  size="50">-->
 </script>
 
 </body>
@@ -177,11 +176,15 @@
 <script type="text/javascript" src="../../js/backbone.layoutmanager.js"></script>
 <script type="text/javascript" src="../../entities/entities.js"></script>
 <script type="text/javascript" src="../../handle/user/user.js"></script>
+<script type="text/javascript" src="../../handle/role/role.js"></script>
 </html>
 <script type="text/javascript">
     (function (Backbone, _) {
         var UserCollection = new Entities.User.Collection();
         var UserModel = new Entities.User.Model();
+
+        var RoleCollection = new Entities.Role.Collection();
+        var RoleModel = new Entities.Role.Model();
         var EventBus = _.extend({}, Backbone.Events);
         var Msgs = {
             UserListView: "editUser",
@@ -196,7 +199,6 @@
             initialize: function () {
                 this.listenTo(this.model, 'change', this.render);
                 this.listenTo(this.model, 'destroy', this.remove);
-//                this.listenTo(LawCollection, 'remove', this.remove);
             },
             events: {
                 'click .js_edit': '_onEditUser',
@@ -208,12 +210,23 @@
             },
             _onEditUser: function () {
                 var data = this.model.toJSON();
+                RoleCollection.query({id:data.id});
                 $('.UserListView').hide();
                 $('.UserSaveView').show();
                 EventBus.trigger(Msgs.UserListView, data);
             },
             _onDeleteUser: function () {
                 this.model.delete();
+            }
+        });
+
+
+        var RoleListView = Backbone.View.extend({
+            template: '#roleList-template',
+            tagName: 'span',
+            events: {
+                'click .js_edit': '_onEditUser',
+                'click .js_delete': '_onDeleteUser'
             }
         });
         var UserSaveView = Backbone.View.extend({
@@ -330,6 +343,7 @@
             initialize: function () {
                 this._onCreate();
                 this.listenTo(UserCollection, 'reset', this.addAll);
+                this.listenTo(RoleCollection, 'reset', this.addAllRole);
                 var userSaveView = new UserSaveView({model: UserModel});
                 this.insertView('#UserView', userSaveView).render();
             },
@@ -389,6 +403,13 @@
             },
             addAll: function () {
                 UserCollection.each(this.addOne, this);
+            },
+            addOneRole: function (RoleModel) {
+                var roleListView = new RoleListView({model: RoleModel});
+                this.insertView('.RoleView', roleListView).render();
+            },
+            addAllRole: function () {
+                RoleCollection.each(this.addOneRole, this);
             }
         });
         new MainView({el: '#MainView'}).render();

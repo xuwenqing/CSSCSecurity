@@ -86,7 +86,7 @@
 </script>
 
 <script type="text/template" id = "CrumbView-template">
-<%=base %>
+ <%= base %>
 </script>
 
 <script type="text/template" id="AccidentListView-template">
@@ -210,8 +210,11 @@
             manage: true
         });
         var CrumbView = Backbone.View.extend({
-            template: '#CrumbView-template',
-            tagName:'span'
+           template: '#CrumbView-template',
+           tagName:'span',
+            initialize:function(){
+              this.$el.html(_.template({base:123}));
+            }
         });
         var AccidentListView = Backbone.View.extend({
             template: '#AccidentListView-template',
@@ -345,10 +348,9 @@
                 var $info = $("#ifra", parent.document);
                 var base = $info.attr('data_parent');
                 var type = $info.attr('data_category');
-                var crumbView = new CrumbView({type:type,base:base});
+                var crumbView = new CrumbView();
                 this.insertView('.CrumbView', crumbView).render();
                 AccidentCollection.fetch({category: type});
-
             },
             events: {
                 "click #js_query": '_onShowAccidentList',
