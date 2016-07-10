@@ -158,6 +158,14 @@
     WHERE u.username = #{name,jdbcType=VARCHAR}
   </select>
 
+  <select id="selectRolesById" resultMap="RoleResultMap" parameterType="java.lang.Long" >
+    SELECT r.id as id,r.role as role,r.description as description,r.available as available
+    FROM users_roles ur
+    INNER JOIN users u on ur.user_id = u.id
+    INNER JOIN roles r on ur.role_id = r.id
+    WHERE u.id = #{id,jdbcType=BIGINT}
+  </select>
+
   <select id="selectRoleIdsByUsername" resultType="long" parameterType="java.lang.String" >
     SELECT ur.role_id
     FROM users_roles ur INNER JOIN users u on ur.user_id = u.id
@@ -170,7 +178,6 @@
     INNER JOIN roles r on ur.role_id = r.id
     WHERE u.username = #{name,jdbcType=VARCHAR}
   </select>
-
 
   <resultMap id="ResourceResultMap" type="model.Resource" >
     <id column="id" property="id" jdbcType="BIGINT" />
