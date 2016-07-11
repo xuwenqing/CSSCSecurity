@@ -79,7 +79,7 @@ public class RoleController extends BaseController {
     @ResponseBody
     ResponsePackDto getResources(@RequestBody LongIdDto idDto) {
         ResponsePackDto dto = new ResponsePackDto();
-        List<Resource> roles = resourceService.query();
+        List<Resource> roles = resourceService.queryByRoleId(idDto.getId());
         dto.setData(roles);
         return dto;
     }
