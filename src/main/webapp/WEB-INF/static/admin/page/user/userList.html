@@ -108,16 +108,15 @@
             <i class="require-red">*</i>
         </td>
     </tr>
-    <tr>
-        <th>角色: </th>
-        <td class = "RoleView">
-
-        </td>
+    <tr class="role">
+            <th>角色: </th>
+            <td class = "RoleView">
+            </td>
     </tr>
     <tr>
         <th>密码：</th>
         <td>
-            <input class="common-text required" name="password" id="password" size="50" value="" type="password" disabled>
+            <input class="common-text required" name="password" id="password" size="50" value="" type="password">
             <i class="require-red">*</i>
         </td>
     </tr>
@@ -125,7 +124,7 @@
     <tr>
         <th>确认密码：</th>
         <td>
-            <input class="common-text required" name="confirm_password" id="confirm_password" size="50" value="*******" type="password" disabled>
+            <input class="common-text required" name="confirm_password" id="confirm_password" size="50" value="*******" type="password" >
             <i class="require-red">*</i>
         </td>
     </tr>
@@ -156,8 +155,7 @@
 </script>
 
 <script type = "text/template" id = "roleList-template">
-    <%=description %><input name="description" type="checkbox" >
-    <!--<input  type="checkbox"  size="50">-->
+    <%=description %><input name="description" value="<%=description %>" type="checkbox" >
 </script>
 
 </body>
@@ -210,7 +208,7 @@
             },
             _onEditUser: function () {
                 var data = this.model.toJSON();
-                RoleCollection.query({id:data.id});
+                RoleCollection.query();
                 $('.UserListView').hide();
                 $('.UserSaveView').show();
                 EventBus.trigger(Msgs.UserListView, data);
@@ -241,6 +239,7 @@
             },
             /*向表单填充数据*/
             _onEditUser: function (data) {
+                this.action='edit';
                 this.model_id = data.id;
                 var obj = data;
                 var time = [];
@@ -313,8 +312,19 @@
             /*验证通过提交表单*/
             _onSubmit: function(){
                 var jsonData = $('form').serializeArray();//序列化表单数据
+                console.log(jsonData);
+                var ids=[];
                 var data = this._toJSON(jsonData);
-                var new_data= _.omit(data,[ 'confirm_password','password']);//舍去confirm_password
+                if(this.action=='edit'){
+                    this.$("input[name=description]").each(function(index) {
+                        if ($(this).attr("checked")) {
+                            ids[index]=$(this).val();
+                        }
+                    });
+                    data= _.extend(data,{description:ids});
+                }
+                console.log(data);
+                var new_data= _.omit(data, 'confirm_password');//舍去confirm_password
                 if (this.model_id) {
                     var flag = UserModel.edit(_.extend(new_data, {id: this.model_id}));
                     if (flag) {
@@ -396,6 +406,7 @@
             _onCreateUser: function () {
                 this.$('.UserListView').hide();
                 this.$('.UserSaveView').show();
+                this.$('.role').hide();
             },
             addOne: function (UserModel) {
                 var userListView = new UserListView({model: UserModel});
