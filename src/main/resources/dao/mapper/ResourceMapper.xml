@@ -130,4 +130,16 @@
   <select id="selectAll" resultMap="BaseResultMap">
     SELECT * from resources;
   </select>
+
+
+
+  <select id="selectByRoleId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT res.id, res.name, res.type, res.url , res.parent_id , res.parent_ids , res.permission , res.available
+     from resources res
+     INNER JOIN roles_resources rr ON res.id = rr.resource_id
+     INNER JOIN roles r on rr.role_id = r.id
+     WHERE r.id = #{id,jdbcType=BIGINT}
+  </select>
+
+
 </mapper>
