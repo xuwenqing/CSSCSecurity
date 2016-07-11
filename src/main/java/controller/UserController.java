@@ -72,6 +72,39 @@ public class UserController extends BaseController {
         return dto;
     }
 
+    /**
+     * 获取所有角色列表
+     * @return
+     */
+    @RequestMapping(value = "/getRoles")
+    public
+    @ResponseBody
+    ResponsePackDto getRoles() {
+        ResponsePackDto dto = new ResponsePackDto();
+        List<Role> roles = roleService.queryAll();
+        dto.setData(roles);
+        return dto;
+    }
+
+    /**
+     * 获取某一用户的角色列表
+     * @param dto
+     * @return
+     */
+    @RequestMapping(value = "/getRoles",method = RequestMethod.POST)
+    public
+    @ResponseBody
+    ResponsePackDto getUserRoles(@RequestBody LongIdDto dto) {
+        Set<Role> roles = userService.findRoles(dto.getId());
+        System.out.println(roles);
+        return new ResponsePackDto(roles);
+    }
+
+    /**
+     * 普通用户编辑，不涉及角色授予
+     * @param user
+     * @return
+     */
     @RequestMapping("/modify")
     public
     @ResponseBody
@@ -84,25 +117,11 @@ public class UserController extends BaseController {
         return dto;
     }
 
-    @RequestMapping(value = "/getRoles")
-    public
-    @ResponseBody
-    ResponsePackDto getRoles() {
-        ResponsePackDto dto = new ResponsePackDto();
-        List<Role> roles = roleService.queryAll();
-        dto.setData(roles);
-        return dto;
-    }
-
-    @RequestMapping(value = "/getUserRoles",method = RequestMethod.POST)
-    public
-    @ResponseBody
-    ResponsePackDto getUserRoles(@RequestBody LongIdDto dto) {
-        Set<Role> roles = userService.findRoles(dto.getId());
-        System.out.println(roles);
-        return new ResponsePackDto(roles);
-    }
-
+    /**
+     * 用户编辑，涉及角色授予
+     * @param userDto
+     * @return
+     */
     @RequestMapping(value = "/edit",method = RequestMethod.POST)
     public
     @ResponseBody
@@ -140,6 +159,13 @@ public class UserController extends BaseController {
         return dto;
     }
 
+
+    /**
+     * 修改密码
+     * @param userId
+     * @param password
+     * @return
+     */
     @RequestMapping()
     public
     @ResponseBody
