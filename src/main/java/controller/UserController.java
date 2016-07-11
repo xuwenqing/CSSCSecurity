@@ -76,7 +76,7 @@ public class UserController extends BaseController {
      * 获取所有角色列表
      * @return
      */
-    @RequestMapping(value = "/getRoles")
+    @RequestMapping(value = "/getRoles",method = RequestMethod.GET)
     public
     @ResponseBody
     ResponsePackDto getRoles() {

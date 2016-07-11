@@ -1,5 +1,6 @@
 package dao;
 
+import com.sun.org.apache.bcel.internal.generic.LNEG;
 import model.Resource;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface ResourceMapper {
     int updateByPrimaryKey(Resource record);
 
     List<Resource> selectAll();
+
+    List<Resource> selectByRoleId(Long id);
 }

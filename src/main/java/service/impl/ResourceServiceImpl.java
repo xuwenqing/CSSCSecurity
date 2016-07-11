@@ -58,4 +58,9 @@ public class ResourceServiceImpl implements ResourceService {
     public List<Resource> query() {
         return resourceDao.selectAll();
     }
+
+    @Override
+    public List<Resource> queryByRoleId(Long id) {
+        return resourceDao.selectByRoleId(id);
+    }
 }

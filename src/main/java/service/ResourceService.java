@@ -9,4 +9,5 @@ public interface ResourceService {
      void deleteResource(Long resourceId);
      void updateResource(Resource resource);
      List<Resource> query();
+     List<Resource> queryByRoleId(Long id);
 }
