@@ -86,6 +86,9 @@
     </div>
 </script>
 
+<script type="text/template" id="crumbView-template">
+</script>
+
 <script type="text/template" id="StandardListView-template">
     <td>
         <input name="items" type="checkbox" value="<%=id %>">
@@ -235,6 +238,15 @@
         Backbone.Layout.configure({
             manage: true
         });
+        var CrumbView = Backbone.View.extend({
+            template:'#crumbView-template',
+            tagName:'span',
+            afterRender:function(){
+                var _html='基础数据管理'+'>>'+this.model.base+'>>'+this.model.type;
+                this.$el.html(_html);
+            }
+        });
+
         var StandardListView = Backbone.View.extend({
             template: '#StandardListView-template',
             tagName: 'tr',
@@ -362,10 +374,15 @@
         var MainView = Backbone.View.extend({
             template: '#mainView_template',
             initialize: function () {
-                this._onCreate();
+                var $info = $("#ifra", parent.document);
+                var base = $info.attr('data_parent');
+                var type = $info.attr('data_category');
                 this.listenTo(StandardCollection, 'reset', this.addAll);
+                var crumbView = new CrumbView({model:{base:base,type:type}});
+                this.insertView('.crumb-wrap', crumbView).render();
                 var standardSaveView = new StandardSaveView({model: StandardModel});
                 this.insertView('#StandardView', standardSaveView).render();
+                this._onCreate();
             },
             _onCreate: function () {
                 var $info = $("#ifra", parent.document);

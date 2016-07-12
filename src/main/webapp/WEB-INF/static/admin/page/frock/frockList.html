@@ -82,6 +82,8 @@
         </div>
     </div>
 </script>
+<script type="text/template" id="crumbView-template">
+</script>
 
 <script type="text/template" id="FrockListView-template">
     <td>
@@ -203,6 +205,15 @@
         };
         Backbone.Layout.configure({
             manage: true
+        });
+
+        var CrumbView = Backbone.View.extend({
+            template:'#crumbView-template',
+            tagName:'span',
+            afterRender:function(){
+                var _html='基础数据管理'+'>>'+this.model.base+'>>'+this.model.type;
+                this.$el.html(_html);
+            }
         });
         var FrockListView = Backbone.View.extend({
             template: '#FrockListView-template',
@@ -327,17 +338,18 @@
         var MainView = Backbone.View.extend({
             template: '#mainView_template',
             initialize: function () {
-                this._onCreate();
-                this.listenTo(FrockCollection, 'reset', this.addAll);
-                var frockSaveView = new FrockSaveView({model: FrockModel});
-                this.insertView('#FrockView', frockSaveView).render();
-            },
-            _onCreate: function () {
                 var $info = $("#ifra", parent.document);
                 var base = $info.attr('data_parent');
-                this.type = $info.attr('data_category');
-                FrockCollection.fetch({category: this.type});
-                this.$('.crumb-wrap').append('基础数据管理' + ">>" + base + ">>" + this.type);
+                var type = $info.attr('data_category');
+                this.listenTo(FrockCollection, 'reset', this.addAll);
+                var crumbView = new CrumbView({model:{base:base,type:type}});
+                this.insertView('.crumb-wrap', crumbView).render();
+                var frockSaveView = new FrockSaveView({model: FrockModel});
+                this.insertView('#FrockView', frockSaveView).render();
+                this._onCreate(type);
+            },
+            _onCreate: function (type) {
+                FrockCollection.fetch({category: type});
             },
             events: {
                 "click #js_query": '_onShowFrockList',
