@@ -112,6 +112,7 @@
     <tr class="role">
             <th>角色: </th>
             <td class = "RoleView">
+
             </td>
     </tr>
     <tr>
@@ -156,8 +157,8 @@
 </script>
 
 <script type = "text/template" id = "roleList-template">
-    <%=description %>
-    <input name="role_id" value="<%=id %>" type="checkbox"  <%=exits==true ? 'checked="checked"' : '' %>/>
+    <%=description %><input name="role_id" value="<%=id %>" type="checkbox"  <%= exists==true ? 'checked="checked"' : '' %>  />
+
 </script>
 
 </body>
@@ -219,7 +220,7 @@
             },
             _onEditUser: function () {
                 var data = this.model.toJSON();
-                RoleCollection.query();
+                RoleCollection.query({id:data.id});
                 $('.UserListView').hide();
                 $('.UserSaveView').show();
                 EventBus.trigger(Msgs.UserListView, data);
@@ -375,7 +376,6 @@
             },
             _onCreate: function () {
                 UserCollection.fetch();
-//                this.$('.crumb-wrap').append('基础数据管理' + ">>" + base + ">>" + this.type);
             },
             events: {
                 "click #js_query": '_onShowUserList',
