@@ -155,7 +155,7 @@
 </script>
 
 <script type = "text/template" id = "roleList-template">
-    <%=description %><input name="description" value="<%=description %>" type="checkbox" >
+    <%=description %><input name="role_id" value="<%=id %>" type="checkbox" >
 </script>
 
 </body>
@@ -316,15 +316,15 @@
                 var ids=[];
                 var data = this._toJSON(jsonData);
                 if(this.action=='edit'){
-                    this.$("input[name=description]").each(function(index) {
+                    this.$("input[name=role_id]").each(function(index) {
                         if ($(this).attr("checked")) {
-                            ids[index]=$(this).val();
+                            ids[index]=+$(this).val();
                         }
                     });
-                    data= _.extend(data,{description:ids});
+                    data= _.extend(data,{roleIds:ids});
                 }
                 console.log(data);
-                var new_data= _.omit(data, 'confirm_password');//舍去confirm_password
+                var new_data= _.omit(data, 'confirm_password','role_id');//舍去confirm_password
                 if (this.model_id) {
                     var flag = UserModel.edit(_.extend(new_data, {id: this.model_id}));
                     if (flag) {
