@@ -21,6 +21,7 @@ Entities.Role = (function(Backbone, Entities,_) {
             var model = this;
             var data = {id:model.id};
             return Entities.sync(API_DESTROY,data).then(function(res){
+                console.log(res);
                 model.trigger('destroy', model, model.collection,{removeself:true});
             });
         },
@@ -36,16 +37,16 @@ Entities.Role = (function(Backbone, Entities,_) {
         },
         query:function(data){
             var collection=this;
-            if(data){
+            /*if(data){
+                return Entities.sync(API_QUERY,data).then(function(res){
+                    console.log(res);
+                    collection.reset(res);
+                });
+            }*/
+
                 return Entities.sync(API_QUERY,data).then(function(res){
                     collection.reset(res);
                 });
-            }
-            else{
-                return Entities.sync(API_QUERY,data,{type:'get'}).then(function(res){
-                    collection.reset(res);
-                });
-            }
         },
         create: function(data){
             var collection=this;
