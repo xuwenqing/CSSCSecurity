@@ -86,7 +86,7 @@
 </script>
 
 <script type="text/template" id = "CrumbView-template">
- <%= base %>
+
 </script>
 
 <script type="text/template" id="AccidentListView-template">
@@ -212,8 +212,9 @@
         var CrumbView = Backbone.View.extend({
            template: '#CrumbView-template',
            tagName:'span',
-            initialize:function(){
-              this.$el.html(_.template({base:123}));
+            afterRender:function(){
+                var _html='基础数据管理'+'>>'+this.model.base+'>>'+this.model.type;
+                this.$el.html(_html);
             }
         });
         var AccidentListView = Backbone.View.extend({
@@ -339,17 +340,18 @@
         var MainView = Backbone.View.extend({
             template: '#mainView_template',
             initialize: function () {
-                this._onCreate();
-                this.listenTo(AccidentCollection, 'reset', this.addAll);
-                var accidentSaveView = new AccidentSaveView({model: AccidentModel});
-                this.insertView('#AccidentView', accidentSaveView).render();
-            },
-            _onCreate: function () {
                 var $info = $("#ifra", parent.document);
                 var base = $info.attr('data_parent');
                 var type = $info.attr('data_category');
-                var crumbView = new CrumbView();
-                this.insertView('.CrumbView', crumbView).render();
+                this.listenTo(AccidentCollection, 'reset', this.addAll);
+                var crumbView = new CrumbView({model:{base:base,type:type}});
+                this.insertView('.crumb-wrap', crumbView).render();
+                var accidentSaveView = new AccidentSaveView({model: AccidentModel});
+                this.insertView('#AccidentView', accidentSaveView).render();
+                this._onCreate(type);
+            },
+            _onCreate: function (type) {
+
                 AccidentCollection.fetch({category: type});
             },
             events: {

@@ -79,7 +79,8 @@
         </div>
     </div>
 </script>
-
+<script type="text/template" id="crumbView-template">
+</script>
 <script type="text/template" id="userListView-template">
     <td>
         <input name="items" type="checkbox" value="<%=id %>">
@@ -155,7 +156,8 @@
 </script>
 
 <script type = "text/template" id = "roleList-template">
-    <%=description %><input name="role_id" value="<%=id %>" type="checkbox" >
+    <%=description %>
+    <input name="role_id" value="<%=id %>" type="checkbox"  <%=exits==true ? 'checked="checked"' : '' %>/>
 </script>
 
 </body>
@@ -190,6 +192,15 @@
         };
         Backbone.Layout.configure({
             manage: true
+        });
+
+        var CrumbView = Backbone.View.extend({
+            template:'#crumbView-template',
+            tagName:'span',
+            afterRender:function(){
+                var _html='基础数据管理'+'>>'+this.model.type;
+                this.$el.html(_html);
+            }
         });
         var UserListView = Backbone.View.extend({
             template: '#userListView-template',
@@ -351,11 +362,16 @@
         var MainView = Backbone.View.extend({
             template: '#mainView_template',
             initialize: function () {
-                this._onCreate();
+                var $info = $("#ifra", parent.document);
+                var base = $info.attr('data_parent');
+                var type = $info.attr('data_category');
                 this.listenTo(UserCollection, 'reset', this.addAll);
                 this.listenTo(RoleCollection, 'reset', this.addAllRole);
+                var crumbView = new CrumbView({model:{base:base,type:type}});
+                this.insertView('.crumb-wrap', crumbView).render();
                 var userSaveView = new UserSaveView({model: UserModel});
                 this.insertView('#UserView', userSaveView).render();
+                this._onCreate();
             },
             _onCreate: function () {
                 UserCollection.fetch();

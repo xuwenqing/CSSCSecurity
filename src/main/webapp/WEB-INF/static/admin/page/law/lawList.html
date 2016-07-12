@@ -88,7 +88,6 @@
 </script>
 
 <script type="text/template" id="crumbView-template">
-<%=base %>
 </script>
 <script type="text/template" id="lawListView-template">
     <td>
@@ -242,8 +241,9 @@
         var CrumbView = Backbone.View.extend({
           template:'#crumbView-template',
           tagName:'span',
-           afterRender:function(){
-                this.$el.html(_.template({base:'你真帅'}));
+          afterRender:function(){
+              var _html='基础数据管理'+'>>'+this.model.base+'>>'+this.model.type;
+               this.$el.html(_html);
             }
         });
         var LawListView = Backbone.View.extend({
@@ -252,7 +252,6 @@
             initialize: function () {
                 this.listenTo(this.model, 'change', this.render);
                 this.listenTo(this.model, 'destroy', this.remove);
-//                this.listenTo(LawCollection, 'remove', this.remove);
             },
             events: {
                 'click .js_edit': '_onEditLaw',
@@ -373,18 +372,18 @@
         var MainView = Backbone.View.extend({
             template: '#mainView_template',
             initialize: function () {
-                this.listenTo(LawCollection, 'reset', this.addAll);
-                var crumbView = new CrumbView();
-                this.insertView('.crumb-wrap',crumbView).render();
-                var lawSaveView = new LawSaveView({model: LawModel});
-                this.insertView('#LawView', lawSaveView).render();
-                this._onCreate();
-            },
-            _onCreate: function () {
                 var $info = $("#ifra", parent.document);
                 var base = $info.attr('data_parent');
-                this.type = $info.attr('data_category');
-                LawCollection.fetch({category: this.type});
+                var type = $info.attr('data_category');
+                this.listenTo(LawCollection, 'reset', this.addAll);
+                var crumbView = new CrumbView({model:{base:base,type:type}});
+                this.insertView('.crumb-wrap', crumbView).render();
+                var lawSaveView = new LawSaveView({model: LawModel});
+                this.insertView('#LawView', lawSaveView).render();
+                this._onCreate(type);
+            },
+            _onCreate:function(type){
+                LawCollection.fetch({category: type});
             },
             events: {
                 "click #js_query": '_onShowLawList',
