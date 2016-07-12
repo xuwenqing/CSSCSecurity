@@ -35,11 +35,17 @@ Entities.Role = (function(Backbone, Entities,_) {
             });
         },
         query:function(data){
-            console.log(data);
             var collection=this;
-            return Entities.sync(API_QUERY,data).then(function(res){
-                collection.reset(res);
-            });
+            if(data){
+                return Entities.sync(API_QUERY,data).then(function(res){
+                    collection.reset(res);
+                });
+            }
+            else{
+                return Entities.sync(API_QUERY,data,{type:'get'}).then(function(res){
+                    collection.reset(res);
+                });
+            }
         },
         create: function(data){
             var collection=this;
