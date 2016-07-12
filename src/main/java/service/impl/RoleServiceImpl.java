@@ -55,7 +55,7 @@ public class RoleServiceImpl implements RoleService {
 
         List<Long> delete = roleResourceDao.selectResourceIdsByRoleId(role.getId());
         List<Long> add = new LinkedList<Long>();
-        if(delete != null && delete.size() > 0 && resource_ids != null && resource_ids.size() > 0) {
+        if(delete != null && delete.size() >= 0 && resource_ids != null && resource_ids.size() > 0) {
             for(Long resourceId : resource_ids) {
                 if(delete.contains(resourceId)) {
                     delete.remove(resourceId);

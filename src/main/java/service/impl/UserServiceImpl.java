@@ -143,7 +143,7 @@ public class UserServiceImpl implements UserService {
         List<Long> delete_roles = userDao.selectRoleIdsByUsername(oldUser.getUsername());
         List<Long> add_roles = new LinkedList<Long>();
 
-        if(delete_roles != null && delete_roles.size() > 0 && roleIds != null && roleIds.size() > 0) {
+        if(delete_roles != null && delete_roles.size() >= 0 && roleIds != null && roleIds.size() > 0) {
             for(Long roleId : roleIds) {
                 if(delete_roles.contains(roleId)) {
                     delete_roles.remove(roleId);
