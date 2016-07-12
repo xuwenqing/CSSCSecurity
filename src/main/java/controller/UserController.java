@@ -1,12 +1,10 @@
 package controller;
 
-import controller.dto.LongIdDto;
-import controller.dto.LongIdsDto;
-import controller.dto.ResponsePackDto;
-import controller.dto.UserDto;
+import controller.dto.*;
 import dao.condition.UserCondition;
 import model.Role;
 import model.User;
+import model.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,9 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import service.RoleService;
 import service.UserService;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by wenqing on 2016/5/29.
@@ -74,9 +70,10 @@ public class UserController extends BaseController {
 
     /**
      * 获取所有角色列表
+     *
      * @return
      */
-    @RequestMapping(value = "/getRoles",method = RequestMethod.GET)
+    @RequestMapping(value = "/getRoles", method = RequestMethod.GET)
     public
     @ResponseBody
     ResponsePackDto getRoles() {
@@ -88,20 +85,42 @@ public class UserController extends BaseController {
 
     /**
      * 获取某一用户的角色列表
+     *
      * @param dto
      * @return
      */
-    @RequestMapping(value = "/getRoles",method = RequestMethod.POST)
+    @RequestMapping(value = "/getRoles", method = RequestMethod.POST)
     public
     @ResponseBody
     ResponsePackDto getUserRoles(@RequestBody LongIdDto dto) {
         Set<Role> roles = userService.findRoles(dto.getId());
-        System.out.println(roles);
-        return new ResponsePackDto(roles);
+        List<Role> all = roleService.queryAll();
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("all", all);
+        data.put("roles", roles);
+
+        List<UserRoleDto> userRoles = new LinkedList<UserRoleDto>();
+
+        for (Role role : all) {
+            UserRoleDto userRoleDto = new UserRoleDto();
+            userRoleDto.setId(role.getId());
+            userRoleDto.setRole(role.getRole());
+            userRoleDto.setDescription(role.getDescription());
+            userRoleDto.setAvailable(role.getAvailable());
+            if (roles.contains(role)) {
+                userRoleDto.setExists(true);
+            } else {
+                userRoleDto.setExists(false);
+            }
+            userRoles.add(userRoleDto);
+        }
+
+        return new ResponsePackDto(userRoles);
     }
 
     /**
      * 普通用户编辑，不涉及角色授予
+     *
      * @param user
      * @return
      */
@@ -110,7 +129,7 @@ public class UserController extends BaseController {
     @ResponseBody
     ResponsePackDto edit(@RequestBody User user) {
         ResponsePackDto dto = new ResponsePackDto();
-        if(!userService.updateUser(user)) {
+        if (!userService.updateUser(user)) {
             dto.setStatus(500);
             dto.setError("用户信息更新失败");
         }
@@ -119,10 +138,11 @@ public class UserController extends BaseController {
 
     /**
      * 用户编辑，涉及角色授予
+     *
      * @param userDto
      * @return
      */
-    @RequestMapping(value = "/edit",method = RequestMethod.POST)
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public
     @ResponseBody
     ResponsePackDto edit(@RequestBody UserDto userDto) {
@@ -139,7 +159,7 @@ public class UserController extends BaseController {
         user.setDeleted(userDto.getDeleted());
         user.setCreateDate(userDto.getCreateDate());
 
-        if(!userService.updateUser(user, userDto.getRoleIds())) {
+        if (!userService.updateUser(user, userDto.getRoleIds())) {
             dto.setStatus(500);
             dto.setError("用户角色授予失败");
         }
@@ -151,9 +171,9 @@ public class UserController extends BaseController {
     @ResponseBody
     ResponsePackDto query(@RequestBody(required = false) UserCondition condition) {
         ResponsePackDto dto = new ResponsePackDto();
-        if(condition == null)
+        if (condition == null)
             condition = new UserCondition();
-        if(condition.getSortby() == null)
+        if (condition.getSortby() == null)
             condition.setSortby("username");
         dto.setData(userService.query(condition));
         return dto;
@@ -162,6 +182,7 @@ public class UserController extends BaseController {
 
     /**
      * 修改密码
+     *
      * @param userId
      * @param password
      * @return
