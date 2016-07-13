@@ -94,8 +94,6 @@ public class RoleController extends BaseController {
         ResponsePackDto dto = new ResponsePackDto();
         List<Resource> resources = resourceService.queryByRoleId(idDto.getId());
 
-        System.out.println("resources:" + resources);
-
         List<TreeNode> treeNodes = initTree();
 
         if(resources != null && !resources.isEmpty()) {
