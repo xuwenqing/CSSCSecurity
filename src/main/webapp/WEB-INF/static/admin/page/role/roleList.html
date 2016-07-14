@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="../../asset/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
+    <link rel="stylesheet" href="../../plugins/z-tree/css/zTreeStyle/zTreeStyle.css" type="text/css">
 </head>
 <body>
 <div class="container" id="MainView">
@@ -108,6 +109,13 @@
             <i class="require-red">*</i>
         </td>
     </tr>
+
+    <tr>
+        <th width="120">权限授予：</th>
+        <td>
+            <ul id="TreeView" class="ztree"></ul>
+        </td>
+    </tr>
     <tr>
         <th>描述: </th>
         <td>
@@ -136,12 +144,18 @@
 
 </script>
 
+<script type="text/template" id="treeView-template">
+
+</script>
+
 </body>
 
 <!-- Javascript -->
 <script type="text/javascript" src="../../js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../../js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../../plugins/z-tree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="../../plugins/z-tree/js/jquery.ztree.excheck.min.js"></script>
 <script type="text/javascript" src="../../js/validate_extend.js"></script>
 <script type="text/javascript" src="../../js/messages_zh.js"></script>
 <script type="text/javascript" src="../../js/moment.js"></script>
@@ -160,6 +174,7 @@
         var EventBus = _.extend({}, Backbone.Events);
         var Msgs = {
             RoleListView: "editRole",
+            RolePermissionView:'getTree',
             MainView: {DeleteItems:"mainView-deleteItems"}
         };
         Backbone.Layout.configure({
@@ -173,13 +188,17 @@
                 this.$el.html(_html);
             }
         });
+
+        var  TreeView = Backbone.View.extend({
+            template:'#treeView-template',
+            tagName:'div',
+        });
         var RoleListView = Backbone.View.extend({
             template: '#RoleListView-template',
             tagName: 'tr',
             initialize: function () {
                 this.listenTo(this.model, 'change', this.render);
                 this.listenTo(this.model, 'destroy', this.remove);
-//                this.listenTo(LawCollection, 'remove', this.remove);
             },
             events: {
                 'click .js_edit': '_onEditRole',
@@ -203,6 +222,8 @@
             template: '#RoleSaveView-template',
             tagName: 'tbody',
             initialize: function () {
+                var treeView = new TreeView();
+                this.insertView('#TreeView', treeView).render();
                 this.listenTo(this.model, 'change', this.render);
                 this.listenTo(EventBus, Msgs.RoleListView, this._onEditRole);
             },
@@ -211,6 +232,7 @@
             },
             /*向表单填充数据*/
             _onEditRole: function (data) {
+                this._showTree(data);
                 this.model_id = data.id;
                 var obj = data;
                 var time = [];
@@ -240,6 +262,21 @@
                         }
                     });
                 }
+            },
+            _showTree:function(data){
+                var setting = {
+                    check: {
+                        enable: true
+                    },
+                    data: {
+                        simpleData: {
+                            enable: true
+                        }
+                    }
+                };
+                var viewData=RoleCollection.tree({id:data.id}).then(function(res) {
+                    $.fn.zTree.init($("#TreeView "), setting,res);
+                });
             },
             /*验证表单*/
             _onValidator:function(){
