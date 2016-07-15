@@ -8,6 +8,7 @@ Entities.Role = (function(Backbone, Entities,_) {
     var API_QUERY = base+'/user/getRoles';//根据用户id查找角色
     var API_FETCH = base +'/role/query';//查询角色管理
     var API_DESTROY = base+'/role/delete';//删除角色管理
+    var API_PERSSION = base+'/role/getTree';//获取角色权限
     var Model = Backbone.Model.extend({
         idAttribute: 'id',
         edit: function(data){
@@ -21,10 +22,9 @@ Entities.Role = (function(Backbone, Entities,_) {
             var model = this;
             var data = {id:model.id};
             return Entities.sync(API_DESTROY,data).then(function(res){
-                console.log(res);
                 model.trigger('destroy', model, model.collection,{removeself:true});
             });
-        },
+        }
     });
 
     var Collection = Backbone.Collection.extend({
@@ -37,13 +37,6 @@ Entities.Role = (function(Backbone, Entities,_) {
         },
         query:function(data){
             var collection=this;
-            /*if(data){
-                return Entities.sync(API_QUERY,data).then(function(res){
-                    console.log(res);
-                    collection.reset(res);
-                });
-            }*/
-
                 return Entities.sync(API_QUERY,data).then(function(res){
                     collection.reset(res);
                 });
@@ -53,6 +46,16 @@ Entities.Role = (function(Backbone, Entities,_) {
             return Entities.sync(API_SAVE,data).then(function(res){
                 collection.unshift(_.extend(data,res));
             });
+        },
+        tree:function(data){
+            var that=this;
+            return Entities.sync(API_PERSSION,data).then(function(res){
+                return res;
+            });
+        },
+        getView:function(data){
+           this.dataView=data;
+          return this;
         }
     });
     return {
