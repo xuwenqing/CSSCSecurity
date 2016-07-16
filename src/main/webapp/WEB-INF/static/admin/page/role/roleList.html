@@ -296,7 +296,12 @@
             /*验证通过提交表单*/
             _onSubmit: function(){
                 var jsonData = $('form').serializeArray();//序列化表单数据
-                var data = this._toJSON(jsonData);
+                var zTree = $.fn.zTree.getZTreeObj("TreeView");
+                var nodes = zTree.getCheckedNodes(true);
+                var Nodes_id=this.nodesId(nodes);
+                console.log(Nodes_id);
+                var data = _.extend(this._toJSON(jsonData),{ids:Nodes_id});
+                console.log(data);
                 var new_data= _.omit(data,[ 'confirm_password','password']);//舍去confirm_password
                 if (this.model_id) {
                     var flag = RoleModel.edit(_.extend(new_data, {id: this.model_id}));
@@ -310,6 +315,17 @@
                         window.location.href = "http://localhost:8080/static/admin/page/role/roleList.html";
                     }
                 }
+            },
+            nodesId:function(nodes){
+                var ids=[];
+                var i=0;
+                _.each(nodes,function(ele,index,list){
+                   if(list[index].hidden==false){
+                       ids[i]=list[index].id;
+                       i++;
+                   }
+                });
+                return ids;
             },
             _toJSON: function (data) {
                 var data_json = {};
