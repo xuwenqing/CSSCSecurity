@@ -312,13 +312,13 @@
                 if (this.model_id) {
                     var flag = TechnologyModel.edit(_.extend(data, {id: this.model_id}));
                     if (flag) {
-                        window.location.href = "http://localhost:8080/static/admin/page/technology/technologyList.html";
+                        window.location.href = "http://115.159.114.88/static/admin/page/technology/technologyList.html";
                     }
                 }
                 else {
                     var flag = TechnologyCollection.create(data);
                     if (flag) {
-                        window.location.href = "http://localhost:8080/static/admin/page/technology/technologyList.html";
+                        window.location.href = "http://115.159.114.88/static/admin/page/technology/technologyList.html";
                     }
                 }
             },

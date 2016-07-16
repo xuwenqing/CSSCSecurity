@@ -2,7 +2,7 @@
  * Created by huchao on 2016/7/6.
  */
 Entities.Technique = (function (Backbone, Entities, _) {
-    var base = 'http://localhost:8080';
+    var base = 'http://115.159.114.88';
     var API_SAVE = base + '/technique/add';//添加法律法规
     var API_EDIT = base + '/technique/edit';//编辑法律法规
     var API_QUERY = base + '/technique/queryDetail';//查询指定id内容

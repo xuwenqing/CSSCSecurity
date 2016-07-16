@@ -264,13 +264,13 @@
                 if (this.model_id) {
                     var flag = RoleModel.edit(_.extend(new_data, {id: this.model_id}));
                     if (flag) {
-                        window.location.href = "http://localhost:8080/static/admin/page/role/roleList.html";
+                        window.location.href = "http://115.159.114.88/static/admin/page/role/roleList.html";
                     }
                 }
                 else {
                     var flag = RoleCollection.create(new_data);
                     if (flag) {
-                        window.location.href = "http://localhost:8080/static/admin/page/role/roleList.html";
+                        window.location.href = "http://115.159.114.88/static/admin/page/role/roleList.html";
                     }
                 }
             },
