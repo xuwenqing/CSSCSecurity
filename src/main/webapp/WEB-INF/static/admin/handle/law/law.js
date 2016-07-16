@@ -2,7 +2,8 @@
  * Created by huchao on 2016/7/3.
  */
 Entities.Law = (function (Backbone, Entities, _) {
-    var base = 'http://115.159.114.88';
+
+    var base = Entities.config.apiUrl;
     var API_SAVE = base + '/law/add';//添加法律法规
     var API_EDIT = base + '/law/edit';//编辑法律法规
     var API_QUERY = base + '/law/queryDetail';//查询指定id内容

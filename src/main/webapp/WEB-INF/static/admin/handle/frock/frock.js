@@ -2,7 +2,8 @@
  * Created by huchao on 2016/7/8.
  */
 Entities.Frock = (function (Backbone, Entities, _) {
-    var base = 'http://115.159.114.88';
+
+    var base = Entities.config.apiUrl;
     var API_SAVE = base + '/frock/add';//添加安全职业健康
     var API_EDIT = base + '/frock/edit';//编辑安全职业健康
     var API_QUERY = base + '/frock/queryDetail';//查询指定id内容

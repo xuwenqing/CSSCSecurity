@@ -2,7 +2,8 @@
  * Created by huchao on 2016/7/10.
  */
 Entities.Role = (function(Backbone, Entities,_) {
-    var base = 'http://115.159.114.88';
+
+    var base = Entities.config.apiUrl;
     var API_SAVE =base+'/role/add';//添加角色
     var API_EDIT = base+'/role/edit';//编辑角色
     var API_QUERY = base+'/user/getRoles';//根据用户id查找角色
@@ -48,14 +49,10 @@ Entities.Role = (function(Backbone, Entities,_) {
             });
         },
         tree:function(data){
-            var that=this;
+
             return Entities.sync(API_PERSSION,data).then(function(res){
                 return res;
             });
-        },
-        getView:function(data){
-           this.dataView=data;
-          return this;
         }
     });
     return {
