@@ -2,7 +2,7 @@
  * Created by huchao on 2016/7/8.
  */
 Entities.Accident = (function (Backbone, Entities, _) {
-    var base = 'http://localhost:8080';
+    var base = Entities.config.apiUrl;
     var API_SAVE = base + '/accident/add';//添加安全职业健康
     var API_EDIT = base + '/accident/edit';//编辑安全职业健康
     var API_QUERY = base + '/accident/queryDetail';//查询指定id内容

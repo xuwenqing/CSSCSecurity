@@ -2,7 +2,7 @@
  * Created by huchao on 2016/7/8.
  */
 Entities.Health = (function (Backbone, Entities, _) {
-    var base = 'http://localhost:8080';
+    var base = Entities.config.apiUrl;
     var API_SAVE = base + '/health/add';//添加安全职业健康
     var API_EDIT = base + '/health/edit';//编辑安全职业健康
     var API_QUERY = base + '/health/queryDetail';//查询指定id内容

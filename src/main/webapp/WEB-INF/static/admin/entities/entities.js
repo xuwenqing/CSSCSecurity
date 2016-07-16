@@ -1,7 +1,7 @@
 window.Entities = (function() {
     var Entities = {};
     Entities.config = {
-        apiEndpoint: ''
+        apiUrl: 'http://localhost:8080'
     };
     Entities.sync = function(url, data, options) {
         var data = $.toJSON(data);

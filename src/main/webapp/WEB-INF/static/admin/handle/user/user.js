@@ -2,7 +2,7 @@
  * Created by huchao on 2016/7/6.
  */
 Entities.User = (function (Backbone, Entities, _) {
-    var base = 'http://localhost:8080';
+    var base = Entities.config.apiUrl;
     var API_SAVE = base + '/user/add';//添加法律法规
     var API_EDIT = base + '/user/edit';//编辑法律法规
     var API_QUERY = base + '/user/queryDetail';//查询指定id内容
