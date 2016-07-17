@@ -219,7 +219,7 @@ div.edui-box {
 }
 
 .edui-default .edui-editor-wordcount {
-    text-align: right;
+    text-align: left;
     margin-right: 5px;
     color: #aaa;
 }

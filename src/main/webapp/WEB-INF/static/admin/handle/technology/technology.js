@@ -2,7 +2,6 @@
  * Created by huchao on 2016/7/6.
  */
 Entities.Technique = (function (Backbone, Entities, _) {
-
     var base = Entities.config.apiUrl;
     var API_SAVE = base + '/technique/add';//添加法律法规
     var API_EDIT = base + '/technique/edit';//编辑法律法规

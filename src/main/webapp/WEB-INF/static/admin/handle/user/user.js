@@ -2,7 +2,6 @@
  * Created by huchao on 2016/7/6.
  */
 Entities.User = (function (Backbone, Entities, _) {
-
     var base = Entities.config.apiUrl;
     var API_SAVE = base + '/user/add';//添加法律法规
     var API_EDIT = base + '/user/edit';//编辑法律法规

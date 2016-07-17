@@ -2,7 +2,6 @@
  * Created by huchao on 2016/7/10.
  */
 Entities.Role = (function(Backbone, Entities,_) {
-
     var base = Entities.config.apiUrl;
     var API_SAVE =base+'/role/add';//添加角色
     var API_EDIT = base+'/role/edit';//编辑角色

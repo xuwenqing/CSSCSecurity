@@ -145,7 +145,7 @@
 
     <tr>
         <th> 标准内容：</th>
-        <td><textarea name="content" class="common-textarea" cols="30" style="width: 99%;"
+        <td><textarea name="content" id="container" class="common-textarea" value="" cols="30" style="width: 99%;"
                       rows="10"></textarea>
             <i class="require-red">*</i>
         </td>
@@ -215,6 +215,9 @@
 
 <!-- Javascript -->
 <script type="text/javascript" src="../../js/jquery-1.8.0.min.js"></script>
+<!-- 配置文件 -->
+<script type="text/javascript" src="../../plugins/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="../../plugins/ueditor/ueditor.all.js"></script>
 <script type="text/javascript" src="../../js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="../../js/messages_zh.js"></script>
 <script type="text/javascript" src="../../js/moment.js"></script>
@@ -253,7 +256,6 @@
             initialize: function () {
                 this.listenTo(this.model, 'change', this.render);
                 this.listenTo(this.model, 'destroy', this.remove);
-//                this.listenTo(StandardCollection, 'remove', this.remove);
             },
             events: {
                 'click .js_edit': '_onEditStandard',
@@ -294,6 +296,7 @@
             },
             /*向表单填充数据*/
             _onEditStandard: function (data) {
+                var ue = UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
                 this.model_id = data.id;
                 var obj = data;
                 var time = [];
@@ -346,7 +349,6 @@
             /*验证通过提交表单*/
             _onSubmit: function(){
                 var jsonData = $('form').serializeArray();
-                console.log(jsonData);
                 var data = this._toJSON(jsonData);
                 if (this.model_id) {
                     var flag = StandardModel.edit(_.extend(data, {id: this.model_id}));
@@ -437,6 +439,7 @@
             _onCreateStandard: function () {
                 this.$('.StandardListView').hide();
                 this.$('.StandardSaveView').show();
+                var ue = UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
             },
             addOne: function (StandardModel) {
                 var standardListView = new StandardListView({model: StandardModel});
@@ -449,4 +452,5 @@
         new MainView({el: '#MainView'}).render();
     })(Backbone, _);
 </script>
+
 

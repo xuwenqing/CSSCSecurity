@@ -144,7 +144,7 @@
 
     <tr>
         <th>法律法规内容：</th>
-        <td><textarea name="content" class="common-textarea" cols="30" style="width: 99%;"
+        <td><textarea name="content" class="common-textarea" id ="container" cols="30" style="width: 99%;"
                       rows="10"></textarea>
             <i class="require-red">*</i>
         </td>
@@ -214,6 +214,9 @@
 
 <!-- Javascript -->
 <script type="text/javascript" src="../../js/jquery-1.8.0.min.js"></script>
+<!-- 配置文件 -->
+<script type="text/javascript" src="../../plugins/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="../../plugins/ueditor/ueditor.all.js"></script>
 <script type="text/javascript" src="../../js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="../../js/messages_zh.js"></script>
 <script type="text/javascript" src="../../js/moment.js"></script>
@@ -292,6 +295,7 @@
             },
             /*向表单填充数据*/
             _onEditLaw: function (data) {
+                var ue = UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
                 this.model_id = data.id;
                 var obj = data;
                 var time = [];
@@ -431,6 +435,7 @@
             _onCreateLaw: function () {
                 this.$('.LawListView').hide();
                 this.$('.LawSaveView').show();
+                var ue = UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
             },
             addOne: function (LawModel) {
                 var lawListView = new LawListView({model: LawModel});
