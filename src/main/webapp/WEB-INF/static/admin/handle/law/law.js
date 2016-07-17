@@ -2,7 +2,6 @@
  * Created by huchao on 2016/7/3.
  */
 Entities.Law = (function (Backbone, Entities, _) {
-
     var base = Entities.config.apiUrl;
     var API_SAVE = base + '/law/add';//添加法律法规
     var API_EDIT = base + '/law/edit';//编辑法律法规

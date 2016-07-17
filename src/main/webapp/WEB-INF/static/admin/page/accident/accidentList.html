@@ -137,7 +137,7 @@
     <tr>
         <th>内容：</th>
         <td>
-            <textarea name="content" class="common-textarea "  cols="30" style="width: 99%;" rows="6" ></textarea>
+            <textarea name="content" class="common-textarea " id="container"  cols="30" style="width: 99%;" rows="6" ></textarea>
             <i class="require-red">*</i>
         </td>
     </tr>
@@ -185,7 +185,9 @@
 
 <!-- Javascript -->
 <script type="text/javascript" src="../../js/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="../../plugins/uploadify/jquery.uploadify.js"></script>
+<!-- 配置文件 -->
+<script type="text/javascript" src="../../plugins/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="../../plugins/ueditor/ueditor.all.js"></script>
 <script type="text/javascript" src="../../js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="../../js/messages_zh.js"></script>
 <script type="text/javascript" src="../../js/moment.js"></script>
@@ -261,6 +263,7 @@
             },
             /*向表单填充数据*/
             _onEditAccident: function (data) {
+                var ue = UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
                 this.model_id = data.id;
                 var obj = data;
                 var time = [];
@@ -400,6 +403,7 @@
             _onCreateAccident: function () {
                 this.$('.AccidentListView').hide();
                 this.$('.AccidentSaveView').show();
+                var ue = UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
             },
             addOne: function (AccidentModel) {
                 var accidentListView = new AccidentListView({model: AccidentModel});
