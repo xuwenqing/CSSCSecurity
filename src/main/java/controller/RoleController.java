@@ -130,6 +130,31 @@ public class RoleController extends BaseController {
         nodes.add(new TreeNode(64L,61L,"法律删除","",false,false,false));
         nodes.add(new TreeNode(65L,61L,"法律查看","",false,false,false));
 
+        nodes.add(new TreeNode(71L,1L,"安全管理","",false,true,true));
+        nodes.add(new TreeNode(72L,71L,"安全新增","",false,false,false));
+        nodes.add(new TreeNode(73L,71L,"安全修改","",false,false,false));
+        nodes.add(new TreeNode(74L,71L,"安全删除","",false,false,false));
+        nodes.add(new TreeNode(75L,71L,"安全查看","",false,false,false));
+
+        nodes.add(new TreeNode(81L,1L,"工装管理","",false,true,true));
+        nodes.add(new TreeNode(82L,81L,"工装新增","",false,false,false));
+        nodes.add(new TreeNode(83L,81L,"工装修改","",false,false,false));
+        nodes.add(new TreeNode(84L,81L,"工装删除","",false,false,false));
+        nodes.add(new TreeNode(85L,81L,"工装查看","",false,false,false));
+
+        nodes.add(new TreeNode(91L,1L,"案例管理","",false,true,true));
+        nodes.add(new TreeNode(92L,91L,"案例新增","",false,false,false));
+        nodes.add(new TreeNode(93L,91L,"案例修改","",false,false,false));
+        nodes.add(new TreeNode(94L,91L,"案例删除","",false,false,false));
+        nodes.add(new TreeNode(95L,91L,"案例查看","",false,false,false));
+
+        nodes.add(new TreeNode(101L,1L,"技术管理","",false,true,true));
+        nodes.add(new TreeNode(102L,101L,"技术新增","",false,false,false));
+        nodes.add(new TreeNode(103L,101L,"技术修改","",false,false,false));
+        nodes.add(new TreeNode(104L,101L,"技术删除","",false,false,false));
+        nodes.add(new TreeNode(105L,101L,"技术查看","",false,false,false));
+
+
         return nodes;
     }
 
