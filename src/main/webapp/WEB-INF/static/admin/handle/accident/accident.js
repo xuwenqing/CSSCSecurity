@@ -25,7 +25,7 @@ Entities.Accident = (function (Backbone, Entities, _) {
             return Entities.sync(API_DESTROY, data).then(function (res) {
                 model.trigger('destroy', model, model.collection, {removeself: true});
             });
-        },
+        }
     });
 
     var Collection = Backbone.Collection.extend({

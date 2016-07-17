@@ -13,22 +13,47 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="page-container">
-        <h1>中国船舶制造集团</h1>
-        <form action="" method="post">
-            <input type="text" name="username" class="username" placeholder="请输入您的用户名！">
-            <input type="password" name="password" class="password" placeholder="请输入您的用户密码！">
-            <input type="Captcha" class="Captcha" name="Captcha" placeholder="请输入验证码！">
-            <button type="submit" class="submit_button">登录</button>
-            <div class="error"><span>+</span></div>
-        </form>
-        </div>
- 
+<div class="page-container" id="MainView"></div>
+
+<script type = "text/template" id="mainView-template">
+
+    <h1>中国船舶制造集团</h1>
+    <input type="text" name="username" class="username" value="" placeholder="请输入您的账号！">
+    <input type="password" name="password" class="password" value="" placeholder="请输入您的密码！">
+    <a  class="submit_button login" href="javascript:void(0);">登录</a>
+    <!--<div class="error"><span>+</span></div>-->
+</script>
 </body>
-   <!-- Javascript -->
-    <script src="js/jquery-1.8.0.min.js" ></script>
-    <script src="js/supersized.3.2.7.min.js" ></script>
-    <script src="js/supersized-init.js" ></script>
-    <script src="js/scripts.js" ></script>
+<!-- Javascript -->
+<script src="js/jquery-1.8.0.min.js" ></script>
+<script type="text/javascript" src="js/jquery.json.js"></script>
+<script type="text/javascript" src="js/Underscore.js"></script>
+<script type="text/javascript" src="js/Backbone.js"></script>
+<script type="text/javascript" src="js/backbone.layoutmanager.js"></script>
+<script type="text/javascript" src="entities/entities.js"></script>
+<script src="js/supersized.3.2.7.min.js" ></script>
+<script src="js/supersized-init.js" ></script>
+<script src="js/scripts.js" ></script>
 </html>
+<script type="text/javascript">
+    (function(Backbone, _){
+        var EventBus= _.extend({},Backbone.Events);
+        var Msgs={};
+        Backbone.Layout.configure({
+            manage: true
+        });
+
+        var MainView = Backbone.View.extend({
+            template:"#mainView-template",
+            events:{
+                "click .login":'_onLogin'
+            },
+            _onLogin:function(){
+                var username= this.$("input[name=username]").val();
+                var password= this.$("input[name=password]").val();
+            }
+        });
+        new MainView({el:'#MainView'}).render();
+    })(Backbone,_);
+</script>
 
