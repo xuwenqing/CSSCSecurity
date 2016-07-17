@@ -232,6 +232,7 @@
     (function (Backbone, _) {
         var LawCollection = new Entities.Law.Collection();
         var LawModel = new Entities.Law.Model();
+        var Url = Entities.config.apiUrl;
         var EventBus = _.extend({}, Backbone.Events);
         var Msgs = {
             LawListView: "editLaw",
@@ -353,13 +354,13 @@
                 if (this.model_id) {
                     var flag = LawModel.edit(_.extend(data, {id: this.model_id}));
                     if (flag) {
-                        window.location.href = "http://localhost:8080/static/admin/page/law/lawList.html";
+                        window.location.href = Url+"/static/admin/page/law/lawList.html";
                     }
                 }
                 else {
                     var flag = LawCollection.create(data);
                     if (flag) {
-                        window.location.href = "http://localhost:8080/static/admin/page/law/lawList.html";
+                        window.location.href = Url+"/static/admin/page/law/lawList.html";
                     }
                 }
             },

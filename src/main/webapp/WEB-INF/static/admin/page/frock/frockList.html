@@ -200,6 +200,7 @@
     (function (Backbone, _) {
         var FrockCollection = new Entities.Frock.Collection();
         var FrockModel = new Entities.Frock.Model();
+        var Url = Entities.config.apiUrl;
         var EventBus = _.extend({}, Backbone.Events);
         var Msgs = {
             FrockListView: "editFrock",
@@ -317,13 +318,13 @@
                 if (this.model_id) {
                     var flag = FrockModel.edit(_.extend(data, {id: this.model_id}));
                     if (flag) {
-                        window.location.href = "http://localhost:8080/static/admin/page/frock/frockList.html";
+                        window.location.href = Url+"/static/admin/page/frock/frockList.html";
                     }
                 }
                 else {
                     var flag = FrockCollection.create(data);
                     if (flag) {
-                        window.location.href = "http://localhost:8080/static/admin/page/frock/frockList.html";
+                        window.location.href = Url+"/static/admin/page/frock/frockList.html";
                     }
                 }
             },

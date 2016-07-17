@@ -232,6 +232,7 @@
 <script type="text/javascript">
     (function (Backbone, _) {
         var StandardCollection = new Entities.Standard.Collection();
+        var Url = Entities.config.apiUrl;
         var StandardModel = new Entities.Standard.Model();
         var EventBus = _.extend({}, Backbone.Events);
         var Msgs = {
@@ -353,13 +354,13 @@
                 if (this.model_id) {
                     var flag = StandardModel.edit(_.extend(data, {id: this.model_id}));
                     if (flag) {
-                        window.location.href = "http://localhost:8080/static/admin/page/standard/standardList.html";
+                        window.location.href = Url+"/static/admin/page/standard/standardList.html";
                     }
                 }
                 else {
                     var flag = StandardCollection.create(data);
                     if (flag) {
-                        window.location.href = "http://localhost:8080/static/admin/page/standard/standardList.html";
+                        window.location.href = Url+"/static/admin/page/standard/standardList.html";
                     }
                 }
             },

@@ -203,6 +203,7 @@
     (function (Backbone, _) {
         var AccidentCollection = new Entities.Accident.Collection();
         var AccidentModel = new Entities.Accident.Model();
+        var Url = Entities.config.apiUrl;
         var EventBus = _.extend({}, Backbone.Events);
         var Msgs = {
             AccidentListView: "editAccident",
@@ -320,13 +321,13 @@
                 if (this.model_id) {
                     var flag = AccidentModel.edit(_.extend(data, {id: this.model_id}));
                     if (flag) {
-                        window.location.href = "http://localhost:8080/static/admin/page/accident/accidentList.html";
+                        window.location.href = Url+"/static/admin/page/accident/accidentList.html";
                     }
                 }
                 else {
                     var flag = AccidentCollection.create(data);
                     if (flag) {
-                        window.location.href = "http://localhost:8080/static/admin/page/accident/accidentList.html";
+                        window.location.href = Url+"/static/admin/page/accident/accidentList.html";
                     }
                 }
             },

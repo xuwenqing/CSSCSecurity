@@ -198,6 +198,7 @@
     (function (Backbone, _) {
         var TechnologyCollection = new Entities.Technique.Collection();
         var TechnologyModel = new Entities.Technique.Model();
+        var Url = Entities.config.apiUrl;
         var EventBus = _.extend({}, Backbone.Events);
         var Msgs = {
             TechnologyListView: "editTechnology",
@@ -316,13 +317,13 @@
                 if (this.model_id) {
                     var flag = TechnologyModel.edit(_.extend(data, {id: this.model_id}));
                     if (flag) {
-                        window.location.href = "http://localhost:8080/static/admin/page/technology/technologyList.html";
+                        window.location.href = Url+"/static/admin/page/technology/technologyList.html";
                     }
                 }
                 else {
                     var flag = TechnologyCollection.create(data);
                     if (flag) {
-                        window.location.href = "http://localhost:8080/static/admin/page/technology/technologyList.html";
+                        window.location.href = Url+"/static/admin/page/technology/technologyList.html";
                     }
                 }
             },
