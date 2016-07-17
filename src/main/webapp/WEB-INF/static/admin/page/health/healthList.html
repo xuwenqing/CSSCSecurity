@@ -9,49 +9,6 @@
     <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
     <link rel="stylesheet" type="text/css" href="../../plugins/webUploader/webuploader.css"/>
     <link rel="stylesheet" type="text/css" href="../../plugins/webUploader/style.css"/>
-    <style type="text/css">
-        .itemDel{
-            margin-left: 15px;
-            color: blue;
-            cursor: pointer;
-        }
-        #theList{
-            width: 80%;
-            min-height: 100px;
-            border: 1px solid red;
-        }
-        #theList .itemStop{
-            display: none;
-        }
-        .webuploader-container {
-            position: relative;
-        }
-        .webuploader-element-invisible {
-            position: absolute !important;
-            clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
-            clip: rect(1px,1px,1px,1px);
-        }
-        .webuploader-pick {
-            position: relative;
-            display: inline-block;
-            cursor: pointer;
-            background: #00b7ee;
-            padding: 10px 15px;
-            color: #fff;
-            text-align: center;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-        .webuploader-pick-hover {
-            background: #00a2d4;
-        }
-
-        .webuploader-pick-disable {
-            opacity: 0.6;
-            pointer-events:none;
-        }
-
-    </style>
 </head>
 <body>
 <div class="container" id="MainView">
@@ -94,6 +51,7 @@
                 </div>
             </div>
             <div class="result-content">
+
                 <table class="result-tab" width="100%">
                     <thead>
                     <tr>
@@ -184,19 +142,15 @@
     <tr>
         <th>附件上传：</th>
         <td>
-            <!--<input class="common-text required"  name="file" size="50" value="" type="file">-->
-
             <div id="uploader">
                 <ul id="theList"></ul>
                 <div id="picker">选择文件</div>
                 <button id="ctlBtn" class="btn btn-default">开始上传</button>
             </div>
             <i class="require-red">*</i>
-
-            <input id="file_meta" type="text" hidden/>
+            <input id="file_meta" type="text" name="file" value="" hidden/>
+            <div name="file"></div>
         </td>
-
-
     </tr>
 
     <tr>
@@ -238,6 +192,9 @@
 <!-- 配置文件 -->
 <script type="text/javascript" src="../../plugins/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" src="../../plugins/ueditor/ueditor.all.js"></script>
+<script src="../../plugins/webUploader/md5.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../plugins/webUploader/webuploader.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../plugins/webUploader/fileupload.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="../../js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="../../js/messages_zh.js"></script>
 <script type="text/javascript" src="../../js/moment.js"></script>
@@ -249,19 +206,20 @@
 <script type="text/javascript" src="../../entities/entities.js"></script>
 <script type="text/javascript" src="../../handle/health/health.js"></script>
 
-<script src="../../plugins/webUploader/md5.js" type="text/javascript" charset="utf-8"></script>
-<script src="../../plugins/webUploader/webuploader.js" type="text/javascript" charset="utf-8"></script>
-<script src="../../plugins/webUploader/fileupload.js" type="text/javascript" charset="utf-8"></script>
+
 
 </html>
 <script type="text/javascript">
     (function (Backbone, _) {
+        var newfiles = new Array();
+        var oldfiles = new Array();
         var HealthCollection = new Entities.Health.Collection();
         var HealthModel = new Entities.Health.Model();
         var Url = Entities.config.apiUrl;
         var EventBus = _.extend({}, Backbone.Events);
         var Msgs = {
             HealthListView: "editHealth",
+            HealthSaveView: "chooseFile",
             MainView: {DeleteItems:"mainView-deleteItems"}
         };
         Backbone.Layout.configure({
@@ -308,9 +266,15 @@
             initialize: function () {
                 this.listenTo(this.model, 'change', this.render);
                 this.listenTo(EventBus, Msgs.HealthListView, this._onEditHealth);
+
             },
             events: {
-                "click #js_new": '_onValidator'
+                "click #js_new": '_onValidator',
+                "click #picker":"_onChooseFile"
+
+            },
+            _onChooseFile:function(){
+
             },
             switchDate: function (data) {
                 var date = moment(data).format('YYYY-MM-DD');
@@ -326,6 +290,7 @@
                 var obj = data;
                 var time = [];
                 var key, value, tagName, type, arr;
+                var webUploader;
                 for (x in obj) {
                     key = x;
                     value = obj[x];
@@ -346,8 +311,16 @@
                             } else {
                                 $(this).val(value);
                             }
-                        } else if (tagName == 'SELECT' || tagName == 'TEXTAREA') {
+                        }
+                        else if (tagName == 'SELECT' || tagName == 'TEXTAREA') {
                             $(this).val(value);
+                        }
+                        else {
+                            $("#file").val(value);
+                            var oldfiles= JSON.parse(value);
+                            var newfiles = new Array();
+                            console.log(files);
+                            webUploader=window.webUploader(newfiles);
                         }
                     });
                 }
@@ -372,6 +345,17 @@
             },
             /*验证通过提交表单*/
             _onSubmit: function(){
+                if (this.model_id) {
+                    //编辑,合并两个数组
+                    newfiles;
+                    oldfiles;
+                    files;
+                    $('#file').val(files);
+                }
+                else {
+                    //新增
+                    $('#file').val(newfiles);
+                }
                 var jsonData = $('form').serializeArray();
                 console.log(jsonData);
                 var data = this._toJSON(jsonData);
@@ -465,6 +449,7 @@
                 this.$('.HealthListView').hide();
                 this.$('.HealthSaveView').show();
                 var ue = UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
+                var webUploader=window.webUploader(newfiles);
             },
             addOne: function (HealthModel) {
                 var healthListView = new HealthListView({model: HealthModel});
@@ -476,5 +461,9 @@
         });
         new MainView({el: '#MainView'}).render();
     })(Backbone, _);
+
+
+
+
 </script>
 
