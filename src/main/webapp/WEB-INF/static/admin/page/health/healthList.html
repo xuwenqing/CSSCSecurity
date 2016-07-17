@@ -197,6 +197,7 @@
     (function (Backbone, _) {
         var HealthCollection = new Entities.Health.Collection();
         var HealthModel = new Entities.Health.Model();
+        var Url = Entities.config.apiUrl;
         var EventBus = _.extend({}, Backbone.Events);
         var Msgs = {
             HealthListView: "editHealth",
@@ -316,13 +317,13 @@
                 if (this.model_id) {
                     var flag = HealthModel.edit(_.extend(data, {id: this.model_id}));
                     if (flag) {
-                        window.location.href = "http://115.159.114.88/static/admin/page/health/healthList.html";
+                        window.location.href = Url+"/static/admin/page/health/healthList.html";
                     }
                 }
                 else {
                     var flag = HealthCollection.create(data);
                     if (flag) {
-                        window.location.href = "http://115.159.114.88/static/admin/page/health/healthList.html";
+                        window.location.href = Url+"/static/admin/page/health/healthList.html";
                     }
                 }
             },

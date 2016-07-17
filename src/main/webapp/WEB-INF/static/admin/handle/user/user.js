@@ -24,7 +24,7 @@ Entities.User = (function (Backbone, Entities, _) {
             return Entities.sync(API_DESTROY, data).then(function (res) {
                 model.trigger('destroy', model, model.collection, {removeself: true});
             });
-        },
+        }
     });
 
     var Collection = Backbone.Collection.extend({
@@ -38,7 +38,6 @@ Entities.User = (function (Backbone, Entities, _) {
         query: function (data) {
             var collection = this;
             return Entities.sync(API_QUERY, data).then(function (res) {
-                console.log(res);
                 collection.reset(res);
             });
         },
