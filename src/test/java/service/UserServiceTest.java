@@ -1,7 +1,9 @@
 package service;
 
+import dao.UserMapper;
 import dao.condition.RoleCondition;
 import dao.condition.UserCondition;
+import model.Resource;
 import model.Role;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +21,11 @@ public class UserServiceTest {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private ResourceService resourceService;
+
+    @Autowired
+    private UserMapper userDao;
 
     @Test
     public void selectUsers() {
@@ -36,5 +43,21 @@ public class UserServiceTest {
         RoleCondition condition = new RoleCondition();
         condition.setRole("admin");
         System.out.println(roleService.query(condition));
+    }
+
+    @Test
+    public void selectRolesById() {
+        System.out.print(userDao.selectRolesById(new Long(2)));
+    }
+
+    @Test
+    public void selectRolesByName() {
+
+        System.out.print(userDao.selectRolesByUsername("test1"));
+    }
+
+    @Test
+    public void selectResourceByRoleId() {
+        System.out.print(resourceService.queryByRoleId(new Long(1)));
     }
 }

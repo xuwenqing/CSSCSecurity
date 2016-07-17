@@ -119,8 +119,8 @@
     <tr>
         <th>描述: </th>
         <td>
-        <input class="common-text required" name="description" size="50" value="" type="text" required>
-        <i class="require-red">*</i>
+            <input class="common-text required" name="description" size="50" value="" type="text" required>
+            <i class="require-red">*</i>
         </td>
     </tr>
     <tr>
@@ -322,10 +322,10 @@
                 var ids=[];
                 var i=0;
                 _.each(nodes,function(ele,index,list){
-                   if(list[index].hidden==false){
-                       ids[i]=list[index].id;
-                       i++;
-                   }
+                    if(list[index].hidden==false){
+                        ids[i]=list[index].id;
+                        i++;
+                    }
                 });
                 return ids;
             },
