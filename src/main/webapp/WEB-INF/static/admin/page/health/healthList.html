@@ -7,6 +7,51 @@
     <link rel="stylesheet" type="text/css" href="../../asset/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../plugins/webUploader/webuploader.css"/>
+    <link rel="stylesheet" type="text/css" href="../../plugins/webUploader/style.css"/>
+   <!-- <style type="text/css">
+        .itemDel{
+            margin-left: 15px;
+            color: blue;
+            cursor: pointer;
+        }
+        #theList{
+            width: 80%;
+            min-height: 100px;
+            border: 1px solid red;
+        }
+        #theList .itemStop{
+            display: none;
+        }
+        .webuploader-container {
+            position: relative;
+        }
+        .webuploader-element-invisible {
+            position: absolute !important;
+            clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+            clip: rect(1px,1px,1px,1px);
+        }
+        .webuploader-pick {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            background: #00b7ee;
+            padding: 10px 15px;
+            color: #fff;
+            text-align: center;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .webuploader-pick-hover {
+            background: #00a2d4;
+        }
+
+        .webuploader-pick-disable {
+            opacity: 0.6;
+            pointer-events:none;
+        }
+
+    </style>-->
 </head>
 <body>
 <div class="container" id="MainView">
@@ -138,9 +183,19 @@
 
     <tr>
         <th>附件上传：</th>
-        <td><input class="common-text required"  name="file" size="50" value="" type="file">
+        <td>
+            <!--<input class="common-text required"  name="file" size="50" value="" type="file">-->
+
+            <div id="uploader">
+                <ul id="theList"></ul>
+                <div id="picker" class="webuploader-pick">选择文件</div>
+                <button id="ctlBtn" class="btn btn-default">开始上传</button>
+            </div>
             <i class="require-red">*</i>
+            <input id="file_meta" type="text" hidden/>
         </td>
+
+
     </tr>
 
     <tr>
@@ -190,8 +245,14 @@
 <script type="text/javascript" src="../../js/Underscore.js"></script>
 <script type="text/javascript" src="../../js/Backbone.js"></script>
 <script type="text/javascript" src="../../js/backbone.layoutmanager.js"></script>
+<script src="../../plugins/webUploader/md5.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../plugins/webUploader/webuploader.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../plugins/webUploader/fileupload.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="../../entities/entities.js"></script>
 <script type="text/javascript" src="../../handle/health/health.js"></script>
+
+
+
 </html>
 <script type="text/javascript">
     (function (Backbone, _) {
@@ -249,7 +310,11 @@
                 this.listenTo(EventBus, Msgs.HealthListView, this._onEditHealth);
             },
             events: {
-                "click #js_new": '_onValidator'
+                "click #js_new": '_onValidator',
+                "click #picker":"_onChooseFile"
+            },
+            _onChooseFile:function(){
+              alert(123);
             },
             switchDate: function (data) {
                 var date = moment(data).format('YYYY-MM-DD');
