@@ -1,4 +1,4 @@
-jQuery(function () {
+window.webUploader=function (file_meta) {
     var userInfo = {userId: "kazaff", md5: ""};   //用户会话信息
     var chunkSize = 5000 * 1024;        //分块大小
     var uniqueFileName = null;          //文件唯一标识符
@@ -6,7 +6,7 @@ jQuery(function () {
     var state = 'pending';
     var $list = $('#theList');
     var $btn = $('#ctlBtn');
-    var file_meta = new Array();
+    //var file_meta = new Array();
 
     var backEndUrl = "http://localhost:8080/file/upload";
     var deleteUrl = "http://localhost:8080/file/delete";
@@ -112,10 +112,10 @@ jQuery(function () {
 
                     var meta = $.toJSON(data);//上传文件 返回信息
                     file_meta.push(meta);
-                    $('#file_meta').val(file_meta);
+                    //$('#file_meta').val(file_meta);
 
                     file.path = data.filepath;
-                    UploadComplete(file,meta);
+                    UploadComplete(file, meta);
 
                 }, function (jqXHR, textStatus, errorThrown) {
                     task.reject();
@@ -126,10 +126,10 @@ jQuery(function () {
                 var res = eval('(' + data._raw + ')');
                 var meta = $.toJSON(res);//上传文件 返回信息
                 file_meta.push(meta);
-                $('#file_meta').val(file_meta);
+                //$('#file_meta').val(file_meta);
 
                 file.path = res.filepath;
-                UploadComplete(file,meta);
+                UploadComplete(file, meta);
             }
         }
     });
@@ -257,7 +257,7 @@ jQuery(function () {
         }
     });
 
-    function UploadComplete(file,file_meta) {
+    function UploadComplete(file, file_meta) {
 
         $("#" + file.id + " .percentage").text("上传完毕");
         $("#" + file.id).find(".itemStop").hide();
@@ -268,21 +268,21 @@ jQuery(function () {
         $("#" + file.id).find(".itemDel").on("click", function () {
             uploader.removeFile(file.id);	//从上传文件列表中删除
             $(this).parent().remove();	//从上传列表dom中删除
-            removeFile(file.path,file_meta)
+            removeFile(file.path, file_meta)
         });
     }
 
     //发送请求删除已上传文件
-    function removeFile(filename,meta) {
+    function removeFile(filename, meta) {
 
-        if(meta !== null) {
-            if(file_meta.indexOf(meta) !== -1) {
+        if (meta !== null) {
+            if (file_meta.indexOf(meta) !== -1) {
 
                 var idx = file_meta.indexOf(meta);
                 file_meta.splice(idx, 1);
 
             }
-            $('#file_meta').val(file_meta);
+            //$('#file_meta').val(file_meta);
         }
 
         $.ajax({
@@ -301,4 +301,4 @@ jQuery(function () {
             }
         });
     }
-})
+}
