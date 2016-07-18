@@ -347,17 +347,17 @@
             _onSubmit: function(){
                 if (this.model_id) {
                     //编辑,合并两个数组
-                    newfiles;
-                    oldfiles;
-                    files;
-                    $('#file').val(files);
+//                    newfiles;
+//                    oldfiles;
+//                    files;
+//                    $('#file').val(files);
                 }
                 else {
                     //新增
                     $('#file').val(newfiles);
                 }
                 var jsonData = $('form').serializeArray();
-                console.log(jsonData);
+
                 var data = this._toJSON(jsonData);
                 if (this.model_id) {
                     var flag = HealthModel.edit(_.extend(data, {id: this.model_id}));
