@@ -6,7 +6,6 @@ window.webUploader=function (file_meta) {
     var state = 'pending';
     var $list = $('#theList');
     var $btn = $('#ctlBtn');
-    //var file_meta = new Array();
 
     var backEndUrl = "http://localhost:8080/file/upload";
     var deleteUrl = "http://localhost:8080/file/delete";
@@ -19,43 +18,13 @@ window.webUploader=function (file_meta) {
         beforeSendFile: function (file) {
             //秒传验证
             var task = new $.Deferred();
-            var start = new Date().getTime();
             (new WebUploader.Uploader()).md5File(file, 0, 10 * 1024 * 1024).progress(function (percentage) {
-                //console.log(percentage);
-            }).then(function (val) {
-                console.log("总耗时: " + ((new Date().getTime()) - start) / 1000);
 
+            }).then(function (val) {
                 md5Mark = val;
                 userInfo.md5 = val;
-
-                $.ajax({
-                    type: "POST"
-                    , url: backEndUrl
-                    , data: {
-                        status: "md5Check"
-                        , md5: val
-                    }
-                    , cache: false
-                    , timeout: 1000 //todo 超时的话，只能认为该文件不曾上传过
-                    , dataType: "json"
-                }).then(function (data, textStatus, jqXHR) {
-
-                    if (data.ifExist) {   //若存在，这返回失败给WebUploader，表明该文件不需要上传
-                        task.reject();
-
-                        uploader.skipFile(file);
-                        file.path = data.path;
-                        UploadComplete(file);
-                    } else {
-                        task.resolve();
-                        //拿到上传文件的唯一名称，用于断点续传
-                        uniqueFileName = md5('' + userInfo.userId + file.name + file.type + file.lastModifiedDate + file.size);
-                    }
-                }, function (jqXHR, textStatus, errorThrown) {    //任何形式的验证失败，都触发重新上传
-                    task.resolve();
-                    //拿到上传文件的唯一名称，用于断点续传
-                    uniqueFileName = md5('' + userInfo.userId + file.name + file.type + file.lastModifiedDate + file.size);
-                });
+                uniqueFileName = md5('' + userInfo.userId + file.name + file.type + file.lastModifiedDate + file.size);
+                task.resolve();
             });
             return $.when(task);
         }
@@ -112,7 +81,6 @@ window.webUploader=function (file_meta) {
 
                     var meta = $.toJSON(data);//上传文件 返回信息
                     file_meta.push(meta);
-                    //$('#file_meta').val(file_meta);
 
                     file.path = data.filepath;
                     UploadComplete(file, meta);
@@ -123,10 +91,10 @@ window.webUploader=function (file_meta) {
 
                 return $.when(task);
             } else {
+                //不分块文件上传返回结果
                 var res = eval('(' + data._raw + ')');
                 var meta = $.toJSON(res);//上传文件 返回信息
                 file_meta.push(meta);
-                //$('#file_meta').val(file_meta);
 
                 file.path = res.filepath;
                 UploadComplete(file, meta);
@@ -164,17 +132,11 @@ window.webUploader=function (file_meta) {
 
     uploader.on("fileQueued", function (file) {
 
-        //var $li = $('<li id="'+file.id+'">' +
-        //    '<img /><span>'+file.name+'</span><span class="itemUpload">上传</span><span class="itemStop">暂停</span><span class="itemDel">删除</span>' +
-        //
-        //    '</li>');
-
         var $li = $('<li id="' + file.id + '">' +
             '<img /><span>' + file.name + '</span><span class="itemDel">删除</span>' +
             '<div class="percentage"></div>' +
             '</li>');
 
-        //$li.find('.progress .progress-bar');
         $li.appendTo($list);
 
         var $img = $("#" + file.id).find("img");
@@ -187,33 +149,14 @@ window.webUploader=function (file_meta) {
             $img.attr("src", src);
         });
 
-        //todo 如果要删除的文件正在上传（包括暂停），则需要发送给后端一个请求用来清除服务器端的缓存文件
+        //发送给后端一个请求用来清除服务器端的缓存文件
         $li.find(".itemDel").on("click", function () {
             uploader.removeFile(file.id);	//从上传文件列表中删除
             $(this).parent().remove();	//从上传列表dom中删除
             removeFile(uniqueFileName);
         });
 
-        //$li.find(".itemUpload").on("click", function(){
-        //
-        //    uploader.upload(file.id);
-        //
-        //    $(this).hide();
-        //    $(this).parent().find(".itemStop").show();
-        //});
-        //
-        //$li.find(".itemStop").on("click", function(){
-        //    uploader.stop(file,true);
-        //
-        //    //"暂停"-->"上传"
-        //    $(this).hide();
-        //    $(this).parent().find(".itemUpload").show();
-        //});
     });
-
-    //uploader.on("uploadProgress", function(file, percentage){
-    //    $("#" + file.id + " .percentage").text(percentage * 100 + "%");
-    //});
 
     // 文件上传过程中创建进度条实时显示。
     uploader.on('uploadProgress', function (file, percentage) {
@@ -227,10 +170,9 @@ window.webUploader=function (file_meta) {
                 '</div>' +
                 '</div>').appendTo($li).find('.progress-bar');
         }
-        //$(".progress").show();
+
         $percent.css('width', percentage * 100 + '%');
         $("#" + file.id + " .percentage").text(Math.floor(percentage * 100) + "%");
-        //$percent.text( + '%' )
     });
 
     uploader.on('all', function (type) {
@@ -282,7 +224,6 @@ window.webUploader=function (file_meta) {
                 file_meta.splice(idx, 1);
 
             }
-            //$('#file_meta').val(file_meta);
         }
 
         $.ajax({
