@@ -81,7 +81,7 @@ window.webUploader=function (file_meta) {
 
                     var meta = $.toJSON(data);//上传文件 返回信息
                     file_meta.push(meta);
-
+                    console.log(meta);
                     file.path = data.filepath;
                     UploadComplete(file, meta);
 
@@ -133,7 +133,7 @@ window.webUploader=function (file_meta) {
     uploader.on("fileQueued", function (file) {
 
         var $li = $('<li id="' + file.id + '">' +
-            '<img /><span>' + file.name + '</span><span class="itemDel">删除</span>' +
+            '<img /><span style="margin-left: 15px;">' + file.name + '</span><a class="itemDel btn btn-danger" href="javascript:void(0);" style="margin-left: 5px;">删除</a>' +
             '<div class="percentage"></div>' +
             '</li>');
 

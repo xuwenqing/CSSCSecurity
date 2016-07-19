@@ -26,8 +26,8 @@ public class FileUploadController {
 
 	private final static Logger log = LoggerFactory.getLogger(FileUploadController.class);
 
-	//@Value("${upload.folder}")
-	private String uploadFolder="d:/upload";
+	@Value("${upload.folder}")
+	private String uploadFolder;
 
 	@Autowired
 	private webUploader wu;
