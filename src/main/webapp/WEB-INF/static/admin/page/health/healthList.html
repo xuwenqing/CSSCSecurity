@@ -283,19 +283,14 @@
             parseTime: function (a) {
                 $('input[name="publishDate"]').val(a);
             },
-            _onFileDelete:function(){
-                alert(234);
-            },
             /*向表单填充数据*/
             _onEditHealth: function (data) {
-                //将文件转化为js对象
-                var file = JSON.parse(data.file);
-                UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
-                window.webUploader(newfiles);
-                $("#old_files").text(file.filename);
+                var ue = UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
                 this.model_id = data.id;
                 var obj = data;
+                var time = [];
                 var key, value, tagName, type, arr;
+                var webUploader;
                 for (x in obj) {
                     key = x;
                     value = obj[x];
@@ -321,14 +316,16 @@
                             $(this).val(value);
                         }
                         else {
-                            $("#old_files").text(value);
+                            $("#file").val(value);
                             var oldfiles= JSON.parse(value);
                             var newfiles = new Array();
                             console.log(files);
+                            webUploader=window.webUploader(newfiles);
                         }
                     });
                 }
                 var publishDate = this.switchDate(parseInt($('input[name="publishDate"]').val()));
+
                 this.parseTime(publishDate);
             },
             /*验证表单*/
@@ -349,17 +346,19 @@
             /*验证通过提交表单*/
             _onSubmit: function(){
                 if (this.model_id) {
-                    /*编辑,合并两个数组
-                     newfiles;
-                     oldfiles;
-                     files;
-                     $('#file').val(files)*/;
+                    //编辑,合并两个数组
+//                    newfiles;
+//                    oldfiles;
+//                    files;
+//                    $('#file').val(files);
                 }
                 else {
-                    $('#new_files').val(newfiles.toString());
+                    //新增
+                    $('#file').val(newfiles);
                 }
                 var jsonData = $('form').serializeArray();
-                var data =this._toJSON(jsonData);
+
+                var data = this._toJSON(jsonData);
                 if (this.model_id) {
                     var flag = HealthModel.edit(_.extend(data, {id: this.model_id}));
                     if (flag) {
@@ -401,7 +400,6 @@
                 var base = $info.attr('data_parent');
                 this.type = $info.attr('data_category');
                 HealthCollection.fetch({category: this.type});
-                console.log("妈蛋，我又执行了一遍");
                 this.$('.crumb-wrap').append('基础数据管理' + ">>" + base + ">>" + this.type);
             },
             events: {
@@ -411,6 +409,7 @@
                 "click #delete_items": '_onDeleteItems'
             },
             _onShowHealthList: function () {
+                console.log("_onShowHealthList");
                 var key = $('select').val();
                 var value = $("input").val();
                 var data = {};
@@ -462,4 +461,9 @@
         });
         new MainView({el: '#MainView'}).render();
     })(Backbone, _);
+
+
+
+
 </script>
+
