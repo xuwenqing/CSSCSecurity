@@ -354,21 +354,13 @@
                 if (this.model_id) {
                     var flag = LawModel.edit(_.extend(data, {id: this.model_id}));
                     if (flag) {
-<<<<<<< HEAD
-                        window.location.href = "http://115.159.114.88/static/admin/page/law/lawList.html";
-=======
                         window.location.href = Url+"/static/admin/page/law/lawList.html";
->>>>>>> 27eb253399ebf346eb0c750b446504b21af7c27f
                     }
                 }
                 else {
                     var flag = LawCollection.create(data);
                     if (flag) {
-<<<<<<< HEAD
-                        window.location.href = "http://115.159.114.88/static/admin/page/law/lawList.html";
-=======
                         window.location.href = Url+"/static/admin/page/law/lawList.html";
->>>>>>> 27eb253399ebf346eb0c750b446504b21af7c27f
                     }
                 }
             },

@@ -121,7 +121,7 @@
     <tr>
         <th width="120">类别：</th>
         <td>
-            <select name="category" class="required" style="width:120px;">
+            <select name="category" class="required" style="width:120px;" required>
                 <option value="">请选择</option>
                 <option value="作业健康知识">作业健康知识</option>
                 <option value="职业健康知识">职业健康知识</option>
@@ -133,30 +133,36 @@
 
 
     <tr>
-        <th>内容：</th>
-        <td><textarea name="content" class="common-textarea " id="container"  cols="30" style="width: 99%;" rows="10" ></textarea>
-            <i class="require-red">*</i>
+        <th>内容:<i class="require-red">*</i></th>
+        <td><textarea name="content" class="common-textarea required" id="container"  cols="30" style="width: 99%;" rows="10" required></textarea>
         </td>
     </tr>
 
     <tr>
-        <th>附件上传：</th>
+        <th>附件上传:</th>
         <td>
+            <div>
+                <ul id="fileList">
+                    <li >
+                        <span id="old_files"></span>
+                        <a class="fileDel btn btn-danger" href="javascript:void(0);" style="margin-left: 5px;">删除</a>
+                    </li>
+                </ul>
+            </div>
             <div id="uploader">
                 <ul id="theList"></ul>
                 <div id="picker">选择文件</div>
                 <button id="ctlBtn" class="btn btn-default">开始上传</button>
             </div>
-            <i class="require-red">*</i>
-            <input id="file_meta" type="text" name="file" value="" hidden/>
-            <div name="file"></div>
+
+            <input id="new_files" type="text" name="file" hidden/>
         </td>
     </tr>
 
     <tr>
         <th>发布人：</th>
         <td>
-            <input class="common-text required"  name="publisher" size="50" value="" type="text">
+            <input class="common-text required"  name="publisher" size="50" value="" type="text" required>
             <i class="require-red">*</i>
         </td>
     </tr>
@@ -164,7 +170,7 @@
     <tr>
         <th>发布日期：</th>
         <td>
-            <input class="common-text laydate-icon"  name="publishDate" size="50" value="" type="text"  onclick="laydate()">
+            <input class="common-text laydate-icon required"  name="publishDate" size="50" value="" type="text"  onclick="laydate()">
             <i class="require-red">*</i>
         </td>
     </tr>
@@ -184,7 +190,6 @@
         </td>
     </tr>
 </script>
-
 </body>
 
 <!-- Javascript -->
@@ -260,6 +265,10 @@
                 this.model.delete();
             }
         });
+    /*    var FileListView = Backbone.View.extend({
+           template:'#fileView-template',
+            tagName:'li'
+        });*/
         var HealthSaveView = Backbone.View.extend({
             template: '#HealthSaveView-template',
             tagName: 'tbody',
@@ -270,11 +279,7 @@
             },
             events: {
                 "click #js_new": '_onValidator',
-                "click #picker":"_onChooseFile"
-
-            },
-            _onChooseFile:function(){
-
+                "click .fileDel":"_onFileDelete"
             },
             switchDate: function (data) {
                 var date = moment(data).format('YYYY-MM-DD');
@@ -283,14 +288,19 @@
             parseTime: function (a) {
                 $('input[name="publishDate"]').val(a);
             },
+            _onFileDelete:function(){
+              alert(234);
+            },
             /*向表单填充数据*/
             _onEditHealth: function (data) {
-                var ue = UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
+                //将文件转化为js对象
+                var file = JSON.parse(data.file);
+                UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
+                window.webUploader(newfiles);
+                $("#old_files").text(file.filename);
                 this.model_id = data.id;
                 var obj = data;
-                var time = [];
                 var key, value, tagName, type, arr;
-                var webUploader;
                 for (x in obj) {
                     key = x;
                     value = obj[x];
@@ -316,16 +326,14 @@
                             $(this).val(value);
                         }
                         else {
-                            $("#file").val(value);
+                            $("#old_files").text(value);
                             var oldfiles= JSON.parse(value);
                             var newfiles = new Array();
                             console.log(files);
-                            webUploader=window.webUploader(newfiles);
                         }
                     });
                 }
                 var publishDate = this.switchDate(parseInt($('input[name="publishDate"]').val()));
-
                 this.parseTime(publishDate);
             },
             /*验证表单*/
@@ -346,19 +354,17 @@
             /*验证通过提交表单*/
             _onSubmit: function(){
                 if (this.model_id) {
-                    //编辑,合并两个数组
-//                    newfiles;
-//                    oldfiles;
-//                    files;
-//                    $('#file').val(files);
+                    /*编辑,合并两个数组
+                    newfiles;
+                    oldfiles;
+                    files;
+                    $('#file').val(files)*/;
                 }
                 else {
-                    //新增
-                    $('#file').val(newfiles);
+                    $('#new_files').val(newfiles.toString());
                 }
                 var jsonData = $('form').serializeArray();
-
-                var data = this._toJSON(jsonData);
+                var data =this._toJSON(jsonData);
                 if (this.model_id) {
                     var flag = HealthModel.edit(_.extend(data, {id: this.model_id}));
                     if (flag) {
@@ -400,6 +406,7 @@
                 var base = $info.attr('data_parent');
                 this.type = $info.attr('data_category');
                 HealthCollection.fetch({category: this.type});
+                console.log("妈蛋，我又执行了一遍");
                 this.$('.crumb-wrap').append('基础数据管理' + ">>" + base + ">>" + this.type);
             },
             events: {
@@ -409,7 +416,6 @@
                 "click #delete_items": '_onDeleteItems'
             },
             _onShowHealthList: function () {
-                console.log("_onShowHealthList");
                 var key = $('select').val();
                 var value = $("input").val();
                 var data = {};
@@ -461,9 +467,5 @@
         });
         new MainView({el: '#MainView'}).render();
     })(Backbone, _);
-
-
-
-
 </script>
 
