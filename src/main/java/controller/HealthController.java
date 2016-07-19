@@ -25,6 +25,9 @@ public class HealthController extends BaseController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto add(@RequestBody Health Health) {
+
+        System.out.println(Health);
+
         ResponsePackDto dto = new ResponsePackDto();
         if(healthService.add(Health))
             return dto;
