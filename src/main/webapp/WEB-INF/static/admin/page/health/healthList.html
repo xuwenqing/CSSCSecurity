@@ -1,7 +1,6 @@
 <!doctype html>
 <html>
 <head>
-    <!-- MMMMM-->
     <meta charset="UTF-8">
     <title>后台管理</title>
     <link rel="stylesheet" type="text/css" href="../../asset/css/bootstrap.min.css">
@@ -144,10 +143,7 @@
         <td>
             <div>
                 <ul id="fileList">
-                    <li >
-                        <span id="old_files"></span>
-                        <a class="fileDel btn btn-danger" href="javascript:void(0);" style="margin-left: 5px;">删除</a>
-                    </li>
+
                 </ul>
             </div>
             <div id="uploader">
@@ -155,7 +151,6 @@
                 <div id="picker">选择文件</div>
                 <button id="ctlBtn" class="btn btn-default">开始上传</button>
             </div>
-
             <input id="new_files" type="text" name="file" hidden/>
         </td>
     </tr>
@@ -216,13 +211,18 @@
 
 </html>
 <script type="text/javascript">
+    function deleteFile(file){
+        console.log(file);
+    }
     (function (Backbone, _) {
         var newfiles = new Array();
         var oldfiles = new Array();
+        var delfiles = new Array();
         var HealthCollection = new Entities.Health.Collection();
         var HealthModel = new Entities.Health.Model();
         var Url = Entities.config.apiUrl;
         var EventBus = _.extend({}, Backbone.Events);
+
         var Msgs = {
             HealthListView: "editHealth",
             HealthSaveView: "chooseFile",
@@ -280,7 +280,7 @@
             },
             events: {
                 "click #js_new": '_onValidator',
-                "click .fileDel":"_onFileDelete"
+//                "click .fileDel":"_onFileDelete"
             },
             switchDate: function (data) {
                 var date = moment(data).format('YYYY-MM-DD');
@@ -290,16 +290,13 @@
                 $('input[name="publishDate"]').val(a);
             },
             _onFileDelete:function(){
-                alert(234);
+
             },
             /*向表单填充数据*/
             _onEditHealth: function (data) {
-                //将文件转化为js对象
-                var file = JSON.parse(data.file);
+                this.showFiles(JSON.parse(data.file));
                 UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
                 window.webUploader(newfiles);
-                $("#old_files").text(file.filename);
-                this.model_id = data.id;
                 var obj = data;
                 var key, value, tagName, type, arr;
                 for (x in obj) {
@@ -327,8 +324,7 @@
                             $(this).val(value);
                         }
                         else {
-                            $("#old_files").text(value);
-                            var oldfiles= JSON.parse(value);
+
                             var newfiles = new Array();
                             console.log(files);
                         }
@@ -336,6 +332,16 @@
                 }
                 var publishDate = this.switchDate(parseInt($('input[name="publishDate"]').val()));
                 this.parseTime(publishDate);
+            },
+            showFiles:function(files){
+                var self=this;
+                _.each(files,function(ele,index,File){
+                    var _html= "<li >"+
+                            " <span class='old_files'>"+File[index].filename+"</span>"+
+                            " <a class='fileDel btn btn-danger' onclick='deleteFile(File)' href='javascript:void(0);' style='margin-left: 5px;'>"+"删除"+"</a>"+
+                            "</li>";
+                    self.$("#fileList").append(_html);
+                });
             },
             /*验证表单*/
             _onValidator:function(){
@@ -348,7 +354,7 @@
                         name:'请输入名称'
                     },
                     submitHandler:function() {
-                        parent._onSubmit();
+                            parent._onSubmit();
                     }
                 });
             },
@@ -362,7 +368,7 @@
                      $('#file').val(files)*/;
                 }
                 else {
-                    $('#new_files').val(newfiles.toString());
+                    $('#new_files').val("["+newfiles+"]");
                 }
                 var jsonData = $('form').serializeArray();
                 var data =this._toJSON(jsonData);

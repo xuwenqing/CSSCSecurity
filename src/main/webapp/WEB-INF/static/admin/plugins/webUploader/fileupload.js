@@ -6,7 +6,6 @@ window.webUploader=function (file_meta) {
     var state = 'pending';
     var $list = $('#theList');
     var $btn = $('#ctlBtn');
-
     var backEndUrl = "http://localhost:8080/file/upload";
     var deleteUrl = "http://localhost:8080/file/delete";
 
@@ -78,13 +77,11 @@ window.webUploader=function (file_meta) {
 
                     //todo 检查响应是否正常
                     task.resolve();
-
                     var meta = $.toJSON(data);//上传文件 返回信息
                     file_meta.push(meta);
                     console.log(meta);
                     file.path = data.filepath;
                     UploadComplete(file, meta);
-
                 }, function (jqXHR, textStatus, errorThrown) {
                     task.reject();
                 });
@@ -95,9 +92,11 @@ window.webUploader=function (file_meta) {
                 var res = eval('(' + data._raw + ')');
                 var meta = $.toJSON(res);//上传文件 返回信息
                 file_meta.push(meta);
-
+                result.push("hahaha");
+                console.log(result);
                 file.path = res.filepath;
                 UploadComplete(file, meta);
+
             }
         }
     });
@@ -200,7 +199,6 @@ window.webUploader=function (file_meta) {
     });
 
     function UploadComplete(file, file_meta) {
-
         $("#" + file.id + " .percentage").text("上传完毕");
         $("#" + file.id).find(".itemStop").hide();
         $("#" + file.id).find(".itemUpload").hide();
