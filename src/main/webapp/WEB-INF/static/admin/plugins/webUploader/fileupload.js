@@ -92,8 +92,6 @@ window.webUploader=function (file_meta) {
                 var res = eval('(' + data._raw + ')');
                 var meta = $.toJSON(res);//上传文件 返回信息
                 file_meta.push(meta);
-                result.push("hahaha");
-                console.log(result);
                 file.path = res.filepath;
                 UploadComplete(file, meta);
 
