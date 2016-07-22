@@ -214,9 +214,6 @@
 <script type="text/javascript" src="../../handle/health/health.js"></script>
 </html>
 <script type="text/javascript">
-    function deleteFile(file){
-        console.log(file);
-    }
     (function (Backbone, _) {
         var newFiles = [];
         var oldFiles = [];
@@ -476,8 +473,8 @@
             _onCreateHealth: function () {
                 this.$('.HealthListView').hide();
                 this.$('.HealthSaveView').show();
-                var ue = UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
-                var webUploader=window.webUploader(newFiles);
+                UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
+                window.webUploader(newFiles);
             },
             addOne: function (HealthModel) {
                 var healthListView = new HealthListView({model: HealthModel});
