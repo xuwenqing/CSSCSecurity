@@ -186,6 +186,12 @@
         </td>
     </tr>
 </script>
+<script type="text/template" id="fileView-template">
+    <li>
+         <span class="old_files"><%=filename %></span>
+         <a class="fileDel btn btn-danger"  id="<%=filepath %>"  href="javascript:void(0);" style="margin-left: 5px;">删除</a>
+    </li>
+</script>
 </body>
 
 <!-- Javascript -->
@@ -206,18 +212,15 @@
 <script type="text/javascript" src="../../js/backbone.layoutmanager.js"></script>
 <script type="text/javascript" src="../../entities/entities.js"></script>
 <script type="text/javascript" src="../../handle/health/health.js"></script>
-
-
-
 </html>
 <script type="text/javascript">
     function deleteFile(file){
         console.log(file);
     }
     (function (Backbone, _) {
-        var newfiles = new Array();
-        var oldfiles = new Array();
-        var delfiles = new Array();
+        var newFiles = [];
+        var oldFiles = [];
+        var delFiles = [];
         var HealthCollection = new Entities.Health.Collection();
         var HealthModel = new Entities.Health.Model();
         var Url = Entities.config.apiUrl;
@@ -266,21 +269,37 @@
                 this.model.delete();
             }
         });
-        /*    var FileListView = Backbone.View.extend({
-         template:'#fileView-template',
-         tagName:'li'
-         });*/
+         var FileListView = Backbone.View.extend({
+            tagName:'li',
+            afterRender:function(){
+                this.onCreate();
+                this.$el.html(this.template(this.model));
+             },
+             onCreate:function(){
+                 this.template= _.template($("#fileView-template").html());
+             },
+             events:{
+               "click .fileDel":"_onFileDelete"
+             },
+             _onFileDelete:function(){
+                 var path=this.$("a").attr("id");
+                 delFiles.push(path);
+                 oldFiles.pop(path);
+                 $("#new_files").val(delFiles);
+                 console.log(oldFiles);
+                 console.log(delFiles);
+                 this.remove();
+             }
+         });
         var HealthSaveView = Backbone.View.extend({
             template: '#HealthSaveView-template',
             tagName: 'tbody',
             initialize: function () {
                 this.listenTo(this.model, 'change', this.render);
                 this.listenTo(EventBus, Msgs.HealthListView, this._onEditHealth);
-
             },
             events: {
-                "click #js_new": '_onValidator',
-//                "click .fileDel":"_onFileDelete"
+                "click #js_new": '_onValidator'
             },
             switchDate: function (data) {
                 var date = moment(data).format('YYYY-MM-DD');
@@ -289,14 +308,12 @@
             parseTime: function (a) {
                 $('input[name="publishDate"]').val(a);
             },
-            _onFileDelete:function(){
-
-            },
             /*向表单填充数据*/
             _onEditHealth: function (data) {
                 this.showFiles(JSON.parse(data.file));
                 UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
-                window.webUploader(newfiles);
+                this.model_id = data.id;
+                window.webUploader(newFiles);
                 var obj = data;
                 var key, value, tagName, type, arr;
                 for (x in obj) {
@@ -325,7 +342,7 @@
                         }
                         else {
 
-                            var newfiles = new Array();
+                            var newFiles = new Array();
                             console.log(files);
                         }
                     });
@@ -336,11 +353,9 @@
             showFiles:function(files){
                 var self=this;
                 _.each(files,function(ele,index,File){
-                    var _html= "<li >"+
-                            " <span class='old_files'>"+File[index].filename+"</span>"+
-                            " <a class='fileDel btn btn-danger' onclick='deleteFile(File)' href='javascript:void(0);' style='margin-left: 5px;'>"+"删除"+"</a>"+
-                            "</li>";
-                    self.$("#fileList").append(_html);
+                    oldFiles.push(File[index].filepath);//添加旧的文件路径
+                   var fileView = new FileListView({model:File[index]});
+                    self.insertView("#fileList",fileView).render();
                 });
             },
             /*验证表单*/
@@ -362,13 +377,13 @@
             _onSubmit: function(){
                 if (this.model_id) {
                     /*编辑,合并两个数组
-                     newfiles;
+                     newFiles;
                      oldfiles;
                      files;
                      $('#file').val(files)*/;
                 }
                 else {
-                    $('#new_files').val("["+newfiles+"]");
+                    $('#new_files').val("["+newFiles+"]");
                 }
                 var jsonData = $('form').serializeArray();
                 var data =this._toJSON(jsonData);
@@ -462,7 +477,7 @@
                 this.$('.HealthListView').hide();
                 this.$('.HealthSaveView').show();
                 var ue = UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
-                var webUploader=window.webUploader(newfiles);
+                var webUploader=window.webUploader(newFiles);
             },
             addOne: function (HealthModel) {
                 var healthListView = new HealthListView({model: HealthModel});
