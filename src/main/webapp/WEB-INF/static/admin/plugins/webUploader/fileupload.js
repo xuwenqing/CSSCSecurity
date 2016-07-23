@@ -1,13 +1,14 @@
 window.webUploader=function (file_meta) {
     var userInfo = {userId: "kazaff", md5: ""};   //用户会话信息
     var chunkSize = 5000 * 1024;        //分块大小
-    var uniqueFileName = null;          //文件唯一标识符
-    var md5Mark = null;
+    //var uniqueFileName = null;          //文件唯一标识符
+    //var md5Mark = null;
     var state = 'pending';
     var $list = $('#theList');
     var $btn = $('#ctlBtn');
     var backEndUrl = "http://localhost:8080/file/upload";
     var deleteUrl = "http://localhost:8080/file/delete";
+    var fileMap = new HashMap();
 
     WebUploader.Uploader.register({
         "before-send-file": "beforeSendFile"
@@ -20,15 +21,18 @@ window.webUploader=function (file_meta) {
             (new WebUploader.Uploader()).md5File(file, 0, 10 * 1024 * 1024).progress(function (percentage) {
 
             }).then(function (val) {
-                md5Mark = val;
-                userInfo.md5 = val;
-                uniqueFileName = md5('' + userInfo.userId + file.name + file.type + file.lastModifiedDate + file.size);
+                //md5Mark = val;
+                //userInfo.md5 = val;
+                var uniqueFileName = md5('' + userInfo.userId + file.name + file.type + file.lastModifiedDate + file.size);
+                fileMap.set(uniqueFileName,val);
                 task.resolve();
             });
             return $.when(task);
         }
         , beforeSend: function (block) {
+            console.log(block);
             //分片验证是否已传过，用于断点续传
+            var uniqueFileName = md5('' + userInfo.userId + block.file.name + block.file.type + block.file.lastModifiedDate + block.file.size);
             var task = new $.Deferred();
             $.ajax({
                 type: "POST"
@@ -56,6 +60,8 @@ window.webUploader=function (file_meta) {
         }
         , afterSendFile: function (file, data) {
             var chunksTotal = 0;
+            var uniqueFileName = md5('' + userInfo.userId + file.name + file.type + file.lastModifiedDate + file.size);
+            var md5Mark = fileMap.get(uniqueFileName);
             if ((chunksTotal = Math.ceil(file.size / chunkSize)) > 1) {
                 //合并请求
                 var task = new $.Deferred();
@@ -92,8 +98,6 @@ window.webUploader=function (file_meta) {
                 var res = eval('(' + data._raw + ')');
                 var meta = $.toJSON(res);//上传文件 返回信息
                 file_meta.push(meta);
-                result.push("hahaha");
-                console.log(result);
                 file.path = res.filepath;
                 UploadComplete(file, meta);
 
