@@ -69,9 +69,14 @@ public class webUploader {
     public boolean deleteFolder(String folder, String path) {
         //删除分片文件夹
         File garbage = new File(path + "/" + folder);
+        boolean directory = garbage.isDirectory();
         if(!deleteDir(garbage)){
             return false;
         }
+
+        //如果不是大文件则不需要删除tmp文件
+        if(!directory)
+            return true;
 
         //删除tmp文件
         garbage = new File(path + "/" + folder + ".tmp");

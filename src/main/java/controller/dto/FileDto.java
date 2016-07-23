@@ -10,6 +10,17 @@ public class FileDto {
     private String size;
     private String md5;
 
+    @Override
+    public String toString() {
+        return "FileDto{" +
+                "filename='" + filename + '\'' +
+                ", filepath='" + filepath + '\'' +
+                ", ext='" + ext + '\'' +
+                ", size='" + size + '\'' +
+                ", md5='" + md5 + '\'' +
+                '}';
+    }
+
     public String getMd5() {
         return md5;
     }
