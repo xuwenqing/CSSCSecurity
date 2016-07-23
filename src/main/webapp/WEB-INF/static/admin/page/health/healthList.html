@@ -151,7 +151,7 @@
                 <div id="picker">选择文件</div>
                 <button id="ctlBtn" class="btn btn-default">开始上传</button>
             </div>
-            <input id="new_files" type="text" name="file" hidden/>
+            <input id="new_files" type="text" name="file"  hidden/>
         </td>
     </tr>
 
@@ -189,7 +189,7 @@
 <script type="text/template" id="fileView-template">
     <li>
          <span class="old_files"><%=filename %></span>
-         <a class="fileDel btn btn-danger"  id="<%=filepath %>"  href="javascript:void(0);" style="margin-left: 5px;">删除</a>
+         <a class="fileDel btn btn-danger"  id="<%=filename %>"  href="javascript:void(0);" style="margin-left: 5px;">删除</a>
     </li>
 </script>
 </body>
@@ -214,9 +214,6 @@
 <script type="text/javascript" src="../../handle/health/health.js"></script>
 </html>
 <script type="text/javascript">
-    function deleteFile(file){
-        console.log(file);
-    }
     (function (Backbone, _) {
         var newFiles = [];
         var oldFiles = [];
@@ -225,7 +222,6 @@
         var HealthModel = new Entities.Health.Model();
         var Url = Entities.config.apiUrl;
         var EventBus = _.extend({}, Backbone.Events);
-
         var Msgs = {
             HealthListView: "editHealth",
             HealthSaveView: "chooseFile",
@@ -282,12 +278,12 @@
                "click .fileDel":"_onFileDelete"
              },
              _onFileDelete:function(){
-                 var path=this.$("a").attr("id");
-                 delFiles.push(path);
-                 oldFiles.pop(path);
-                 $("#new_files").val(delFiles);
-                 console.log(oldFiles);
-                 console.log(delFiles);
+                 var fileName=this.$("a").attr("id");
+                 oldFiles=_.filter(oldFiles,function(ele,index,arr){
+                     return arr[index].filename!= fileName;
+                 });
+                 delFiles.push(fileName);
+                 delFiles=delFiles.concat(newFiles);
                  this.remove();
              }
          });
@@ -351,9 +347,10 @@
                 this.parseTime(publishDate);
             },
             showFiles:function(files){
+                console.log(files);
                 var self=this;
                 _.each(files,function(ele,index,File){
-                    oldFiles.push(File[index].filepath);//添加旧的文件路径
+                    oldFiles.push(File[index]);//添加旧的文件
                    var fileView = new FileListView({model:File[index]});
                     self.insertView("#fileList",fileView).render();
                 });
@@ -381,14 +378,16 @@
                      oldfiles;
                      files;
                      $('#file').val(files)*/;
+                    $('#new_files').val(JSON.stringify(oldFiles));
                 }
                 else {
                     $('#new_files').val("["+newFiles+"]");
                 }
                 var jsonData = $('form').serializeArray();
+                console.log(  $('#new_files').val());
                 var data =this._toJSON(jsonData);
                 if (this.model_id) {
-                    var flag = HealthModel.edit(_.extend(data, {id: this.model_id}));
+                    var flag = HealthModel.edit(_.extend(data, {id: this.model_id,dels:delFiles}));
                     if (flag) {
                         window.location.href = Url+"/static/admin/page/health/healthList.html";
                     }
@@ -413,6 +412,7 @@
         var MainView = Backbone.View.extend({
             template: '#mainView_template',
             initialize: function () {
+                this._onCreate();
                 var $info = $("#ifra", parent.document);
                 var base = $info.attr('data_parent');
                 var type = $info.attr('data_category');
@@ -421,14 +421,13 @@
                 this.insertView('.crumb-wrap', crumbView).render();
                 var healthSaveView = new HealthSaveView({model: HealthModel});
                 this.insertView('#HealthView', healthSaveView).render();
-                this._onCreate();
+
             },
             _onCreate: function () {
                 var $info = $("#ifra", parent.document);
                 var base = $info.attr('data_parent');
                 this.type = $info.attr('data_category');
                 HealthCollection.fetch({category: this.type});
-                console.log("妈蛋，我又执行了一遍");
                 this.$('.crumb-wrap').append('基础数据管理' + ">>" + base + ">>" + this.type);
             },
             events: {
@@ -476,8 +475,8 @@
             _onCreateHealth: function () {
                 this.$('.HealthListView').hide();
                 this.$('.HealthSaveView').show();
-                var ue = UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
-                var webUploader=window.webUploader(newFiles);
+                UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
+                window.webUploader(newFiles);
             },
             addOne: function (HealthModel) {
                 var healthListView = new HealthListView({model: HealthModel});
