@@ -283,7 +283,6 @@
                      return arr[index].filename!= fileName;
                  });
                  delFiles.push(fileName);
-                 delFiles=delFiles.concat(newFiles);
                  this.remove();
              }
          });
@@ -308,8 +307,8 @@
             _onEditHealth: function (data) {
                 this.showFiles(JSON.parse(data.file));
                 UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
-                this.model_id = data.id;
                 window.webUploader(newFiles);
+                this.model_id = data.id;
                 var obj = data;
                 var key, value, tagName, type, arr;
                 for (x in obj) {
@@ -373,12 +372,8 @@
             /*验证通过提交表单*/
             _onSubmit: function(){
                 if (this.model_id) {
-                    /*编辑,合并两个数组
-                     newFiles;
-                     oldfiles;
-                     files;
-                     $('#file').val(files)*/;
-                    $('#new_files').val(JSON.stringify(oldFiles));
+                 //删除的剩余文件与新上传的文件并集
+                    $('#new_files').val(JSON.stringify(oldFiles.concat(JSON.parse(newFiles))));
                 }
                 else {
                     $('#new_files').val("["+newFiles+"]");
