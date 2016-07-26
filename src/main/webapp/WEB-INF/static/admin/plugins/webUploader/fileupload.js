@@ -91,7 +91,6 @@ window.webUploader=function (file_meta) {
                 }, function (jqXHR, textStatus, errorThrown) {
                     task.reject();
                 });
-
                 return $.when(task);
             } else {
                 //不分块文件上传返回结果
@@ -114,8 +113,8 @@ window.webUploader=function (file_meta) {
         , paste: document.body
         , disableGlobalDnd: true
         , thumb: {
-            width: 100
-            , height: 100
+            width: 50
+            , height: 50
             , quality: 70
             , allowMagnify: true
             , crop: true
@@ -160,7 +159,6 @@ window.webUploader=function (file_meta) {
         });
 
     });
-
     // 文件上传过程中创建进度条实时显示。
     uploader.on('uploadProgress', function (file, percentage) {
         var $li = $('#' + file.id),
@@ -173,11 +171,9 @@ window.webUploader=function (file_meta) {
                 '</div>' +
                 '</div>').appendTo($li).find('.progress-bar');
         }
-
         $percent.css('width', percentage * 100 + '%');
         $("#" + file.id + " .percentage").text(Math.floor(percentage * 100) + "%");
     });
-
     uploader.on('all', function (type) {
         if (type === 'startUpload') {
             state = 'uploading';
@@ -186,7 +182,6 @@ window.webUploader=function (file_meta) {
         } else if (type === 'uploadFinished') {
             state = 'done';
         }
-
         if (state === 'uploading') {
             $btn.text('暂停上传');
         } else {
@@ -201,7 +196,6 @@ window.webUploader=function (file_meta) {
             uploader.upload();
         }
     });
-
     function UploadComplete(file, file_meta) {
         $("#" + file.id + " .percentage").text("上传完毕");
         $("#" + file.id).find(".itemStop").hide();
@@ -215,10 +209,8 @@ window.webUploader=function (file_meta) {
             removeFile(file.path, file_meta)
         });
     }
-
     //发送请求删除已上传文件
     function removeFile(filename, meta) {
-
         if (meta !== null) {
             if (file_meta.indexOf(meta) !== -1) {
 
@@ -227,7 +219,6 @@ window.webUploader=function (file_meta) {
 
             }
         }
-
         $.ajax({
             type: 'POST',
             url: deleteUrl,
