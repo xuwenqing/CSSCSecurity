@@ -154,6 +154,18 @@ public class RoleController extends BaseController {
         nodes.add(new TreeNode(104L,101L,"技术删除","",false,false,false));
         nodes.add(new TreeNode(105L,101L,"技术查看","",false,false,false));
 
+        nodes.add(new TreeNode(21L,1L,"用户管理","",false,true,true));
+        nodes.add(new TreeNode(22L,21L,"用户新增","",false,false,false));
+        nodes.add(new TreeNode(23L,21L,"用户修改","",false,false,false));
+        nodes.add(new TreeNode(24L,21L,"用户删除","",false,false,false));
+        nodes.add(new TreeNode(25L,21L,"用户查看","",false,false,false));
+
+        nodes.add(new TreeNode(41L,1L,"角色管理","",false,true,true));
+        nodes.add(new TreeNode(42L,41L,"角色新增","",false,false,false));
+        nodes.add(new TreeNode(43L,41L,"角色修改","",false,false,false));
+        nodes.add(new TreeNode(44L,41L,"角色删除","",false,false,false));
+        nodes.add(new TreeNode(45L,41L,"角色查看","",false,false,false));
+
 
         return nodes;
     }
