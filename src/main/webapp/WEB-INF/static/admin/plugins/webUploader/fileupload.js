@@ -37,6 +37,7 @@ window.webUploader=function (file_meta) {
             $.ajax({
                 type: "POST"
                 , url: backEndUrl
+                ,contentType : "application/json"
                 , data: {
                     status: "chunkCheck"
                     , name: uniqueFileName
@@ -59,6 +60,7 @@ window.webUploader=function (file_meta) {
             return $.when(task);
         }
         , afterSendFile: function (file, data) {
+            console.log(data);
             var chunksTotal = 0;
             var uniqueFileName = md5('' + userInfo.userId + file.name + file.type + file.lastModifiedDate + file.size);
             var md5Mark = fileMap.get(uniqueFileName);
