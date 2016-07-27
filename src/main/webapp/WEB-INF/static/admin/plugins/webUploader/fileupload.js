@@ -30,7 +30,6 @@ window.webUploader=function (file_meta) {
             return $.when(task);
         }
         , beforeSend: function (block) {
-            console.log(block);
             //分片验证是否已传过，用于断点续传
             var uniqueFileName = md5('' + userInfo.userId + block.file.name + block.file.type + block.file.lastModifiedDate + block.file.size);
             var task = new $.Deferred();
@@ -86,6 +85,8 @@ window.webUploader=function (file_meta) {
                     //todo 检查响应是否正常
                     task.resolve();
                     var meta = $.toJSON(data);//上传文件 返回信息
+                    console.log('大文件');
+                    console.log(meta);
                     file_meta.push(meta);
                     console.log(meta);
                     file.path = data.filepath;
@@ -96,8 +97,12 @@ window.webUploader=function (file_meta) {
                 return $.when(task);
             } else {
                 //不分块文件上传返回结果
+
                 var res = eval('(' + data._raw + ')');
+                res.filename = file.name;
+
                 var meta = $.toJSON(res);//上传文件 返回信息
+                console.log(meta);
                 file_meta.push(meta);
                 file.path = res.filepath;
                 UploadComplete(file, meta);
