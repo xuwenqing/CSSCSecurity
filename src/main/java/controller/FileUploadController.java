@@ -69,13 +69,17 @@ public class FileUploadController {
 					if(info.getChunks() <= 0){
                         //单个小文件
                         FileDto fileDto = new FileDto();
-                        fileDto.setFilename(info.getName());
-                        fileDto.setFilepath(target.getName());
-                        fileDto.setMd5(info.getMd5());
-                        fileDto.setExt(info.getExt());
-                        fileDto.setSize(info.getSize());
 
-                        return JSON.toJSON(fileDto).toString();
+						fileDto.setFilename(info.getName());
+						fileDto.setFilepath(target.getName());
+						fileDto.setMd5(info.getMd5());
+						fileDto.setExt(info.getExt());
+						fileDto.setSize(info.getSize());
+
+
+						String filedto = JSON.toJSON(fileDto).toString();
+
+                        return filedto;
                     }
 
 					return "{\"status\": 1, \"path\": \"" + target.getName() + "\"}";
