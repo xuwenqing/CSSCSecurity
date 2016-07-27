@@ -189,7 +189,7 @@
 <script type="text/template" id="fileView-template">
     <li>
          <span class="old_files"><%=filename %></span>
-         <a class="fileDel btn btn-danger"  id="<%=filename %>"  href="javascript:void(0);" style="margin-left: 5px;">删除</a>
+         <a class="fileDel btn btn-danger"  id="<%=filepath %>" title="<%=filename %>"  href="javascript:void(0);" style="margin-left: 5px;">删除</a>
     </li>
 </script>
 </body>
@@ -278,9 +278,10 @@
                "click .fileDel":"_onFileDelete"
              },
              _onFileDelete:function(){
-                 var fileName=this.$("a").attr("id");
+                 var filePath=this.$("a").attr("id");
+                 var fileName=this.$("a").attr("title");
                  oldFiles=_.filter(oldFiles,function(ele,index,arr){
-                     return arr[index].filename!= fileName;
+                     return arr[index].filepath!= filePath;
                  });
                  delFiles.push(fileName);
                  this.remove();
@@ -294,7 +295,8 @@
                 this.listenTo(EventBus, Msgs.HealthListView, this._onEditHealth);
             },
             events: {
-                "click #js_new": '_onValidator'
+                "click #js_new": '_onValidator',
+                "click #ctlBtn":'_onSlience'
             },
             switchDate: function (data) {
                 var date = moment(data).format('YYYY-MM-DD');
@@ -335,24 +337,21 @@
                         else if (tagName == 'SELECT' || tagName == 'TEXTAREA') {
                             $(this).val(value);
                         }
-                        else {
-
-                            var newFiles = new Array();
-                            console.log(files);
-                        }
                     });
                 }
                 var publishDate = this.switchDate(parseInt($('input[name="publishDate"]').val()));
                 this.parseTime(publishDate);
             },
             showFiles:function(files){
-                console.log(files);
                 var self=this;
                 _.each(files,function(ele,index,File){
                     oldFiles.push(File[index]);//添加旧的文件
                    var fileView = new FileListView({model:File[index]});
                     self.insertView("#fileList",fileView).render();
                 });
+            },
+            _onSlience:function(){
+               return false;
             },
             /*验证表单*/
             _onValidator:function(){
@@ -373,7 +372,13 @@
             _onSubmit: function(){
                 if (this.model_id) {
                  //删除的剩余文件与新上传的文件并集
-                    $('#new_files').val(JSON.stringify(oldFiles.concat(JSON.parse(newFiles))));
+                    if(newFiles.length){
+                        $('#new_files').val(JSON.stringify(oldFiles.concat(JSON.parse(newFiles))));
+                    }
+                    else{
+                        console.log(newFiles);
+                        $('#new_files').val(JSON.stringify(oldFiles));
+                    }
                 }
                 else {
                     $('#new_files').val("["+newFiles+"]");
@@ -381,6 +386,7 @@
                 var jsonData = $('form').serializeArray();
                 console.log(  $('#new_files').val());
                 var data =this._toJSON(jsonData);
+                console.log(data);
                 if (this.model_id) {
                     var flag = HealthModel.edit(_.extend(data, {id: this.model_id,dels:delFiles}));
                     if (flag) {

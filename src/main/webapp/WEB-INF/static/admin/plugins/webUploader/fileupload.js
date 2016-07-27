@@ -33,6 +33,7 @@ window.webUploader=function (file_meta) {
             $.ajax({
                 type: "POST"
                 , url: backEndUrl
+                ,contentType : "application/json"
                 , data: {
                     status: "chunkCheck"
                     , name: uniqueFileName
@@ -55,6 +56,7 @@ window.webUploader=function (file_meta) {
             return $.when(task);
         }
         , afterSendFile: function (file, data) {
+            console.log(data);
             var chunksTotal = 0;
             if ((chunksTotal = Math.ceil(file.size / chunkSize)) > 1) {
                 //合并请求
