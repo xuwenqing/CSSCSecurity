@@ -6,6 +6,23 @@ import java.util.List;
 
 public class Health implements Serializable {
 
+    @Override
+    public String toString() {
+        return "Health{" +
+                "dels=" + dels +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", keywords='" + keywords + '\'' +
+                ", category='" + category + '\'' +
+                ", abstracts='" + abstracts + '\'' +
+                ", file='" + file + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", publishDate=" + publishDate +
+                ", viewCount=" + viewCount +
+                ", content='" + content + '\'' +
+                '}';
+    }
+
     private List<String> dels;
 
     public List<String> getDels() {
