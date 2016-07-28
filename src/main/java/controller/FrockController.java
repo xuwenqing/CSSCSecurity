@@ -6,9 +6,11 @@ import controller.dto.ResponsePackDto;
 import dao.condition.FrockCondition;
 import model.Frock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import service.FrockService;
+import service.impl.webUploader;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,6 +24,12 @@ public class FrockController extends BaseController {
 
     @Autowired
     private FrockService frockService;
+
+    @Value("${upload.folder}")
+    private String uploadFolder;
+
+    @Autowired
+    private webUploader wu;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto add(@RequestBody Frock Frock) {
@@ -65,6 +73,14 @@ public class FrockController extends BaseController {
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto edit(@RequestBody Frock newFrock) {
+
+        List<String> dels = newFrock.getDels();
+
+        if(dels != null && dels.size() > 0) {
+            for(String name : dels)
+                wu.deleteFolder(name,uploadFolder);
+        }
+
         ResponsePackDto dto = new ResponsePackDto();
         if(frockService.edit(newFrock)) {
             return dto;

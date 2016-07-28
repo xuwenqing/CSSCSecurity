@@ -6,9 +6,11 @@ import controller.dto.ResponsePackDto;
 import dao.condition.AccidentCondition;
 import model.Accident;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import service.AccidentService;
+import service.impl.webUploader;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,6 +24,12 @@ public class AccidentController extends BaseController {
 
     @Autowired
     private AccidentService accidentService;
+
+    @Value("${upload.folder}")
+    private String uploadFolder;
+
+    @Autowired
+    private webUploader wu;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto add(@RequestBody Accident Accident) {
@@ -65,6 +73,14 @@ public class AccidentController extends BaseController {
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto edit(@RequestBody Accident newAccident) {
+
+        List<String> dels = newAccident.getDels();
+
+        if(dels != null && dels.size() > 0) {
+            for(String name : dels)
+                wu.deleteFolder(name,uploadFolder);
+        }
+
         ResponsePackDto dto = new ResponsePackDto();
         if(accidentService.edit(newAccident)) {
             return dto;

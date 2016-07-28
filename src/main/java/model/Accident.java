@@ -2,8 +2,20 @@ package model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Accident implements Serializable {
+
+    private List<String> dels;
+
+    public List<String> getDels() {
+        return dels;
+    }
+
+    public void setDels(List<String> dels) {
+        this.dels = dels;
+    }
+
     private Integer id;
 
     private String name;

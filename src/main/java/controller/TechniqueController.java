@@ -6,9 +6,11 @@ import controller.dto.ResponsePackDto;
 import dao.condition.TechniqueCondition;
 import model.Technique;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import service.TechniqueService;
+import service.impl.webUploader;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,6 +24,12 @@ public class TechniqueController extends BaseController {
 
     @Autowired
     private TechniqueService techniqueService;
+
+    @Value("${upload.folder}")
+    private String uploadFolder;
+
+    @Autowired
+    private webUploader wu;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto add(@RequestBody Technique Technique) {
@@ -65,6 +73,14 @@ public class TechniqueController extends BaseController {
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto edit(@RequestBody Technique newTechnique) {
+
+        List<String> dels = newTechnique.getDels();
+
+        if(dels != null && dels.size() > 0) {
+            for(String name : dels)
+                wu.deleteFolder(name,uploadFolder);
+        }
+
         ResponsePackDto dto = new ResponsePackDto();
         if(techniqueService.edit(newTechnique)) {
             return dto;
