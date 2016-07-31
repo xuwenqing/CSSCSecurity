@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="../../asset/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../plugins/webUploader/webuploader.css"/>
+    <link rel="stylesheet" type="text/css" href="../../plugins/webUploader/style.css"/>
 </head>
 <body>
 <div class="container" id="MainView">
@@ -118,7 +120,7 @@
     <tr>
         <th width="120">技术类型：</th>
         <td>
-            <select name="category" class="required" style="width:120px;">
+            <select name="category" class="required" style="width:120px;" required>
                 <option value="">请选择</option>
                 <option value="国内新技术">国内新技术</option>
                 <option value="韩国新技术">韩国新技术</option>
@@ -131,16 +133,26 @@
 
 
     <tr>
-        <th>内容：</th>
+        <th>内容:<i class="require-red">*</i></th>
         <td><textarea name="content" class="common-textarea " id="container"  cols="30" style="width: 99%;" rows="10" ></textarea>
-            <i class="require-red">*</i>
+
         </td>
     </tr>
 
     <tr>
         <th>附件上传：</th>
-        <td><input class="common-text required"  name="file" size="50" value="" type="file">
-            <i class="require-red">*</i>
+        <td>
+            <div>
+                <ul id="fileList">
+
+                </ul>
+            </div>
+            <div id="uploader">
+                <ul id="theList"></ul>
+                <div id="picker">选择文件</div>
+                <button id="ctlBtn" class="btn btn-default">开始上传</button>
+            </div>
+            <input id="new_files" type="text" name="file"  hidden/>
         </td>
     </tr>
 
@@ -175,7 +187,12 @@
         </td>
     </tr>
 </script>
-
+<script type="text/template" id="fileView-template">
+    <li>
+        <span class="old_files"><%=filename %></span>
+        <a class="fileDel btn btn-danger"  id="<%=filepath %>" title="<%=filename %>"  href="javascript:void(0);" style="margin-left: 5px;">删除</a>
+    </li>
+</script>
 </body>
 
 <!-- Javascript -->
@@ -183,6 +200,10 @@
 <!-- 配置文件 -->
 <script type="text/javascript" src="../../plugins/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" src="../../plugins/ueditor/ueditor.all.js"></script>
+<script src="../../plugins/webUploader/md5.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../plugins/webUploader/hashmap.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../plugins/webUploader/webuploader.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../plugins/webUploader/fileupload.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="../../js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="../../js/messages_zh.js"></script>
 <script type="text/javascript" src="../../js/moment.js"></script>
@@ -196,6 +217,9 @@
 </html>
 <script type="text/javascript">
     (function (Backbone, _) {
+        var newFiles = [];
+        var oldFiles = [];
+        var delFiles = [];
         var TechnologyCollection = new Entities.Technique.Collection();
         var TechnologyModel = new Entities.Technique.Model();
         var Url = Entities.config.apiUrl;
@@ -241,6 +265,28 @@
                 this.model.delete();
             }
         });
+        var FileListView = Backbone.View.extend({
+            tagName:'li',
+            afterRender:function(){
+                this.onCreate();
+                this.$el.html(this.template(this.model));
+            },
+            onCreate:function(){
+                this.template= _.template($("#fileView-template").html());
+            },
+            events:{
+                "click .fileDel":"_onFileDelete"
+            },
+            _onFileDelete:function(){
+                var filePath=this.$("a").attr("id");
+                var fileName=this.$("a").attr("title");
+                oldFiles=_.filter(oldFiles,function(ele,index,arr){
+                    return arr[index].filepath!= filePath;
+                });
+                delFiles.push(fileName);
+                this.remove();
+            }
+        });
         var TechnologySaveView = Backbone.View.extend({
             template: '#TechnologySaveView-template',
             tagName: 'tbody',
@@ -249,7 +295,8 @@
                 this.listenTo(EventBus, Msgs.TechnologyListView, this._onEditTechnology);
             },
             events: {
-                "click #js_new": '_onValidator'
+                "click #js_new": '_onValidator',
+                "click #ctlBtn":'_onSlience'
             },
             switchDate: function (data) {
                 var date = moment(data).format('YYYY-MM-DD');
@@ -260,7 +307,9 @@
             },
             /*向表单填充数据*/
             _onEditTechnology: function (data) {
-                var ue = UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
+                this.showFiles(JSON.parse(data.file));
+                UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
+                window.webUploader(newFiles);
                 this.model_id = data.id;
                 var obj = data;
                 var time = [];
@@ -294,6 +343,17 @@
 
                 this.parseTime(publishDate);
             },
+            showFiles:function(files){
+                var self=this;
+                _.each(files,function(ele,index,File){
+                    oldFiles.push(File[index]);//添加旧的文件
+                    var fileView = new FileListView({model:File[index]});
+                    self.insertView("#fileList",fileView).render();
+                });
+            },
+            _onSlience:function(){
+                return false;
+            },
             /*验证表单*/
             _onValidator:function(){
                 var parent=this;
@@ -311,11 +371,24 @@
             },
             /*验证通过提交表单*/
             _onSubmit: function(){
+                if (this.model_id) {
+                    //删除的剩余文件与新上传的文件并集
+                    if(newFiles.length){
+                        $('#new_files').val(JSON.stringify(oldFiles.concat(JSON.parse(newFiles))));
+                    }
+                    else{
+                        console.log(newFiles);
+                        $('#new_files').val(JSON.stringify(oldFiles));
+                    }
+                }
+                else {
+                    $('#new_files').val("["+newFiles+"]");
+                }
                 var jsonData = $('form').serializeArray();
                 console.log(jsonData);
                 var data = this._toJSON(jsonData);
                 if (this.model_id) {
-                    var flag = TechnologyModel.edit(_.extend(data, {id: this.model_id}));
+                    var flag = TechnologyModel.edit(_.extend(data, {id: this.model_id,dels:delFiles}));
                     if (flag) {
                         window.location.href = Url+"/static/admin/page/technology/technologyList.html";
                     }
@@ -340,6 +413,7 @@
         var MainView = Backbone.View.extend({
             template: '#mainView_template',
             initialize: function () {
+                this._onCreate();
                 var $info = $("#ifra", parent.document);
                 var base = $info.attr('data_parent');
                  var type = $info.attr('data_category');
@@ -348,10 +422,14 @@
                 this.insertView('.crumb-wrap', crumbView).render();
                 var technologySaveView = new TechnologySaveView({model: TechnologyModel});
                 this.insertView('#TechnologyView', technologySaveView).render();
-                this._onCreate(type);
+
             },
-            _onCreate: function (type ){
-                TechnologyCollection.fetch({category: type});
+            _onCreate: function (){
+                var $info = $("#ifra", parent.document);
+                var base = $info.attr('data_parent');
+                this.type = $info.attr('data_category');
+                TechnologyCollection.fetch({category: this.type});
+                this.$('.crumb-wrap').append('基础数据管理' + ">>" + base + ">>" + this.type);
 
             },
             events: {
@@ -400,7 +478,8 @@
             _onCreateTechnology: function () {
                 this.$('.TechnologyListView').hide();
                 this.$('.TechnologySaveView').show();
-                var ue = UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
+                UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
+                window.webUploader(newFiles);
             },
             addOne: function (TechnologyModel) {
                 var technologyListView = new TechnologyListView({model: TechnologyModel});

@@ -124,7 +124,7 @@
     <tr>
         <th width="120">类别：</th>
         <td>
-            <select name="category" class="required" style="width:120px;">
+            <select name="category" class="required" style="width:120px;" required>
                 <option value="">请选择</option>
                 <option value="法律">法律</option>
                 <option value="法规">法规</option>
@@ -143,10 +143,10 @@
     </tr>
 
     <tr>
-        <th>法律法规内容：</th>
+        <th>法律法规内容：<i class="require-red">*</i></th>
         <td><textarea name="content" class="common-textarea" id ="container" cols="30" style="width: 99%;"
                       rows="10"></textarea>
-            <i class="require-red">*</i>
+
         </td>
     </tr>
 
@@ -163,7 +163,6 @@
         <td>
             <input class="common-text laydate-icon" name="effectiveDate" size="50" value="" type="text"
                    onclick="laydate()">
-            <!--<i class="require-red">*</i>-->
         </td>
     </tr>
 
@@ -172,7 +171,6 @@
         <td>
             <input class="common-text  laydate-icon" name="expiredDate" size="50" value="" type="text"
                    onclick="laydate()">
-            <!--<i class="require-red">*</i>-->
         </td>
     </tr>
 
@@ -189,7 +187,6 @@
         <td>
             <input class="common-text  laydate-icon" name="publishDate" size="50" value="" type="text"
                    onclick="laydate()">
-            <!--<i class="require-red">*</i>-->
         </td>
     </tr>
 
@@ -203,7 +200,6 @@
     <tr>
         <th></th>
         <td>
-            <!--<a class="btn btn-primary btn6 mr10 " href="javascript:void(0);" id="js_new">提交</a>-->
             <input class="btn btn-primary btn6 mr10 " type="submit" id="js_new" value="提交">
             <a class="btn btn-info btn6 mr10" href="lawList.html">返回</a>
         </td>

@@ -3,11 +3,12 @@ window.webUploader=function (file_meta) {
     var chunkSize = 5000 * 1024;        //分块大小
     //var uniqueFileName = null;          //文件唯一标识符
     //var md5Mark = null;
+    var Url = Entities.config.apiUrl;//请求地址
     var state = 'pending';
     var $list = $('#theList');
     var $btn = $('#ctlBtn');
-    var backEndUrl = "http://localhost:8080/file/upload";
-    var deleteUrl = "http://localhost:8080/file/delete";
+    var backEndUrl = Url+"/file/upload";
+    var deleteUrl = Url+"/file/delete";
     var fileMap = new HashMap();
 
     WebUploader.Uploader.register({
