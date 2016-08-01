@@ -225,7 +225,6 @@
         var EventBus = _.extend({}, Backbone.Events);
         var Msgs = {
             HealthListView: "editHealth",
-            HealthSaveView: "chooseFile",
             MainView: {DeleteItems:"mainView-deleteItems"}
         };
         Backbone.Layout.configure({
@@ -377,7 +376,6 @@
                         $('#new_files').val(JSON.stringify(oldFiles.concat(JSON.parse(newFiles))));
                     }
                     else{
-                        console.log(newFiles);
                         $('#new_files').val(JSON.stringify(oldFiles));
                     }
                 }
@@ -385,9 +383,7 @@
                     $('#new_files').val("["+newFiles+"]");
                 }
                 var jsonData = $('form').serializeArray();
-                console.log(  $('#new_files').val());
                 var data =this._toJSON(jsonData);
-                console.log(data);
                 if (this.model_id) {
                     var flag = HealthModel.edit(_.extend(data, {id: this.model_id,dels:delFiles}));
                     if (flag) {

@@ -124,7 +124,7 @@
     <tr>
         <th width="120">类别：</th>
         <td>
-            <select name="category" class="required" style="width:120px;">
+            <select name="category" class="required" style="width:120px;" required>
                 <option value="">请选择</option>
                 <option value="国标">国标</option>
                 <option value="地标">地标</option>
@@ -144,10 +144,10 @@
     </tr>
 
     <tr>
-        <th> 标准内容：</th>
+        <th> 标准内容:<i class="require-red">*</i></th>
         <td><textarea name="content" id="container" class="common-textarea" value="" cols="30" style="width: 99%;"
                       rows="10"></textarea>
-            <i class="require-red">*</i>
+
         </td>
     </tr>
 
@@ -190,7 +190,6 @@
         <td>
             <input class="common-text  laydate-icon" name="publishDate" size="50" value="" type="text"
                    onclick="laydate()">
-            <!--<i class="require-red">*</i>-->
         </td>
     </tr>
 
