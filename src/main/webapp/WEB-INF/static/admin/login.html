@@ -17,10 +17,9 @@
 <div class="page-container" id="MainView"></div>
 <script type = "text/template" id="mainView-template">
     <h1>中国船舶制造集团</h1>
-    <form id = "validate-data" method="post" action="#">
+    <form id = "validate-data" action="#">
         <input type="text" name="username" class="username required" value="" placeholder="请输入您的账号！" required>
         <input type="password" name="password" class="password required" value="" placeholder="请输入您的密码！" required>
-     <!--   <span>自动登录：<input type="checkbox" name="rememberMe" value="true" ></span>-->
         <input  class="btn btn-primary btn6 mr10" id = "js_login" type="submit" value="登陆"/>
     </form>
 </script>
@@ -70,11 +69,11 @@
             _onSubmit:function() {
               var form_data =this.$('form').serialize();
                 UserLoginModel.login(form_data).then(function(res){
-                   if(res==500){
-                       return false;
+                   if(res.status==0){
+                       window.location.href=Url+"/admin/index.html";
                    }
                     else{
-                       window.location.href=Url+"admin/index.html";
+                       return false;
                    }
                 });
             }
