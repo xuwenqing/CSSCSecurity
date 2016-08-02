@@ -12,6 +12,7 @@ import service.ResourceService;
 import service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -27,10 +28,17 @@ public class IndexController {
     private UserService userService;
 
     @RequestMapping("/")
-    public @ResponseBody
-    ResponsePackDto index(HttpServletRequest req, Model model) {
+    public
+    //@ResponseBody ResponsePackDto
+    String index(HttpServletRequest req, Model model) {
         String username = (String) SecurityUtils.getSubject().getPrincipal();
-        Set<Resource> resources = userService.findResources(username);
+        if(username == null || Objects.equals(username,"")) {
+            return "redirect:/admin/login.html";
+        }
+        else {
+            return "redirect:/admin/index.html";
+        }
+//        Set<Resource> resources = userService.findResources(username);
 //        model.addAttribute("resources", resources);
 //        request.setAttribute(Constants.CURRENT_USER, userService.findByUsername(username));
 //        String username = (String)req.getAttribute("username");
@@ -38,6 +46,7 @@ public class IndexController {
 //        List<Resource> menus = permissionService.findMenus(permissions);
 //        model.addAttribute("menus", menus);
 //        return "index";
-        return new ResponsePackDto(resources);
+        //req.getRequestDispatcher().
+        //return new ResponsePackDto(resources);
     }
 }
