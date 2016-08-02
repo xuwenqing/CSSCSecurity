@@ -17,7 +17,8 @@
 <div class="page-container" id="MainView"></div>
 <script type = "text/template" id="mainView-template">
     <h1>中国船舶制造集团</h1>
-    <form id = "validate-data" method="post" action="#">
+    <!-- action="#" -->
+    <form id = "validate-data" method="post" >
         <input type="text" name="username" class="username required" value="" placeholder="请输入您的账号！" required>
         <input type="password" name="password" class="password required" value="" placeholder="请输入您的密码！" required>
      <!--   <span>自动登录：<input type="checkbox" name="rememberMe" value="true" ></span>-->
@@ -70,6 +71,8 @@
             _onSubmit:function() {
               var form_data =this.$('form').serialize();
                 UserLoginModel.login(form_data).then(function(res){
+                    console.log("_onSubmit");
+                    console.log(res);
                    if(res==500){
                        return false;
                    }

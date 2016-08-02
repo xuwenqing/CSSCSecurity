@@ -32,16 +32,17 @@ window.Entities = (function() {
             url: url,
             type: options.type || 'post',
             data: data,
-            contentType: 'application/json',
+            contentType: 'application/x-www-form-urlencoded',
             dataType: 'json'
         };
+
         var xhr = options.xhr = $.ajax(params);
-        // 处理链式调用情况
+        // 处理链式调用情况 application/json
         return xhr.then(function(res, textStatus, jqXHR) {
+            console.log(res);
             if (res.status == 0) {
-                return res.data;
+                return res.status;
             } else {
-                console.log(res.status);
                 return $.Deferred().reject(jqXHR, data, 'INROAD_ERROR').promise();
             }
         });

@@ -40,6 +40,7 @@ public class LoginController extends BaseController {
     @RequestMapping("/login/success")
     public @ResponseBody
     ResponsePackDto index(HttpServletRequest req, Model model) {
+
         return new ResponsePackDto();
     }
 
