@@ -30,19 +30,19 @@ window.Entities = (function() {
         options = options || {};
         var params = {
             url: url,
+            contentType:'application/x-www-form-urlencoded',
             type: options.type || 'post',
-            data: data,
-            contentType: 'application/x-www-form-urlencoded',
-            dataType: 'json'
+            dataType: 'json',
+            data: data
         };
-
         var xhr = options.xhr = $.ajax(params);
-        // 处理链式调用情况 application/json
+        // 处理链式调用情况
         return xhr.then(function(res, textStatus, jqXHR) {
             console.log(res);
             if (res.status == 0) {
-                return res.status;
+                return res;
             } else {
+                console.log(res.status);
                 return $.Deferred().reject(jqXHR, data, 'INROAD_ERROR').promise();
             }
         });
