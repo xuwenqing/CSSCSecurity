@@ -5,6 +5,9 @@ import dao.condition.UserCondition;
 import model.Role;
 import model.User;
 import model.UserRole;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +31,7 @@ public class UserController extends BaseController {
     @Autowired
     protected RoleService roleService;
 
+    @RequiresPermissions("user:create")
     @RequestMapping("/add")
     public
     @ResponseBody
@@ -42,6 +46,7 @@ public class UserController extends BaseController {
         return dto;
     }
 
+    @RequiresPermissions("user:delete")
     @RequestMapping("/delete")
     public
     @ResponseBody
@@ -56,6 +61,7 @@ public class UserController extends BaseController {
         return dto;
     }
 
+    @RequiresPermissions("user:delete")
     @RequestMapping("/deletes")
     public
     @ResponseBody
@@ -73,6 +79,7 @@ public class UserController extends BaseController {
      *
      * @return
      */
+    @RequiresPermissions(value={"user:view","user:update","user:create"},logical= Logical.OR)
     @RequestMapping(value = "/getRoles", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -89,6 +96,7 @@ public class UserController extends BaseController {
      * @param dto
      * @return
      */
+    @RequiresPermissions(value={"user:view","user:update","user:create"},logical= Logical.OR)
     @RequestMapping(value = "/getRoles", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -124,6 +132,8 @@ public class UserController extends BaseController {
      * @param user
      * @return
      */
+
+    @RequiresPermissions("user:update")
     @RequestMapping("/modify")
     public
     @ResponseBody
@@ -142,6 +152,7 @@ public class UserController extends BaseController {
      * @param userDto
      * @return
      */
+    @RequiresPermissions("user:update")
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -166,6 +177,7 @@ public class UserController extends BaseController {
         return dto;
     }
 
+    @RequiresPermissions("user:view")
     @RequestMapping("/query")
     public
     @ResponseBody
@@ -187,6 +199,7 @@ public class UserController extends BaseController {
      * @param password
      * @return
      */
+    @RequiresAuthentication
     @RequestMapping()
     public
     @ResponseBody

@@ -5,6 +5,8 @@ import controller.dto.IdsDto;
 import controller.dto.ResponsePackDto;
 import dao.condition.HealthCondition;
 import model.Health;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -31,7 +33,7 @@ public class HealthController extends BaseController {
     @Autowired
     private webUploader wu;
 
-
+    @RequiresPermissions("health:create")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto add(@RequestBody Health Health) {
 
@@ -47,6 +49,7 @@ public class HealthController extends BaseController {
         return dto;
     }
 
+    @RequiresPermissions("health:delete")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto delete(@RequestBody IdDto id) {
         ResponsePackDto dto = new ResponsePackDto();
@@ -62,6 +65,7 @@ public class HealthController extends BaseController {
         return dto;
     }
 
+    @RequiresPermissions("health:delete")
     @RequestMapping(value = "/deletes", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto delete(@RequestBody IdsDto ids) {
         ResponsePackDto dto = new ResponsePackDto();
@@ -75,6 +79,7 @@ public class HealthController extends BaseController {
         return dto;
     }
 
+    @RequiresPermissions("health:update")
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto edit(@RequestBody Health newHealth) {
 
@@ -96,6 +101,7 @@ public class HealthController extends BaseController {
         return dto;
     }
 
+    @RequiresPermissions("health:view")
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto query(@RequestBody(required = false) HealthCondition condition) {
         if(condition == null)
@@ -104,6 +110,7 @@ public class HealthController extends BaseController {
         return new ResponsePackDto(Healths);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/queryDetail", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto queryDetail(@RequestBody IdDto id) {
         return new ResponsePackDto(healthService.queryDetail(id.getId()));

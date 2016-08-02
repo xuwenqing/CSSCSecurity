@@ -28,7 +28,7 @@ class DefaultExceptionHandler implements HandlerExceptionResolver {
 
         logger.error(ex.getMessage());
         logger.error(ex.toString());
-        ex.printStackTrace();
+        //ex.printStackTrace();
 
         // 根据不同错误转向不同页面
         if(ex instanceof AuthorizationException) {

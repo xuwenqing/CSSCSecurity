@@ -37,16 +37,16 @@
     <!-- 当在web.xml 中   DispatcherServlet使用 <url-pattern>/</url-pattern> 映射时，能映射静态资源 -->
     <mvc:default-servlet-handler/>
 
-    <!-- 静态资源映射 -->
-    <mvc:resources mapping="/static/**" location="/WEB-INF/static/"/>
-
+    <!-- 静态资源映射  -->
+    <mvc:resources mapping="/admin/**" location="/WEB-INF/static/admin/"/>
+    <mvc:resources mapping="/front/**" location="/WEB-INF/static/front/"/>
 
     <!-- 默认的视图解析器 在上边的解析错误时使用 (默认使用html)- -->
     <bean id="defaultViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:order="1">
         <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>-->
         <property name="contentType" value="text/html"/>
-        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="prefix" value="/WEB-INF/static/"/>
         <property name="suffix" value=".html"/>
     </bean>
 
@@ -81,5 +81,5 @@
 
     <import resource="spring-mvc-shiro.xml"/>
 
-
+-
 </beans>

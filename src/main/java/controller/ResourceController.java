@@ -2,6 +2,7 @@ package controller;
 
 import controller.dto.ResponsePackDto;
 import model.Resource;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ public class ResourceController extends BaseController {
     @Autowired
     private ResourceService resourceService;
 
+    @RequiresPermissions("resource:create")
     @RequestMapping("/add")
     public
     @ResponseBody
@@ -25,6 +27,7 @@ public class ResourceController extends BaseController {
         return null;
     }
 
+    @RequiresPermissions("resource:delete")
     @RequestMapping("/delete")
     public
     @ResponseBody
@@ -33,6 +36,7 @@ public class ResourceController extends BaseController {
         return null;
     }
 
+    @RequiresPermissions("resource:update")
     @RequestMapping("/edit")
     public
     @ResponseBody
@@ -41,6 +45,7 @@ public class ResourceController extends BaseController {
         return null;
     }
 
+    @RequiresPermissions("resource:view")
     @RequestMapping("/query")
     public
     @ResponseBody
