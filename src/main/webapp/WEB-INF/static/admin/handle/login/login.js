@@ -7,9 +7,9 @@ Entities.Login = (function (Backbone, Entities, _) {
     var Model = Backbone.Model.extend({
         idAttribute: 'id',
         login: function (data) {
-            var model = this;
-            data = _.extend({id: model.id}, data);
-            return Entities.sync(API_login, data).then(function (res) {
+          /*  var model = this;
+            //data = _.extend({id: model.id}, data);*/
+            return Entities.formSync(API_login, data).then(function (res) {
                 console.log(res);
                 return res;
             });
