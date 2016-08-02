@@ -81,5 +81,4 @@
 
     <import resource="spring-mvc-shiro.xml"/>
 
--
 </beans>
