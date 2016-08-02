@@ -69,8 +69,17 @@
                 });
             },
             _onSubmit:function(){
-                var username =this.$('input[name=username]').prop();
-                console.log(username);
+                var username =this.$('input[name=username]').val();
+                var password =this.$('input[name=password]').val();
+                var json_data = {username:username,password:password};
+                UserLoginModel.login(json_data).then(function (res) {
+                   if(res.status==500){
+                       return false;
+                   }
+                   else{
+                       window.location.href = Url+"/admin/index.html";
+                   }
+               });
            }
         });
         new MainView({el:'#MainView'}).render();
