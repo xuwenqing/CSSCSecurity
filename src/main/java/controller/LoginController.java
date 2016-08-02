@@ -20,7 +20,6 @@ public class LoginController extends BaseController {
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto  loginFailed(HttpServletRequest req) {
-        System.out.println(req);
         String exceptionClassName = (String)req.getAttribute("shiroLoginFailure");
         String error = null;
         if(UnknownAccountException.class.getName().equals(exceptionClassName)) {
