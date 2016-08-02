@@ -5,6 +5,8 @@ import controller.dto.IdsDto;
 import controller.dto.ResponsePackDto;
 import dao.condition.LawCondition;
 import model.Law;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,7 @@ public class LawController extends BaseController {
     @Autowired
     private LawService lawService;
 
+    @RequiresPermissions("law:create")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -37,6 +40,7 @@ public class LawController extends BaseController {
         return dto;
     }
 
+    @RequiresPermissions("law:delete")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -53,6 +57,7 @@ public class LawController extends BaseController {
         return dto;
     }
 
+    @RequiresPermissions("law:delete")
     @RequestMapping(value = "/deletes", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -67,6 +72,7 @@ public class LawController extends BaseController {
         return dto;
     }
 
+    @RequiresPermissions("law:update")
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -81,6 +87,7 @@ public class LawController extends BaseController {
         return dto;
     }
 
+    @RequiresPermissions("law:view")
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -91,6 +98,7 @@ public class LawController extends BaseController {
         return new ResponsePackDto(Laws);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/queryDetail", method = RequestMethod.POST)
     public
     @ResponseBody

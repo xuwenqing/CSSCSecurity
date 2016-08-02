@@ -5,6 +5,8 @@ import controller.dto.IdsDto;
 import controller.dto.ResponsePackDto;
 import dao.condition.AccidentCondition;
 import model.Accident;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -31,6 +33,7 @@ public class AccidentController extends BaseController {
     @Autowired
     private webUploader wu;
 
+    @RequiresPermissions("accident:create")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto add(@RequestBody Accident Accident) {
         ResponsePackDto dto = new ResponsePackDto();
@@ -43,6 +46,7 @@ public class AccidentController extends BaseController {
         return dto;
     }
 
+    @RequiresPermissions("accident:delete")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto delete(@RequestBody IdDto id) {
         ResponsePackDto dto = new ResponsePackDto();
@@ -58,6 +62,7 @@ public class AccidentController extends BaseController {
         return dto;
     }
 
+    @RequiresPermissions("accident:delete")
     @RequestMapping(value = "/deletes", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto delete(@RequestBody IdsDto ids) {
         ResponsePackDto dto = new ResponsePackDto();
@@ -71,6 +76,7 @@ public class AccidentController extends BaseController {
         return dto;
     }
 
+    @RequiresPermissions("accident:update")
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto edit(@RequestBody Accident newAccident) {
 
@@ -92,6 +98,7 @@ public class AccidentController extends BaseController {
         return dto;
     }
 
+    @RequiresPermissions("accident:view")
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto query(@RequestBody(required = false) AccidentCondition condition) {
         if(condition == null)
@@ -100,6 +107,7 @@ public class AccidentController extends BaseController {
         return new ResponsePackDto(Accidents);
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "/queryDetail", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto queryDetail(@RequestBody IdDto id) {
         return new ResponsePackDto(accidentService.queryDetail(id.getId()));

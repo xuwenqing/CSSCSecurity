@@ -7,6 +7,8 @@ import controller.dto.TreeNode;
 import dao.condition.RoleCondition;
 import model.Resource;
 import model.Role;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +34,7 @@ public class RoleController extends BaseController {
     @Autowired
     private ResourceService resourceService;
 
+    @RequiresPermissions("role:create")
     @RequestMapping("/add")
     public
     @ResponseBody
@@ -51,6 +54,7 @@ public class RoleController extends BaseController {
         return dto;
     }
 
+    @RequiresPermissions("role:delete")
     @RequestMapping("/delete")
     public
     @ResponseBody
@@ -63,6 +67,7 @@ public class RoleController extends BaseController {
      * 获取所有权限列表
      * @return
      */
+    @RequiresPermissions(value={"role:view","role:update","role:create"},logical= Logical.OR)
     @RequestMapping(value = "/getResources",method = RequestMethod.GET)
     public
     @ResponseBody
@@ -77,6 +82,7 @@ public class RoleController extends BaseController {
      * 获取某一角色的权限列表
      * @return
      */
+    @RequiresPermissions(value={"role:view","role:update","role:create"},logical= Logical.OR)
     @RequestMapping(value = "/getResources",method = RequestMethod.POST)
     public
     @ResponseBody
@@ -87,6 +93,7 @@ public class RoleController extends BaseController {
         return dto;
     }
 
+    @RequiresPermissions(value={"role:view","role:update","role:create"},logical= Logical.OR)
     @RequestMapping(value = "/getTree",method = RequestMethod.POST)
     public
     @ResponseBody
@@ -175,6 +182,7 @@ public class RoleController extends BaseController {
      * @param dto
      * @return
      */
+    @RequiresPermissions("role:update")
     @RequestMapping("/edit")
     public
     @ResponseBody
@@ -188,6 +196,7 @@ public class RoleController extends BaseController {
         return new ResponsePackDto();
     }
 
+    @RequiresPermissions("role:view")
     @RequestMapping("/query")
     public
     @ResponseBody
