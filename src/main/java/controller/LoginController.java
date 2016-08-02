@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created by wenqing on 2016/6/5.
  */
 @Controller
-public class LoginController extends BaseController{
+public class LoginController extends BaseController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showLoginPage() {

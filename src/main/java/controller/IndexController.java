@@ -22,6 +22,7 @@ public class IndexController {
 
     @Autowired
     private ResourceService resourceService;
+
     @Autowired
     private UserService userService;
 
@@ -38,10 +39,5 @@ public class IndexController {
 //        model.addAttribute("menus", menus);
 //        return "index";
         return new ResponsePackDto(resources);
-    }
-
-    @RequestMapping("/welcome")
-    public String welcome() {
-        return "welcome";
     }
 }
