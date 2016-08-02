@@ -99,7 +99,7 @@
         <property name="passwordParam" value="password"/>
         <property name="rememberMeParam" value="rememberMe"/>
         <property name="loginUrl" value="/login"/>
-        <property name="successUrl" value="/"/>
+        <property name="successUrl" value="/login/success"/>
     </bean>
 
     <!-- Shiro的Web过滤器 sysUser-->
