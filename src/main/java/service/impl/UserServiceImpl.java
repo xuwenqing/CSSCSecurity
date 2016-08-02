@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService {
         oldUser.setDeleted(user.getDeleted());
         oldUser.setLocked(user.getLocked());
         if(user.getPassword() != null)
-            passwordHelper.equals(oldUser);
+            passwordHelper.encryptPassword(oldUser);
         userDao.updateByPrimaryKeySelective(oldUser);
         return true;
     }
@@ -137,7 +137,7 @@ public class UserServiceImpl implements UserService {
         oldUser.setDeleted(user.getDeleted());
         oldUser.setLocked(user.getLocked());
         if(user.getPassword() != null)
-            passwordHelper.equals(oldUser);
+            passwordHelper.encryptPassword(oldUser);
         userDao.updateByPrimaryKeySelective(oldUser);
 
         List<Long> delete_roles = userDao.selectRoleIdsByUsername(oldUser.getUsername());
