@@ -29,8 +29,9 @@ public class LoginController extends BaseController {
         } else if(exceptionClassName != null) {
             error = "其他错误：" + exceptionClassName;
         }
-        ResponsePackDto dto = new ResponsePackDto(error);
+        ResponsePackDto dto = new ResponsePackDto();
         dto.setStatus(500);
+        dto.setError(error);
         return dto;
     }
 
