@@ -3,6 +3,7 @@ package controller;
 import com.alibaba.fastjson.JSON;
 import controller.dto.FileDto;
 import controller.dto.FileInfo;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class FileUploadController {
 	@Autowired
 	private webUploader wu;
 
+	@RequiresAuthentication
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public String fileDelete(String name){
@@ -39,8 +41,8 @@ public class FileUploadController {
         return "{\"status\": 1, \"message\": \"数据删除成功\"}";
     }
 
-
 	//大文件上传
+	@RequiresAuthentication
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	@ResponseBody
 	public String fileUpload(HttpServletRequest request,String status, FileInfo info){
