@@ -283,7 +283,7 @@
                 oldFiles=_.filter(oldFiles,function(ele,index,arr){
                     return arr[index].filepath!= filePath;
                 });
-                delFiles.push(fileName);
+                delFiles.push(filePath);
                 this.remove();
             }
         });
@@ -374,10 +374,12 @@
                 if (this.model_id) {
                     //删除的剩余文件与新上传的文件并集
                     if(newFiles.length){
-                        $('#new_files').val(JSON.stringify(oldFiles.concat(JSON.parse(newFiles))));
+                        if(oldFiles.length)
+                            $('#new_files').val(JSON.stringify(oldFiles.concat(JSON.parse("["+newFiles+"]"))));
+                        else
+                            $('#new_files').val("["+newFiles+"]");
                     }
                     else{
-                        console.log(newFiles);
                         $('#new_files').val(JSON.stringify(oldFiles));
                     }
                 }
@@ -390,13 +392,13 @@
                 if (this.model_id) {
                     var flag = TechnologyModel.edit(_.extend(data, {id: this.model_id,dels:delFiles}));
                     if (flag) {
-                        window.location.href = Url+"/static/admin/page/technology/technologyList.html";
+                        window.location.href = Url+"/admin/page/technology/technologyList.html";
                     }
                 }
                 else {
                     var flag = TechnologyCollection.create(data);
                     if (flag) {
-                        window.location.href = Url+"/static/admin/page/technology/technologyList.html";
+                        window.location.href = Url+"/admin/page/technology/technologyList.html";
                     }
                 }
             },
