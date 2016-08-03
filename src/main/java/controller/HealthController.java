@@ -30,6 +30,8 @@ public class HealthController extends BaseController {
     @Value("${upload.folder}")
     private String uploadFolder;
 
+    private String relativePath = getClass().getClassLoader().getResource("").getPath();;
+
     @Autowired
     private webUploader wu;
 
@@ -87,7 +89,7 @@ public class HealthController extends BaseController {
 
         if(dels != null && dels.size() > 0) {
             for(String name : dels)
-                wu.deleteFolder(name,uploadFolder);
+                wu.deleteFolder(name,relativePath + uploadFolder);
         }
 
         ResponsePackDto dto = new ResponsePackDto();

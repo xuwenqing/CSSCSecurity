@@ -25,6 +25,8 @@ public class HealthServiceImpl implements HealthService{
     @Value("${upload.folder}")
     private String uploadFolder;
 
+    private String relativePath = getClass().getClassLoader().getResource("").getPath();;
+
     @Autowired
     private webUploader wu;
 
@@ -44,7 +46,7 @@ public class HealthServiceImpl implements HealthService{
                 if(health != null && !Objects.equals(health.getFile(),"")) {
                     List<FileDto> fileDtos =JSON.parseArray(health.getFile(), FileDto.class);
                     for(FileDto fileDto : fileDtos) {
-                        wu.deleteFolder(fileDto.getFilepath(), uploadFolder);
+                        wu.deleteFolder(fileDto.getFilepath(), relativePath + uploadFolder);
                     }
                 }
             }
