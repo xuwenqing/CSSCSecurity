@@ -24,6 +24,8 @@ public class AccidentServiceImpl implements AccidentService {
     @Value("${upload.folder}")
     private String uploadFolder;
 
+    private String relativePath = getClass().getClassLoader().getResource("").getPath();;
+
     @Autowired
     private webUploader wu;
 
@@ -43,7 +45,7 @@ public class AccidentServiceImpl implements AccidentService {
                 if(accident != null && !Objects.equals(accident.getFile(), "")) {
                     List<FileDto> fileDtos = JSON.parseArray(accident.getFile(), FileDto.class);
                     for(FileDto fileDto : fileDtos) {
-                        wu.deleteFolder(fileDto.getFilepath(), uploadFolder);
+                        wu.deleteFolder(fileDto.getFilepath(), relativePath + uploadFolder);
                     }
                 }
             }

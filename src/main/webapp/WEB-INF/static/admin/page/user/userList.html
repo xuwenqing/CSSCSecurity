@@ -184,6 +184,7 @@
     (function (Backbone, _) {
         var UserCollection = new Entities.User.Collection();
         var UserModel = new Entities.User.Model();
+        var Url = Entities.config.apiUrl;
 
         var RoleCollection = new Entities.Role.Collection();
         var RoleModel = new Entities.Role.Model();
@@ -341,13 +342,13 @@
                 if (this.model_id) {
                     var flag = UserModel.edit(_.extend(new_data, {id: this.model_id}));
                     if (flag) {
-                        window.location.href = "http://115.159.114.88/static/admin/page/user/userList.html";
+                        window.location.href = Url+"/admin/page/user/userList.html";
                     }
                 }
                 else {
                     var flag = UserCollection.create(new_data);
                     if (flag) {
-                        window.location.href = "http://115.159.114.88/static/admin/page/user/userList.html";
+                        window.location.href = Url+"/admin/page/user/userList.html";
                     }
                 }
             },

@@ -30,6 +30,8 @@ public class FileUploadController {
 	@Value("${upload.folder}")
 	private String uploadFolder;
 
+	private String relativePath = getClass().getClassLoader().getResource("").getPath();;
+
 	@Autowired
 	private webUploader wu;
 
@@ -37,7 +39,7 @@ public class FileUploadController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public String fileDelete(String name){
-        wu.deleteFolder(name,uploadFolder);
+        wu.deleteFolder(name,relativePath + uploadFolder);
         return "{\"status\": 1, \"message\": \"数据删除成功\"}";
     }
 
@@ -59,7 +61,7 @@ public class FileUploadController {
 
 					//log.error("文件上传" + info.toString());
 
-					File target = wu.getReadySpace(info, this.uploadFolder);	//为上传的文件准备好对应的位置
+					File target = wu.getReadySpace(info, relativePath + this.uploadFolder);	//为上传的文件准备好对应的位置
 					if(target == null){
 						return "{\"status\": 0, \"message\": \"" + wu.getErrorMsg() + "\"}";
 					}
@@ -97,7 +99,7 @@ public class FileUploadController {
 				//log.error("分块验证" + info.toString());
 
 				//检查目标分片是否存在且完整
-				if(wu.chunkCheck(this.uploadFolder + "/" + info.getName() + "/" + info.getChunkIndex(), Long.valueOf(info.getSize()))){
+				if(wu.chunkCheck(relativePath + this.uploadFolder + "/" + info.getName() + "/" + info.getChunkIndex(), Long.valueOf(info.getSize()))){
 					return "{\"ifExist\": 1}";
 				}else{
 					return "{\"ifExist\": 0}";
@@ -107,7 +109,7 @@ public class FileUploadController {
 
 				//log.error("分块合并" + info.toString());
 
-				String path = wu.chunksMerge(info.getName(), info.getExt(), info.getChunks(), info.getMd5(), this.uploadFolder);
+				String path = wu.chunksMerge(info.getName(), info.getExt(), info.getChunks(), info.getMd5(), relativePath +  this.uploadFolder);
 				if(path == null){
 					return "{\"status\": 0, \"message\": \"" + wu.getErrorMsg() + "\"}";
 				}

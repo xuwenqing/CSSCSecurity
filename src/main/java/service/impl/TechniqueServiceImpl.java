@@ -25,6 +25,8 @@ public class TechniqueServiceImpl implements TechniqueService {
     @Value("${upload.folder}")
     private String uploadFolder;
 
+    private String relativePath = getClass().getClassLoader().getResource("").getPath();;
+
     @Autowired
     private webUploader wu;
 
@@ -44,7 +46,7 @@ public class TechniqueServiceImpl implements TechniqueService {
                 if(technique != null && !Objects.equals(technique.getFile(), "")) {
                     List<FileDto> fileDtos = JSON.parseArray(technique.getFile(), FileDto.class);
                     for(FileDto fileDto : fileDtos) {
-                        wu.deleteFolder(fileDto.getFilepath(), uploadFolder);
+                        wu.deleteFolder(fileDto.getFilepath(), relativePath + uploadFolder);
                     }
                 }
             }

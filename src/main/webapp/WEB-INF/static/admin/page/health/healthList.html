@@ -283,7 +283,7 @@
                  oldFiles=_.filter(oldFiles,function(ele,index,arr){
                      return arr[index].filepath!= filePath;
                  });
-                 delFiles.push(fileName);
+                 delFiles.push(filePath);
                  this.remove();
              }
          });
@@ -373,7 +373,10 @@
                 if (this.model_id) {
                  //删除的剩余文件与新上传的文件并集
                     if(newFiles.length){
-                        $('#new_files').val(JSON.stringify(oldFiles.concat(JSON.parse(newFiles))));
+                        if(oldFiles.length)
+                            $('#new_files').val(JSON.stringify(oldFiles.concat(JSON.parse("["+newFiles+"]"))));
+                        else
+                            $('#new_files').val("["+newFiles+"]");
                     }
                     else{
                         $('#new_files').val(JSON.stringify(oldFiles));

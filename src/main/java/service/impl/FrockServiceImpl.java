@@ -25,6 +25,8 @@ public class FrockServiceImpl implements FrockService {
     @Value("${upload.folder}")
     private String uploadFolder;
 
+    private String relativePath = getClass().getClassLoader().getResource("").getPath();;
+
     @Autowired
     private webUploader wu;
 
@@ -44,7 +46,7 @@ public class FrockServiceImpl implements FrockService {
                 if(frock != null && !Objects.equals(frock.getFile(), "")) {
                     List<FileDto> fileDtos = JSON.parseArray(frock.getFile(), FileDto.class);
                     for(FileDto fileDto : fileDtos) {
-                        wu.deleteFolder(fileDto.getFilepath(), uploadFolder);
+                        wu.deleteFolder(fileDto.getFilepath(), relativePath + uploadFolder);
                     }
                 }
             }
