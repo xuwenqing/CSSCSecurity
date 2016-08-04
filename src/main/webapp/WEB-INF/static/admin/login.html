@@ -69,7 +69,7 @@
             _onSubmit:function() {
               var form_data =this.$('form').serialize();
                 UserLoginModel.login(form_data).then(function(res){
-                   if(res.status==0){
+                   if(res.status==0||res.error==null){
                        window.location.href=Url+"/admin/index.html";
                    }
                     else{
@@ -81,4 +81,5 @@
         new MainView({el:'#MainView'}).render();
     })(Backbone,_);
 </script>
+
 

@@ -390,13 +390,13 @@
                 if (this.model_id) {
                     var flag = TechnologyModel.edit(_.extend(data, {id: this.model_id,dels:delFiles}));
                     if (flag) {
-                        window.location.href = Url+"/static/admin/page/technology/technologyList.html";
+                        window.location.href = Url+"/admin/page/technology/technologyList.html";
                     }
                 }
                 else {
                     var flag = TechnologyCollection.create(data);
                     if (flag) {
-                        window.location.href = Url+"/static/admin/page/technology/technologyList.html";
+                        window.location.href = Url+"/admin/page/technology/technologyList.html";
                     }
                 }
             },

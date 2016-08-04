@@ -350,13 +350,13 @@
                 if (this.model_id) {
                     var flag = LawModel.edit(_.extend(data, {id: this.model_id}));
                     if (flag) {
-                        window.location.href = Url+"/static/admin/page/law/lawList.html";
+                        window.location.href = Url+"/admin/page/law/lawList.html";
                     }
                 }
                 else {
                     var flag = LawCollection.create(data);
                     if (flag) {
-                        window.location.href = Url+"/static/admin/page/law/lawList.html";
+                        window.location.href = Url+"/admin/page/law/lawList.html";
                     }
                 }
             },

@@ -387,13 +387,13 @@
                 if (this.model_id) {
                     var flag = FrockModel.edit(_.extend(data, {id: this.model_id,dels:delFiles}));
                     if (flag) {
-                        window.location.href = Url+"/static/admin/page/frock/frockList.html";
+                        window.location.href = Url+"/admin/page/frock/frockList.html";
                     }
                 }
                 else {
                     var flag = FrockCollection.create(data);
                     if (flag) {
-                        window.location.href = Url+"/static/admin/page/frock/frockList.html";
+                        window.location.href = Url+"/admin/page/frock/frockList.html";
                     }
                 }
             },

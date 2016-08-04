@@ -395,13 +395,13 @@
                 if (this.model_id) {
                     var flag = AccidentModel.edit(_.extend(data, {id: this.model_id,dels:delFiles}));
                     if (flag) {
-                        window.location.href = Url+"/static/admin/page/accident/accidentList.html";
+                        window.location.href = Url+"/admin/page/accident/accidentList.html";
                     }
                 }
                 else {
                     var flag = AccidentCollection.create(data);
                     if (flag) {
-                        window.location.href = Url+"/static/admin/page/accident/accidentList.html";
+                        window.location.href = Url+"/admin/page/accident/accidentList.html";
                     }
                 }
             },

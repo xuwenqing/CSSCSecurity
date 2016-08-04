@@ -73,6 +73,9 @@
             </div>
         </div>
     </div>
+    <div class = "PageIndexView">
+
+    </div>
     <div class="StandardSaveView" style="display: none;">
         <div class="result-wrap">
             <div class="result-content">
@@ -87,6 +90,18 @@
 </script>
 
 <script type="text/template" id="crumbView-template">
+</script>
+
+<script type = "text/template" id = "pageView-template">
+    <ul class="pagination pagination-lg ">
+        <li><a href="#">&laquo;</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">&raquo;</a></li>
+    </ul>
 </script>
 
 <script type="text/template" id="StandardListView-template">
@@ -275,6 +290,14 @@
                 this.model.delete();
             }
         });
+
+        var PageIndexView = Backbone.View.extend({
+            template:'#pageView-template',
+            className:'.pageIndex',
+            initialize:function(){
+
+            }
+        });
         var StandardSaveView = Backbone.View.extend({
             template: '#StandardSaveView-template',
             tagName: 'tbody',
@@ -353,13 +376,13 @@
                 if (this.model_id) {
                     var flag = StandardModel.edit(_.extend(data, {id: this.model_id}));
                     if (flag) {
-                        window.location.href = Url+"/static/admin/page/standard/standardList.html";
+                        window.location.href = Url+"/admin/page/standard/standardList.html";
                     }
                 }
                 else {
                     var flag = StandardCollection.create(data);
                     if (flag) {
-                        window.location.href = Url+"/static/admin/page/standard/standardList.html";
+                        window.location.href = Url+"/admin/page/standard/standardList.html";
                     }
                 }
             },
@@ -380,11 +403,14 @@
                 var base = $info.attr('data_parent');
                 var type = $info.attr('data_category');
                 this.listenTo(StandardCollection, 'reset', this.addAll);
+                var pageIndexView = new PageIndexView();
+                this.insertView('.PageIndexView', pageIndexView).render();
                 var crumbView = new CrumbView({model:{base:base,type:type}});
                 this.insertView('.crumb-wrap', crumbView).render();
                 var standardSaveView = new StandardSaveView({model: StandardModel});
                 this.insertView('#StandardView', standardSaveView).render();
                 this._onCreate();
+
             },
             _onCreate: function () {
                 var $info = $("#ifra", parent.document);
