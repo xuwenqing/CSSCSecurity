@@ -71,3 +71,7 @@ label.error{
 	color:#f00;
 	padding-left: 8px;
 }
+.Page{
+	margin:0 auto;
+	width:60%;
+}
