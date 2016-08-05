@@ -23,4 +23,6 @@ public interface LawMapper {
     int deleteMany(List<Integer> ids);
 
     List<Law> selectByCondition(LawCondition condition);
+
+    int selectCountByCondition(LawCondition condition);
 }

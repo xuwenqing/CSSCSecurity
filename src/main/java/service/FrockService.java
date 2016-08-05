@@ -13,5 +13,6 @@ public interface FrockService {
     boolean delete(List<Integer> ids);
     boolean edit(Frock newFrock);
     List<Frock> query(FrockCondition condition);
+    int queryCount(FrockCondition condition);
     Frock queryDetail(Integer id);
 }

@@ -49,6 +49,11 @@ public class LawServiceImpl implements LawService {
     }
 
     @Override
+    public int queryCount(LawCondition condition) {
+        return lawDao.selectCountByCondition(condition);
+    }
+
+    @Override
     public Law queryDetail(Integer id) {
         return lawDao.selectByPrimaryKey(id);
     }

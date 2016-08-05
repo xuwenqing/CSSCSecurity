@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import service.HealthService;
 import service.impl.webUploader;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wenqing on 2016/6/29.
@@ -110,6 +112,17 @@ public class HealthController extends BaseController {
             condition = new HealthCondition();
         List<Health> Healths = healthService.query(condition);
         return new ResponsePackDto(Healths);
+    }
+
+    @RequiresPermissions("health:view")
+    @RequestMapping(value = "/queryCount", method = RequestMethod.POST)
+    public @ResponseBody ResponsePackDto queryCount(@RequestBody(required = false) HealthCondition condition) {
+        if(condition == null)
+            condition = new HealthCondition();
+        int count = healthService.queryCount(condition);
+        Map<String,Integer> map = new HashMap<String,Integer>(1);
+        map.put("count",count);
+        return new ResponsePackDto(map);
     }
 
     @RequiresAuthentication

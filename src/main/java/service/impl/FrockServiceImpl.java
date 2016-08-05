@@ -75,6 +75,11 @@ public class FrockServiceImpl implements FrockService {
     }
 
     @Override
+    public int queryCount(FrockCondition condition) {
+        return frockDao.selectCountByCondition(condition);
+    }
+
+    @Override
     public Frock queryDetail(Integer id) {
         return frockDao.selectByPrimaryKey(id);
     }

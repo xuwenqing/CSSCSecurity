@@ -176,20 +176,13 @@
     </foreach>
   </delete>
 
-  <select id="selectByCondition" resultMap="ResultMapWithBLOBs" parameterType="dao.condition.TechniqueCondition" >
-    select
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
+  <select id="selectCountByCondition" resultType="int" parameterType="dao.condition.TechniqueCondition" >
+    select count(*)
     from technique
     <where>
       <if test="name != null">and name like CONCAT('%',#{name,jdbcType=VARCHAR},'%')</if>
       <if test="keywords != null">and keywords like CONCAT('%',#{keywords,jdbcType=VARCHAR},'%')</if>
       <if test="category != null">and category = #{category,jdbcType=VARCHAR} </if>
     </where>
-    <if test="sortby != null">
-      ORDER BY ${sortby} ${order}
-    </if>
-    limit #{start,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
   </select>
 </mapper>

@@ -95,4 +95,12 @@
     limit #{start,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
   </select>
 
+  <select id="selectCountByCondition" resultType="int" parameterType="dao.condition.RoleCondition" >
+    select count(*)
+    from roles
+    <where>
+      <if test="role != null">and role= #{role,jdbcType=VARCHAR}</if>
+    </where>
+  </select>
+
 </mapper>

@@ -7,13 +7,16 @@ import dao.condition.StandardCondition;
 import model.Standard;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.crypto.hash.Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import service.StandardService;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wenqing on 2016/6/29.
@@ -91,6 +94,17 @@ public class StandardController extends BaseController {
             condition = new StandardCondition();
         List<Standard> standards = standardService.query(condition);
         return new ResponsePackDto(standards);
+    }
+
+    @RequiresPermissions("standard:view")
+    @RequestMapping(value = "/queryCount", method = RequestMethod.POST)
+    public @ResponseBody ResponsePackDto queryCount(@RequestBody(required = false) StandardCondition condition) {
+        if(condition == null)
+            condition = new StandardCondition();
+        int count = standardService.queryCount(condition);
+        Map<String,Integer> map = new HashMap<String,Integer>(1);
+        map.put("count",count);
+        return new ResponsePackDto(map);
     }
 
     @RequiresAuthentication

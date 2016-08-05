@@ -13,5 +13,6 @@ public interface AccidentService {
     boolean delete(List<Integer> ids);
     boolean edit(Accident newAccident);
     List<Accident> query(AccidentCondition condition);
+    int queryCount(AccidentCondition condition);
     Accident queryDetail(Integer id);
 }

@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import service.ResourceService;
 import service.RoleService;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by wenqing on 2016/6/6.
@@ -209,5 +207,16 @@ public class RoleController extends BaseController {
         }
         dto.setData(roleService.query(condition));
         return dto;
+    }
+
+    @RequiresPermissions("role:view")
+    @RequestMapping(value = "/queryCount", method = RequestMethod.POST)
+    public @ResponseBody ResponsePackDto queryCount(@RequestBody(required = false) RoleCondition condition) {
+        if(condition == null)
+            condition = new RoleCondition();
+        int count = roleService.queryCount(condition);
+        Map<String,Integer> map = new HashMap<String,Integer>(1);
+        map.put("count",count);
+        return new ResponsePackDto(map);
     }
 }

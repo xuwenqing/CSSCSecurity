@@ -14,6 +14,7 @@ public interface StandardService {
     boolean delete(List<Integer> ids);
     boolean edit(Standard newStandard);
     List<Standard> query(StandardCondition condition);
+    int queryCount(StandardCondition condition);
     Standard queryDetail(Integer id);
 
 }

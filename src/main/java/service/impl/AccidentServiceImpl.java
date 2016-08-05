@@ -74,6 +74,11 @@ public class AccidentServiceImpl implements AccidentService {
     }
 
     @Override
+    public int queryCount(AccidentCondition condition) {
+        return accidentDao.selectCountByCondition(condition);
+    }
+
+    @Override
     public Accident queryDetail(Integer id) {
         return accidentDao.selectByPrimaryKey(id);
     }

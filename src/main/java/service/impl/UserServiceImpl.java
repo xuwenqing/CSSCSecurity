@@ -162,4 +162,9 @@ public class UserServiceImpl implements UserService {
     public List<User> query(UserCondition userCondition) {
         return userDao.selectByCondition(userCondition);
     }
+
+    @Override
+    public int queryCount(UserCondition condition) {
+        return userDao.selectCountByCondition(condition);
+    }
 }
