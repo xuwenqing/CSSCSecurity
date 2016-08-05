@@ -413,7 +413,6 @@
                 var standardSaveView = new StandardSaveView({model: StandardModel});
                 this.insertView('#StandardView', standardSaveView).render();
                 this._onCreate();
-
             },
             _onCreate: function () {
                 var $info = $("#ifra", parent.document);
@@ -466,8 +465,9 @@
             },
             _onCreateStandard: function () {
                 this.$('.StandardListView').hide();
+                this.$('.Page').hide();
                 this.$('.StandardSaveView').show();
-                var ue = UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
+                UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
             },
             addOne: function (StandardModel) {
                 var standardListView = new StandardListView({model: StandardModel});
@@ -478,8 +478,9 @@
                 this.showPageIndexView(StandardCollection.models.length);
             },
             showPageIndexView:function(len){
-                var page = Math.ceil(35/10);
-                console.log(page);
+                console.log('+++++++++');
+                console.log(len);
+                var page = Math.ceil(len/8);
                 for(var i = 1;i<=page;i++){
                     var pageIndexView = new PageIndexView({index:i});
                     this.insertView('.pagination', pageIndexView).render();
