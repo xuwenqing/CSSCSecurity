@@ -39,6 +39,10 @@ public class User implements Serializable {
 
     private String phone;
 
+    private String introduction;
+
+    private String dept;
+
     private static final long serialVersionUID = 1L;
 
     public String getCredentialsSalt() {
@@ -115,5 +119,21 @@ public class User implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone == null ? null : phone.trim();
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
+    public String getDept() {
+        return dept;
+    }
+
+    public void setDept(String dept) {
+        this.dept = dept;
     }
 }

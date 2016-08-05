@@ -74,4 +74,9 @@ public interface UserService {
      List<User> query(UserCondition userCondition);
 
     int queryCount(UserCondition condition);
+
+    boolean checkPhoneExist(String phone);
+
+    boolean checkEmailExist(String email);
+
 }

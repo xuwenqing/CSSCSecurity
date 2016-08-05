@@ -10,10 +10,7 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import service.RoleService;
 import service.UserService;
 
@@ -30,6 +27,82 @@ public class UserController extends BaseController {
     private UserService userService;
     @Autowired
     protected RoleService roleService;
+
+    //1.注册
+    //1.1 手机号校验
+    //1.2 电子邮件校验
+    //1.3 新增
+    @RequestMapping("check")
+    public
+    @ResponseBody ResponsePackDto check(@RequestParam(value = "email", required = false) String email,
+                                        @RequestParam(value = "phone", required = false) String phone) {
+
+        Map<String,String> map = new HashMap<String, String>();
+
+        if(email == null && phone == null)
+            map.put("exists","0");//存在
+        else if(email != null) {
+            if(userService.checkEmailExist(email)) {
+                map.put("exists","1");//存在
+            }
+            else {
+                map.put("exists","0");//不存在
+            }
+        }
+        else {
+            if(userService.checkPhoneExist(phone)) {
+                map.put("exists","1");//存在
+            }
+            else {
+                map.put("exists","0");//不存在
+            }
+        }
+
+        ResponsePackDto dto = new ResponsePackDto();
+        dto.setData(map);
+        return dto;
+    }
+
+    @RequestMapping(value = "register",method = RequestMethod.POST)
+    public
+    @ResponseBody ResponsePackDto register(@RequestBody User user) {
+        ResponsePackDto dto = new ResponsePackDto();
+        if(user.getPassword() != null && user.getUsername() != null
+                && user.getPhone() != null && user.getEmail() != null) {
+            user.setLocked(true);
+            user.setCreateDate(new Date());
+            user = userService.createUser(user);
+            if (user == null) {
+                dto.setStatus(500);
+                dto.setError("注册失败");
+            }
+            dto.setData(user);
+        }
+        else {
+            dto.setStatus(500);
+            dto.setError("用户信息不完整");
+        }
+        return dto;
+    }
+
+    //2.审核
+    //2.1 获取待审核列表
+    //2.2 审核
+    //2.3 删除
+    @RequestMapping(value = "unlock",method = RequestMethod.POST)
+    public
+    @ResponseBody ResponsePackDto unlockedUser(@RequestBody User user) {
+        ResponsePackDto dto = new ResponsePackDto();
+        if(user != null && (user.getLocked() == null || user.getLocked())) {
+            user.setLocked(false);
+            if (userService.updateUser(user)) {
+                return dto;
+            }
+        }
+        dto.setStatus(500);
+        dto.setError("激活失败");
+        return dto;
+    }
 
     @RequiresPermissions("user:create")
     @RequestMapping("/add")

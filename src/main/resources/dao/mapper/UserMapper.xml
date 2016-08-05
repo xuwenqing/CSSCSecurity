@@ -11,9 +11,11 @@
     <result column="deleted" property="deleted" jdbcType="BIT" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+    <result column="dept" property="dept" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, username, password, salt, locked, create_date, deleted, email, phone
+    id, username, password, salt, locked, create_date, deleted, email, phone , introduction , dept
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -28,10 +30,11 @@
   <insert id="insert" parameterType="model.User" >
     insert into users (id, username, password, 
       salt, locked, create_date, 
-      deleted, email, phone)
+      deleted, email, phone, introduction, dept)
     values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{salt,jdbcType=VARCHAR}, #{locked,jdbcType=BIT}, #{createDate,jdbcType=TIMESTAMP}, 
-      #{deleted,jdbcType=BIT}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR})
+      #{deleted,jdbcType=BIT}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+       #{introduction,jdbcType=VARCHAR}, #{dept,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="model.User" >
     insert into users
@@ -63,6 +66,12 @@
       <if test="phone != null" >
         phone,
       </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+      <if test="dept != null" >
+        dept,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -91,6 +100,12 @@
       </if>
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="dept != null" >
+        #{dept,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -121,6 +136,12 @@
       <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
       </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="dept != null" >
+        #{dept,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -133,7 +154,9 @@
       create_date = #{createDate,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=BIT},
       email = #{email,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR}
+      phone = #{phone,jdbcType=VARCHAR},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      dept = #{dept,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 
@@ -216,6 +239,25 @@
     from users
   </select>
 
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="dao.condition.UserCondition" >
+    select
+    u.id,u.username,u.password,u.salt,u.locked,u.create_date,u.deleted,u.email,u.phone,u.introduction,u.dept
+    from users u
+    <if test="role != null">INNER JOIN users_roles ur on ur.user_id = u.id</if>
+    <if test="role != null">INNER JOIN roles r on ur.role_id = r.id</if>
+    <where>
+      <if test="username != null">and u.username= #{username,jdbcType=VARCHAR}</if>
+      <if test="phone != null">and u.phone= #{phone,jdbcType=VARCHAR}</if>
+      <if test="email != null">and u.email= #{email,jdbcType=VARCHAR}</if>
+      <if test="role != null">and r.role like CONCAT('%',#{role,jdbcType=VARCHAR},'%')</if>
+      <if test="locked != null"> and u.locked = #{locked,jdbcType=BIT} </if>
+    </where>
+    <if test="sortby != null">
+      ORDER BY ${sortby} ${order}
+    </if>
+    limit #{start,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+  </select>
+
   <select id="selectCountByCondition" resultType="int" parameterType="dao.condition.UserCondition" >
     select
     count(*)
@@ -224,9 +266,11 @@
     <if test="role != null">INNER JOIN roles r on ur.role_id = r.id</if>
     <where>
       <if test="username != null">and u.username= #{username,jdbcType=VARCHAR}</if>
+      <if test="phone != null">and u.phone= #{phone,jdbcType=VARCHAR}</if>
+      <if test="email != null">and u.email= #{email,jdbcType=VARCHAR}</if>
+      <if test="locked != null"> and u.locked = #{locked,jdbcType=BIT} </if>
       <if test="role != null">and r.role like CONCAT('%',#{role,jdbcType=VARCHAR},'%')</if>
     </where>
-
   </select>
 
 

@@ -108,17 +108,40 @@ public class UserServiceImpl implements UserService {
     public boolean updateUser(User user) {
         if(user == null)
             return true;
+        if(user.getId() == null) {
+            return false;
+        }
         User oldUser = userDao.selectByPrimaryKey(user.getId());
         if(oldUser == null)
             return false;
-        oldUser.setUsername(user.getUsername());
-        oldUser.setEmail(user.getEmail());
-        oldUser.setPhone(user.getPhone());
-        oldUser.setPassword(user.getPassword());
-        oldUser.setDeleted(user.getDeleted());
-        oldUser.setLocked(user.getLocked());
+
+        if(user.getUsername() != null)
+            oldUser.setUsername(user.getUsername());
+
+        if(user.getEmail() != null)
+            oldUser.setEmail(user.getEmail());
+
+        if(user.getPhone() != null)
+            oldUser.setPhone(user.getPhone());
+
+        if(user.getPassword() != null)
+            oldUser.setPassword(user.getPassword());
+
+        if(user.getDeleted() != null)
+            oldUser.setDeleted(user.getDeleted());
+
+        if(user.getLocked() != null)
+            oldUser.setLocked(user.getLocked());
+
+        if(user.getIntroduction() != null)
+            oldUser.setIntroduction(user.getIntroduction());
+
+        if(user.getDept() != null)
+            oldUser.setDept(user.getDept());
+
         if(user.getPassword() != null)
             passwordHelper.encryptPassword(oldUser);
+
         userDao.updateByPrimaryKeySelective(oldUser);
         return true;
     }
@@ -166,5 +189,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public int queryCount(UserCondition condition) {
         return userDao.selectCountByCondition(condition);
+    }
+
+    @Override
+    public boolean checkPhoneExist(String phone) {
+        UserCondition userCondition = new UserCondition();
+        userCondition.setPhone(phone);
+        List<User> users = userDao.selectByCondition(userCondition);
+        if(users == null || users.size() == 0)
+            return false;
+        return true;
+    }
+
+    @Override
+    public boolean checkEmailExist(String email) {
+        UserCondition userCondition = new UserCondition();
+        userCondition.setEmail(email);
+        List<User> users = userDao.selectByCondition(userCondition);
+        if(users == null || users.size() == 0)
+            return false;
+        return true;
     }
 }
