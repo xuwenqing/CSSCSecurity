@@ -13,5 +13,6 @@ public interface TechniqueService {
     boolean delete(List<Integer> ids);
     boolean edit(Technique newTechnique);
     List<Technique> query(TechniqueCondition condition);
+    int queryCount(TechniqueCondition condition);
     Technique queryDetail(Integer id);
 }

@@ -23,4 +23,6 @@ public interface FrockMapper {
     int deleteMany(List<Integer> ids);
 
     List<Frock> selectByCondition(FrockCondition condition);
+
+    int selectCountByCondition(FrockCondition condition);
 }

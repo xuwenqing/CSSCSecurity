@@ -23,4 +23,6 @@ public interface StandardMapper {
     int deleteMany(List<Integer> ids);
 
     List<Standard> selectByCondition(StandardCondition condition);
+
+    int selectCountByCondition(StandardCondition condition);
 }

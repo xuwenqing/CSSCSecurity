@@ -15,6 +15,8 @@ public interface RoleService {
 
      List<Role> query(RoleCondition condition);
 
+    int queryCount(RoleCondition condition);
+
      List<Role> queryAll();
 
     /**

@@ -52,6 +52,11 @@ public class StandardServiceImpl implements StandardService {
     }
 
     @Override
+    public int queryCount(StandardCondition condition) {
+        return standardDao.selectCountByCondition(condition);
+    }
+
+    @Override
     public Standard queryDetail(Integer id) {
         return standardDao.selectByPrimaryKey(id);
     }

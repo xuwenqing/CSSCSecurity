@@ -75,6 +75,11 @@ public class TechniqueServiceImpl implements TechniqueService {
     }
 
     @Override
+    public int queryCount(TechniqueCondition condition) {
+        return techniqueDao.selectCountByCondition(condition);
+    }
+
+    @Override
     public Technique queryDetail(Integer id) {
         return techniqueDao.selectByPrimaryKey(id);
     }

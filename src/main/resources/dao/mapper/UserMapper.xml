@@ -216,9 +216,9 @@
     from users
   </select>
 
-  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="dao.condition.UserCondition" >
+  <select id="selectCountByCondition" resultType="int" parameterType="dao.condition.UserCondition" >
     select
-    u.id,u.username,u.password,u.salt,u.locked,u.create_date,u.deleted,u.email,u.phone
+    count(*)
     from users u
     <if test="role != null">INNER JOIN users_roles ur on ur.user_id = u.id</if>
     <if test="role != null">INNER JOIN roles r on ur.role_id = r.id</if>
@@ -226,10 +226,7 @@
       <if test="username != null">and u.username= #{username,jdbcType=VARCHAR}</if>
       <if test="role != null">and r.role like CONCAT('%',#{role,jdbcType=VARCHAR},'%')</if>
     </where>
-    <if test="sortby != null">
-      ORDER BY ${sortby} ${order}
-    </if>
-    limit #{start,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+
   </select>
 
 

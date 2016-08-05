@@ -72,4 +72,6 @@ public interface UserService {
      boolean updateUser(User user,List<Long> roleIds);
 
      List<User> query(UserCondition userCondition);
+
+    int queryCount(UserCondition condition);
 }

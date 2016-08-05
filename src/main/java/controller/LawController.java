@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import service.LawService;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wenqing on 2016/6/29.
@@ -96,6 +98,17 @@ public class LawController extends BaseController {
             condition = new LawCondition();
         List<Law> Laws = lawService.query(condition);
         return new ResponsePackDto(Laws);
+    }
+
+    @RequiresPermissions("law:view")
+    @RequestMapping(value = "/queryCount", method = RequestMethod.POST)
+    public @ResponseBody ResponsePackDto queryCount(@RequestBody(required = false) LawCondition condition) {
+        if(condition == null)
+            condition = new LawCondition();
+        int count = lawService.queryCount(condition);
+        Map<String,Integer> map = new HashMap<String,Integer>(1);
+        map.put("count",count);
+        return new ResponsePackDto(map);
     }
 
     @RequiresAuthentication

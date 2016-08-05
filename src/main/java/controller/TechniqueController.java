@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import service.TechniqueService;
 import service.impl.webUploader;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wenqing on 2016/6/29.
@@ -107,6 +109,17 @@ public class TechniqueController extends BaseController {
             condition = new TechniqueCondition();
         List<Technique> Techniques = techniqueService.query(condition);
         return new ResponsePackDto(Techniques);
+    }
+
+    @RequiresPermissions("technique:view")
+    @RequestMapping(value = "/queryCount", method = RequestMethod.POST)
+    public @ResponseBody ResponsePackDto queryCount(@RequestBody(required = false) TechniqueCondition condition) {
+        if(condition == null)
+            condition = new TechniqueCondition();
+        int count = techniqueService.queryCount(condition);
+        Map<String,Integer> map = new HashMap<String,Integer>(1);
+        map.put("count",count);
+        return new ResponsePackDto(map);
     }
 
     @RequiresAuthentication

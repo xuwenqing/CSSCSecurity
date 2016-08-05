@@ -23,4 +23,6 @@ public interface HealthMapper {
     int deleteMany(List<Integer> ids);
 
     List<Health> selectByCondition(HealthCondition condition);
+
+    int selectCountByCondition(HealthCondition condition);
 }

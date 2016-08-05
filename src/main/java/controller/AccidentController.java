@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import service.AccidentService;
 import service.impl.webUploader;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wenqing on 2016/6/29.
@@ -107,6 +109,17 @@ public class AccidentController extends BaseController {
             condition = new AccidentCondition();
         List<Accident> Accidents = accidentService.query(condition);
         return new ResponsePackDto(Accidents);
+    }
+
+    @RequiresPermissions("accident:view")
+    @RequestMapping(value = "/queryCount", method = RequestMethod.POST)
+    public @ResponseBody ResponsePackDto queryCount(@RequestBody(required = false) AccidentCondition condition) {
+        if(condition == null)
+            condition = new AccidentCondition();
+        int count = accidentService.queryCount(condition);
+        Map<String,Integer> map = new HashMap<String,Integer>(1);
+        map.put("count",count);
+        return new ResponsePackDto(map);
     }
 
     @RequiresAuthentication

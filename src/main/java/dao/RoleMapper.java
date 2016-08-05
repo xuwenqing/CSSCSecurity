@@ -19,7 +19,11 @@ public interface RoleMapper {
     int updateByPrimaryKey(Role record);
 
     List<Role> selectAll();
+
     List<Long> selectAllIds();
 
     List<Role> selectByCondition(RoleCondition condition);
+
+    int selectCountByCondition(RoleCondition condition);
+
 }

@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import service.FrockService;
 import service.impl.webUploader;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wenqing on 2016/6/29.
@@ -107,6 +109,17 @@ public class FrockController extends BaseController {
             condition = new FrockCondition();
         List<Frock> Frocks = frockService.query(condition);
         return new ResponsePackDto(Frocks);
+    }
+
+    @RequiresPermissions("frock:view")
+    @RequestMapping(value = "/queryCount", method = RequestMethod.POST)
+    public @ResponseBody ResponsePackDto queryCount(@RequestBody(required = false) FrockCondition condition) {
+        if(condition == null)
+            condition = new FrockCondition();
+        int count = frockService.queryCount(condition);
+        Map<String,Integer> map = new HashMap<String,Integer>(1);
+        map.put("count",count);
+        return new ResponsePackDto(map);
     }
 
     @RequiresAuthentication

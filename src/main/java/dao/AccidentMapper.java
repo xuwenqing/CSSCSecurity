@@ -23,4 +23,6 @@ public interface AccidentMapper {
     int deleteMany(List<Integer> ids);
 
     List<Accident> selectByCondition(AccidentCondition condition);
+
+    int selectCountByCondition(AccidentCondition condition);
 }

@@ -75,6 +75,11 @@ public class HealthServiceImpl implements HealthService{
     }
 
     @Override
+    public int queryCount(HealthCondition condition) {
+        return healthDao.selectCountByCondition(condition);
+    }
+
+    @Override
     public Health queryDetail(Integer id) {
         return healthDao.selectByPrimaryKey(id);
     }

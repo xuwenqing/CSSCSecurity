@@ -22,6 +22,11 @@ public class StandardTest {
     private StandardService standardService;
 
     @Test
+    public void queryCount() {
+        System.out.println(standardService.queryCount(new StandardCondition()));
+    }
+
+    @Test
     public void add() {
         Standard s1 = new Standard();
         s1.setName("stand1");

@@ -38,4 +38,6 @@ public interface UserMapper {
     List<User> selectAll();
 
     List<User> selectByCondition(UserCondition condition);
+
+    int selectCountByCondition(UserCondition condition);
 }

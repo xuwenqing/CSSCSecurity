@@ -23,4 +23,6 @@ public interface TechniqueMapper {
     int deleteMany(List<Integer> ids);
 
     List<Technique> selectByCondition(TechniqueCondition condition);
+
+    int selectCountByCondition(TechniqueCondition condition);
 }

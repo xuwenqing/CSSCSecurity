@@ -191,6 +191,17 @@ public class UserController extends BaseController {
         return dto;
     }
 
+    @RequiresPermissions("user:view")
+    @RequestMapping(value = "/queryCount", method = RequestMethod.POST)
+    public @ResponseBody ResponsePackDto queryCount(@RequestBody(required = false) UserCondition condition) {
+        if(condition == null)
+            condition = new UserCondition();
+        int count = userService.queryCount(condition);
+        Map<String,Integer> map = new HashMap<String,Integer>(1);
+        map.put("count",count);
+        return new ResponsePackDto(map);
+    }
+
 
     /**
      * 修改密码

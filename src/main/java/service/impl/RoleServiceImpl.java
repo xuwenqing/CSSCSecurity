@@ -75,6 +75,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public int queryCount(RoleCondition condition) {
+        return roleDao.selectCountByCondition(condition);
+    }
+
+    @Override
     public List<Role> queryAll() {
         return roleDao.selectAll();
     }

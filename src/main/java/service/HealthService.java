@@ -13,5 +13,6 @@ public interface HealthService {
     boolean delete(List<Integer> ids);
     boolean edit(Health newHealth);
     List<Health> query(HealthCondition condition);
+    int queryCount(HealthCondition condition);
     Health queryDetail(Integer id);
 }

@@ -231,4 +231,13 @@
         </if>
         limit #{start,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
     </select>
+
+  <select id="selectCountByCondition" resultType="int" parameterType="dao.condition.StandardCondition" >
+    select count(*) from standard
+    <where>
+      <if test="name != null">and name like CONCAT('%',#{name,jdbcType=VARCHAR},'%')</if>
+      <if test="keywords != null">and keywords like CONCAT('%',#{keywords,jdbcType=VARCHAR},'%')</if>
+      <if test="category != null">and category = #{category,jdbcType=VARCHAR} </if>
+    </where>
+  </select>
 </mapper>
