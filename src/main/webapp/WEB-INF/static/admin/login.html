@@ -20,7 +20,8 @@
     <form id = "validate-data" action="#">
         <input type="text" name="username" class="username required" value="" placeholder="请输入您的账号！" required>
         <input type="password" name="password" class="password required" value="" placeholder="请输入您的密码！" required>
-        <input  class="btn btn-primary btn6 mr10" id = "js_login" type="submit" value="登陆"/>
+        <input  class="btn btn-primary pull-left " id = "js_login" type="submit" value="登陆"/>
+        <a href="javascript:void(0);"  class="btn btn-success pull-right" id = "js_reg">注册</a>
     </form>
 </script>
 </body>
@@ -47,7 +48,11 @@
         var MainView = Backbone.View.extend({
             template:"#mainView-template",
             events:{
-                "click #js_login":'_onValidator'
+                "click #js_login":'_onValidator',
+                "click #js_reg":'_onEnroll'
+            },
+            _onEnroll:function(){
+                window.location.href=Url+'/admin/rejister.html';
             },
             /*验证表单*/
             _onValidator:function(){
@@ -69,7 +74,7 @@
             _onSubmit:function() {
               var form_data =this.$('form').serialize();
                 UserLoginModel.login(form_data).then(function(res){
-                   if(res.status==0){
+                   if(res.status==0||res.error==null){
                        window.location.href=Url+"/admin/index.html";
                    }
                     else{
@@ -81,4 +86,5 @@
         new MainView({el:'#MainView'}).render();
     })(Backbone,_);
 </script>
+
 

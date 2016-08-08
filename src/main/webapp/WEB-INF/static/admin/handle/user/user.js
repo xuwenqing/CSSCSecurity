@@ -3,12 +3,12 @@
  */
 Entities.User = (function (Backbone, Entities, _) {
     var base = Entities.config.apiUrl;
-    var API_SAVE = base + '/user/add';//添加法律法规
-    var API_EDIT = base + '/user/edit';//编辑法律法规
-    var API_QUERY = base + '/user/queryDetail';//查询指定id内容
-    var API_FETCH = base + '/user/query';//查询法律法规
-    var API_DESTROY = base + '/user/delete';//删除法律法规
-    var API_DELETES = base + '/user/deletes';//删除法律法规
+    var API_SAVE = base + '/user/add';
+    var API_EDIT = base + '/user/edit';
+    var API_QUERY = base + '/user/queryDetail';
+    var API_FETCH = base + '/user/query';//
+    var API_DESTROY = base + '/user/delete';
+    var API_DELETES = base + '/user/deletes';
     var Model = Backbone.Model.extend({
         idAttribute: 'id',
         edit: function (data) {
@@ -45,6 +45,9 @@ Entities.User = (function (Backbone, Entities, _) {
             var collection = this;
             return Entities.sync(API_SAVE, data).then(function (res) {
                 collection.unshift(_.extend(data,res));
+                console.log("-------------");
+                console.log(res);
+                return res.status;
             });
         },
         deletes: function (data) {

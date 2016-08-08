@@ -73,6 +73,11 @@
             </div>
         </div>
     </div>
+    <div class = "Page">
+        <ul class="pagination pagination-lg ">
+
+        </ul>
+    </div>
     <div class="StandardSaveView" style="display: none;">
         <div class="result-wrap">
             <div class="result-content">
@@ -87,6 +92,10 @@
 </script>
 
 <script type="text/template" id="crumbView-template">
+</script>
+
+<script type = "text/template" id = "pageView-template">
+        <a href="javascript:void(0);" class = "js_index"><%= index %></a>
 </script>
 
 <script type="text/template" id="StandardListView-template">
@@ -232,6 +241,7 @@
     (function (Backbone, _) {
         var StandardCollection = new Entities.Standard.Collection();
         var Url = Entities.config.apiUrl;
+        var Count = 0;
         var StandardModel = new Entities.Standard.Model();
         var EventBus = _.extend({}, Backbone.Events);
         var Msgs = {
@@ -273,6 +283,24 @@
             },
             _onDeleteStandard: function () {
                 this.model.delete();
+            }
+        });
+
+        var PageIndexView = Backbone.View.extend({
+            template:'#pageView-template',
+            tagName:'li',
+            initialize:function(){
+            },
+            serialize:function(){
+                return {index:this.index};
+            },
+            events:{
+                "click .js_index":"_onPageIndex"
+            },
+            _onPageIndex:function(){
+                alert(this.$('.js_index').text());
+                this.$('.js_index').addClass('active');
+                this.$('.js_index').parents('li').siblings().children(':first').removeClass('active');
             }
         });
         var StandardSaveView = Backbone.View.extend({
@@ -400,7 +428,6 @@
                 "click #delete_items": '_onDeleteItems'
             },
             _onShowStandardList: function () {
-                console.log("_onShowStandardList");
                 var key = $('select').val();
                 var value = $("input").val();
                 var data = {};
@@ -438,8 +465,9 @@
             },
             _onCreateStandard: function () {
                 this.$('.StandardListView').hide();
+                this.$('.Page').hide();
                 this.$('.StandardSaveView').show();
-                var ue = UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
+                UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
             },
             addOne: function (StandardModel) {
                 var standardListView = new StandardListView({model: StandardModel});
@@ -447,6 +475,16 @@
             },
             addAll: function () {
                 StandardCollection.each(this.addOne, this);
+                this.showPageIndexView(StandardCollection.models.length);
+            },
+            showPageIndexView:function(len){
+                console.log('+++++++++');
+                console.log(len);
+                var page = Math.ceil(len/8);
+                for(var i = 1;i<=page;i++){
+                    var pageIndexView = new PageIndexView({index:i});
+                    this.insertView('.pagination', pageIndexView).render();
+                }
             }
         });
         new MainView({el: '#MainView'}).render();

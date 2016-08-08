@@ -5,6 +5,7 @@ Entities.Standard = (function(Backbone, Entities,_) {
     var API_QUERY = base+'/standard/queryDetail';//查询指定id内容
     var API_FETCH = base +'/standard/query';//查询标准管理
     var API_DESTROY = base+'/standard/delete';//删除标准管理
+    var API_COUNT = base+'/standard/queryCount';//查询记录总数
     var Model = Backbone.Model.extend({
         idAttribute: 'id',
         edit: function(data){
@@ -35,6 +36,11 @@ Entities.Standard = (function(Backbone, Entities,_) {
             var collection=this;
             return Entities.sync(API_QUERY,data).then(function(res){
                 collection.reset(res);
+            });
+        },
+        count:function(data){
+            return Entities.sync(API_COUNT,data).then(function(res){
+               return res.count;
             });
         },
         create: function(data){
