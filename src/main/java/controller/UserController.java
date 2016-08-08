@@ -110,6 +110,7 @@ public class UserController extends BaseController {
     @ResponseBody
     ResponsePackDto add(@RequestBody User user) {
         ResponsePackDto dto = new ResponsePackDto();
+        System.out.println(dto);
         user = userService.createUser(user);
         if (user == null) {
             dto.setStatus(500);

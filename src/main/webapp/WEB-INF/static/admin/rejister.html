@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="short icon" href="images/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="asset/css/bootstrap.min.css" />
+    <title>注册界面</title>
+</head>
+<style type="text/css">
+    .region{
+        margin-top: 100px;
+    }
+</style>
+<body>
+<div class="container"></div>
+<script type="text/template" id = "RegView-template">
+    <div class="row region">
+        <div class="col-md-6 col-md-offset-3">
+            <form class="form-horizontal" id = "validate-data" action="#">
+                <div class="form-group">
+                    <label class="col-md-2 control-label">用户名:</label>
+                    <div class="col-md-10">
+                        <input class="col-md-10 form-control required" name="username" type="text" placeholder="请输入用户名" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">密码:</label>
+                    <div class="col-md-10">
+                        <input class="col-md-10 form-control required" name="password" type="password" placeholder="请输入密码" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">确认密码:</label>
+                    <div class="col-md-10">
+                        <input class="col-md-10 form-control required" name="con_password" type="password" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">邮箱:</label>
+                    <div class="col-md-10">
+                        <input class="col-md-10 form-control required" name="email" type="email" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">联系方式:</label>
+                    <div class="col-md-10">
+                        <input class="col-md-10 form-control required" name="phone" type="tel" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">部门:</label>
+                    <div class="col-md-10">
+                        <input class="col-md-10 form-control required" name="dept" type="text" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">自我简介:</label>
+                    <div class="col-md-10">
+                        <textarea class="form-control required" name="introduction"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-md-6">
+                        <input class="btn btn-info pull-left" type="submit" id="js_reg" value="立即注册"/>
+                        <a href="javascript:void(0);" class="btn btn-success pull-right" id="js_back">返回登陆</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</script>
+</body>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/jquery.json.js"></script>
+<script type="text/javascript" src = "js/Underscore.js"></script>
+<script type="text/javascript" src = "js/Backbone.js"></script>
+<script type="text/javascript" src="js/backbone.layoutmanager.js"></script>
+<script type="text/javascript" src="entities/entities.js"></script>
+<script type="text/javascript" src="handle/rejister/rejister.js"></script>
+</html>
+<script type = "text/javascript">
+    (function(Backbone, _){
+        var RegModel = new Entities.Rejister.Model();
+        var Url = Entities.config.apiUrl;
+        Backbone.Layout.configure({
+            manage: true
+        });
+        var MainView = Backbone.View.extend({
+          template:'#RegView-template',
+            initialize:function(){
+
+            },
+            events:{
+                "click #js_reg": '_onValidator',
+                "click #js_back":'_onBack'
+            },
+            /*验证表单*/
+            _onValidator:function(){
+                var parent=this;
+                $('#validate-data').validate({
+                    rules:{
+                        name:'required'
+                    },
+                    messages:{
+                        name:'用户名'
+                    },
+                    submitHandler:function() {
+                        parent._onSubmit();
+                    }
+                });
+            },
+            /*验证通过提交表单*/
+            _onSubmit: function(){
+                var jsonData = $('form').serializeArray();
+                var data = _.omit(this._toJSON(jsonData),'con_password');
+                console.log(data);
+                RegModel.reg(data).then(function(res){
+                     console.log("-----------------");
+                     console.log(res);
+                        if(!res){
+                            window.location.href = Url+"/admin/login.html";
+                        }else{
+                            alert("注册失败");
+                        }
+                 },function(res){
+                     console.log("+++++++++++++++++++");
+                     console.log(res);
+                 });
+            },
+            _toJSON: function (data) {
+                var data_json = {};
+                _.each(data, function (obj) {
+                    var name = obj.name;
+                    var value = obj.value;
+                    data_json[name] = value;
+                });
+                return data_json;
+            },
+        _onBack:function(){
+            window.location.href=Url+'/admin/login.html';
+        }
+        });
+        new MainView({el:'.container'}).render();
+
+    })(Backbone, _);
+</script>
