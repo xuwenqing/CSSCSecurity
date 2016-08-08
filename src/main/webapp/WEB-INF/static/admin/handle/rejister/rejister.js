@@ -3,7 +3,7 @@
  */
 Entities.Rejister = (function (Backbone, Entities, _) {
     var base = Entities.config.apiUrl;
-    var API_REG = base + '/register';//用户登录
+    var API_REG = base + '/user/register';//用户登录
     var Model = Backbone.Model.extend({
         reg: function (data) {
             return Entities.sync(API_REG, data).then(function (res) {
