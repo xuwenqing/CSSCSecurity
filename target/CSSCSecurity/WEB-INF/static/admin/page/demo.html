@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>后台管理</title>
+	<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/main.css"/>
+	<link rel="stylesheet" type="text/css" href="../plugins/glDatePicker/styles/glDatePicker.default.css"/>
+	 <script src="../js/jquery-1.8.0.min.js" ></script>
+	<script type="text/javascript" src="../js/modernizr.min.js"></script>
+</head>
+<body>
+			
+			<div class="crumb-wrap">
+				<a href="../design.html">基础数据管理</a> >> <a>标准管理</a> >> <a>国标</a>
+			</div>
+			<div class="result-wrap">
+				<div class="result-content">
+					<form action="/jscss/admin/design/add" method="post" id="myform" name="myform" enctype="multipart/form-data">
+						<table class="insert-tab" width="100%">
+							<tbody>
+								<tr>
+									<th width="120"><i class="require-red">*</i>标准名称：</th>
+									<td>
+										<input class="common-text required" id="title" name="title" size="50" value="" type="text">
+									</td>
+								</tr>
+								<tr>
+									<th width="120"><i class="require-red">*</i>分类：</th>
+									<td>
+										<select name="colId" id="catid" class="required" style="width:120px;">
+											<option value="">请选择</option>
+											<option value="20">国标</option>
+											<option value="20">地标</option>
+											<option value="20">行标</option>
+											<option value="20">企标</option>
+										</select>
+									</td>
+								</tr>
+
+								<tr>
+									<th><i class="require-red">*</i>关键词：</th>
+									<td>
+										<input class="common-text required" id="title" name="title" size="50" value="" type="text">
+										<i class="require-red">关键词以逗号隔开</i>
+									</td>
+
+								</tr>
+
+								<tr>
+									<th><i class="require-red">*</i>标准号：</th>
+									<td>
+										<input class="common-text required" id="title" name="title" size="50" value="" type="text">
+									</td>
+								</tr>
+
+								<tr>
+									<th><i class="require-red">*</i>标准内容：</th>
+									<td><textarea name="content" class="common-textarea" id="content" cols="30" style="width: 80%;" rows="10"></textarea></td>
+								</tr>
+
+								<tr>
+									<th><i class="require-red">*</i>标准发布单位：</th>
+									<td>
+										<input class="common-text required" id="title" name="title" size="50" value="" type="text">
+									</td>
+								</tr>
+
+								<tr>
+									<th  width="150"><i class="require-red">*</i>标准生效日期：</th>
+									<td>
+										<input class="common-text required" id="title" name="title" size="50" value="" type="text">
+									</td>
+								</tr>
+
+								<tr>
+									<th><i class="require-red">*</i>标准预计失效日期：</th>
+									<td>
+										<input class="common-text required" id="title" name="title" size="50" value="" type="text">
+									</td>
+								</tr>
+
+								<tr>
+									<th><i class="require-red">*</i>发布人：</th>
+									<td>
+										<input class="common-text required" id="title" name="title" size="50" value="" type="text">
+									</td>
+								</tr>
+
+								<tr>
+									<th><i class="require-red">*</i>发布日期：</th>
+									<td>
+										<input class="common-text required" id="title" name="title" size="50" value="" type="text">
+									</td>
+								</tr>
+								<tr>
+									<th></th>
+									<td>
+										<input class="btn btn-primary btn6 mr10" value="提交" type="submit">
+										<input class="btn btn6" onclick="history.go(-1)" value="返回" type="button">
+									</td>
+								</tr>
+							</tbody></table>
+						</form>
+					</div>
+				</div>
+
+			</div>
+			<!--/main-->
+		</div>
+	</body>
+	</html>

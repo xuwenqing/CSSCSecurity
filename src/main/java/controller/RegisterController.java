@@ -24,6 +24,7 @@ public class RegisterController extends BaseController{
     //{"username":"username1","phone":"18363031040","password":"123456"}
     @RequestMapping(method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto register(Register register) {
+        System.out.println(register);
         return registerService.register(register);
     }
 

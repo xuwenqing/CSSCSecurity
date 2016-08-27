@@ -1,0 +1,15 @@
+html body{
+	background:#d5d5d7;
+}
+.header{
+	background: #013d97;
+}
+.header .title{
+	color:#fff;
+}
+.navbar{
+	margin-bottom: 0;
+}
+.container .content{
+	margin-top: 10px;
+}
