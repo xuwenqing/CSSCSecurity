@@ -4,7 +4,7 @@
 /**
  * Created by huchao on 2016/7/8.
  */
-Entities.Health = (function (Backbone, Entities, _) {
+Entities.New = (function (Backbone, Entities, _) {
     var base = Entities.config.apiUrl;
     var API_SAVE = base + '/new/add';//添加新闻
     var API_EDIT = base + '/new/edit';//编辑新闻
