@@ -102,7 +102,7 @@ public class AccidentController extends BaseController {
         return dto;
     }
 
-    @RequiresPermissions("accident:view")
+    //@RequiresPermissions("accident:view")
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto query(@RequestBody(required = false) AccidentCondition condition) {
         if(condition == null)
@@ -111,7 +111,7 @@ public class AccidentController extends BaseController {
         return new ResponsePackDto(Accidents);
     }
 
-    @RequiresPermissions("accident:view")
+    //@RequiresPermissions("accident:view")
     @RequestMapping(value = "/queryCount", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto queryCount(@RequestBody(required = false) AccidentCondition condition) {
         if(condition == null)

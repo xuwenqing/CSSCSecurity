@@ -89,7 +89,7 @@ public class LawController extends BaseController {
         return dto;
     }
 
-    @RequiresPermissions("law:view")
+    //@RequiresPermissions("law:view")
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -100,7 +100,7 @@ public class LawController extends BaseController {
         return new ResponsePackDto(Laws);
     }
 
-    @RequiresPermissions("law:view")
+    //@RequiresPermissions("law:view")
     @RequestMapping(value = "/queryCount", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto queryCount(@RequestBody(required = false) LawCondition condition) {
         if(condition == null)

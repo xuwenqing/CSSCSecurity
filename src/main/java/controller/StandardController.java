@@ -87,7 +87,7 @@ public class StandardController extends BaseController {
         return dto;
     }
 
-    @RequiresPermissions("standard:view")
+    //@RequiresPermissions("standard:view")
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto query(@RequestBody(required = false) StandardCondition condition) {
         if(condition == null)
@@ -96,7 +96,7 @@ public class StandardController extends BaseController {
         return new ResponsePackDto(standards);
     }
 
-    @RequiresPermissions("standard:view")
+    //@RequiresPermissions("standard:view")
     @RequestMapping(value = "/queryCount", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto queryCount(@RequestBody(required = false) StandardCondition condition) {
         if(condition == null)

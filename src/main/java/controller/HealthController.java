@@ -105,7 +105,7 @@ public class HealthController extends BaseController {
         return dto;
     }
 
-    @RequiresPermissions("health:view")
+   // @RequiresPermissions("health:view")
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto query(@RequestBody(required = false) HealthCondition condition) {
         if(condition == null)
@@ -114,7 +114,7 @@ public class HealthController extends BaseController {
         return new ResponsePackDto(Healths);
     }
 
-    @RequiresPermissions("health:view")
+    //@RequiresPermissions("health:view")
     @RequestMapping(value = "/queryCount", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto queryCount(@RequestBody(required = false) HealthCondition condition) {
         if(condition == null)

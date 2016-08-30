@@ -102,7 +102,7 @@ public class TechniqueController extends BaseController {
         return dto;
     }
 
-    @RequiresPermissions("technique:view")
+    //@RequiresPermissions("technique:view")
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto query(@RequestBody(required = false) TechniqueCondition condition) {
         if(condition == null)
@@ -111,7 +111,7 @@ public class TechniqueController extends BaseController {
         return new ResponsePackDto(Techniques);
     }
 
-    @RequiresPermissions("technique:view")
+    //@RequiresPermissions("technique:view")
     @RequestMapping(value = "/queryCount", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto queryCount(@RequestBody(required = false) TechniqueCondition condition) {
         if(condition == null)

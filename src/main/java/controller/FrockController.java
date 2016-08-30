@@ -102,7 +102,7 @@ public class FrockController extends BaseController {
         return dto;
     }
 
-    @RequiresPermissions("frock:view")
+    //@RequiresPermissions("frock:view")
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto query(@RequestBody(required = false) FrockCondition condition) {
         if(condition == null)
@@ -111,7 +111,7 @@ public class FrockController extends BaseController {
         return new ResponsePackDto(Frocks);
     }
 
-    @RequiresPermissions("frock:view")
+    //@RequiresPermissions("frock:view")
     @RequestMapping(value = "/queryCount", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto queryCount(@RequestBody(required = false) FrockCondition condition) {
         if(condition == null)
