@@ -215,6 +215,21 @@
     </foreach>
   </delete>
 
+  <select id="selectByCondition" resultMap="ResultMapWithBLOBs" parameterType="dao.condition.HealthCondition" >
+    select
+    <include refid="Base_Column_List" />
+    from law
+    <where>
+      <if test="name != null">and name like CONCAT('%',#{name,jdbcType=VARCHAR},'%')</if>
+      <if test="keywords != null">and keywords like CONCAT('%',#{keywords,jdbcType=VARCHAR},'%')</if>
+      <if test="category != null">and category = #{category,jdbcType=VARCHAR} </if>
+    </where>
+    <if test="sortby != null">
+      ORDER BY ${sortby} ${order}
+    </if>
+    limit #{start,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+  </select>
+
   <select id="selectCountByCondition" resultType="int" parameterType="dao.condition.LawCondition" >
     select count(*)
     from law
