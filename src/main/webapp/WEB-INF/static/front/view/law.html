@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>安全职业健康知识管理</title>
+		<title>法律法规管理</title>
 		<link rel="shortcut icon" href="../images/logo.png" />
 		<link type="text/css" href="../css/bootstrap.min.css" rel="stylesheet" />
 		<link type="text/css" href="../css/main.css" rel="stylesheet" />
@@ -85,17 +85,17 @@
 						<h4 class="list-group-item active">法律管理</h4>
 						<ul class="list-group">
 							<li class="list-group-item">
-								<a href="javascript:void(0);"  title="法律">
+								<a href="javascript:void(0);" title="法律">
 									法律
 								</a>
 							</li>
 							<li class="list-group-item">
-								<a href="javascript:void(0);"  title="法规">
+								<a href="javascript:void(0);" title="法规">
 									法规
 								</a>
 							</li>
 							<li class="list-group-item">
-								<a href="javascript:void(0);"  title="地方性法规">
+								<a href="javascript:void(0);" title="地方性法规">
 									地方性法规
 								</a>
 							</li>
@@ -127,7 +127,7 @@
 		<script type="text/template" id="lawView-template">
 			<div class="row">
 				<div class="col-xs-7">
-					<a href="法律管理">
+					<a href="javascript:void(0);" class="js-detail" >
 						<%= name %>
 					</a>
 				</div>
@@ -152,6 +152,7 @@
 		(function(Backbone, _) {
 			var EventBus = _.extend({}, Backbone.Events);
 			var LawCollection = Entities.Law.Collection;
+			var Url = Entities.config.apiUrl;
 			Backbone.Layout.configure({
 				manage: true
 			});
@@ -163,6 +164,14 @@
 				className: 'list-group-item',
 				Timer: function(time) {
 					return moment(time).format('YYYY-MM-DD');
+				},
+				events: {
+					'click .js-detail': '_onShowDetail'
+				},
+				_onShowDetail: function() {
+					var m_id = this.model.id;
+					var location = Url+"/front/detail/lawDetail.html?id="+m_id;
+					window.open(location);
 				}
 			});
 			//法律法规视图
