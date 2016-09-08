@@ -112,7 +112,7 @@ public class FrockController extends BaseController {
     }
 
     //@RequiresPermissions("frock:view")
-    @RequestMapping(value = "/queryCount", method = RequestMethod.POST)
+    //@RequestMapping(value = "/queryCount", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto queryCount(@RequestBody(required = false) FrockCondition condition) {
         if(condition == null)
             condition = new FrockCondition();
@@ -122,8 +122,8 @@ public class FrockController extends BaseController {
         return new ResponsePackDto(map);
     }
 
-    @RequiresAuthentication
-    @RequestMapping(value = "/queryDetail", method = RequestMethod.POST)
+    //@RequiresAuthentication
+    //@RequestMapping(value = "/queryDetail", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto queryDetail(@RequestBody IdDto id) {
         return new ResponsePackDto(frockService.queryDetail(id.getId()));
     }

@@ -111,8 +111,8 @@ public class LawController extends BaseController {
         return new ResponsePackDto(map);
     }
 
-    @RequiresAuthentication
-    @RequestMapping(value = "/queryDetail", method = RequestMethod.POST)
+    //@RequiresAuthentication
+    //@RequestMapping(value = "/queryDetail", method = RequestMethod.POST)
     public
     @ResponseBody
     ResponsePackDto queryDetail(@RequestBody IdDto id) {
