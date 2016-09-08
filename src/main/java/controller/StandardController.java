@@ -108,7 +108,7 @@ public class StandardController extends BaseController {
     }
 
     //@RequiresAuthentication
-    //@RequestMapping(value = "/queryDetail", method = RequestMethod.POST)
+    @RequestMapping(value = "/queryDetail", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto queryDetail(@RequestBody IdDto id) {
         return new ResponsePackDto(standardService.queryDetail(id.getId()));
     }
