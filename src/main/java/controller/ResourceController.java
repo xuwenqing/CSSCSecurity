@@ -45,8 +45,8 @@ public class ResourceController extends BaseController {
         return null;
     }
 
-    @RequiresPermissions("resource:view")
-    @RequestMapping("/query")
+    //@RequiresPermissions("resource:view")
+    //@RequestMapping("/query")
     public
     @ResponseBody
     ResponsePackDto query() {
