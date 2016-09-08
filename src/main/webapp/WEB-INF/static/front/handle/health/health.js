@@ -3,12 +3,12 @@
  */
 Entities.Health = (function (Backbone, Entities, _) {
     var base = Entities.config.apiUrl;
-    var API_SAVE = base + '/health/add';//Ìí¼Ó°²È«Ö°Òµ½¡¿µ
-    var API_EDIT = base + '/health/edit';//±à¼­°²È«Ö°Òµ½¡¿µ
-    var API_QUERY = base + '/health/queryDetail';//²éÑ¯Ö¸¶¨idÄÚÈÝ
-    var API_FETCH = base + '/health/query';//²éÑ¯°²È«Ö°Òµ½¡¿µ
-    var API_DESTROY = base + '/health/delete';//É¾³ý°²È«Ö°Òµ½¡¿µ
-    var API_DELETES = base + '/health/deletes';//É¾³ý°²È«Ö°Òµ½¡¿µ
+    var API_SAVE = base + '/health/add';//ï¿½ï¿½Ó°ï¿½È«Ö°Òµï¿½ï¿½ï¿½ï¿½
+    var API_EDIT = base + '/health/edit';//ï¿½à¼­ï¿½ï¿½È«Ö°Òµï¿½ï¿½ï¿½ï¿½
+    var API_QUERY = base + '/health/queryDetail';//ï¿½ï¿½Ñ¯Ö¸ï¿½ï¿½idï¿½ï¿½ï¿½ï¿½
+    var API_FETCH = base + '/health/query';//ï¿½ï¿½Ñ¯ï¿½ï¿½È«Ö°Òµï¿½ï¿½ï¿½ï¿½
+    var API_DESTROY = base + '/health/delete';//É¾ï¿½ï¿½È«Ö°Òµï¿½ï¿½ï¿½ï¿½
+    var API_DELETES = base + '/health/deletes';//É¾ï¿½ï¿½È«Ö°Òµï¿½ï¿½ï¿½ï¿½
     var Model = Backbone.Model.extend({
         idAttribute: 'id',
         edit: function (data) {
@@ -26,6 +26,13 @@ Entities.Health = (function (Backbone, Entities, _) {
                 model.trigger('destroy', model, model.collection, {removeself: true});
             });
         },
+        fetch: function(data){
+        	 var model = this;
+            data = _.extend({id: model.id}, data);
+            return Entities.sync(API_QUERY, data).then(function (res) {
+                model.set(_.extend(data, res));
+            });
+        }
     });
 
     var Collection = Backbone.Collection.extend({

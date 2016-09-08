@@ -30,8 +30,7 @@ Entities.Law = (function (Backbone, Entities, _) {
         	 var model = this;
             data = _.extend({id: model.id}, data);
             return Entities.sync(API_QUERY, data).then(function (res) {
-            	console.log(res);
-                model.set(_.extend(data, res[0]));
+                model.set(_.extend(data, res));
             });
         }
     });
@@ -48,7 +47,6 @@ Entities.Law = (function (Backbone, Entities, _) {
         query: function (data) {
             var collection = this;
             return Entities.sync(API_QUERY, data).then(function (res) {
-                console.log(res);
                 collection.reset(res);
             });
         },

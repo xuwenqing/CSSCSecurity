@@ -85,22 +85,22 @@
 						<h4 class="list-group-item active">标准管理</h4>
 						<ul class="list-group">
 							<li class="list-group-item">
-								<a href="javascript:void(0);"  title="国标">
+								<a href="javascript:void(0);" title="国标">
 									国标
 								</a>
 							</li>
 							<li class="list-group-item">
-								<a href="javascript:void(0);"  title="地标">
+								<a href="javascript:void(0);" title="地标">
 									地标
 								</a>
 							</li>
 							<li class="list-group-item">
-								<a href="javascript:void(0);"  title="行标">
+								<a href="javascript:void(0);" title="行标">
 									行标
 								</a>
 							</li>
 							<li class="list-group-item">
-								<a href="javascript:void(0);"  title="企标">
+								<a href="javascript:void(0);" title="企标">
 									企标
 								</a>
 							</li>
@@ -132,7 +132,7 @@
 		<script type="text/template" id="standardView-template">
 			<div class="row">
 				<div class="col-xs-7">
-					<a href="标准管理">
+					<a href="javascript:void(0);" class="js-detail" >
 						<%= name %>
 					</a>
 				</div>
@@ -157,6 +157,7 @@
 		(function(Backbone, _) {
 			var EventBus = _.extend({}, Backbone.Events);
 			var StandardCollection = Entities.Standard.Collection;
+			var Url = Entities.config.apiUrl;
 			Backbone.Layout.configure({
 				manage: true
 			});
@@ -168,6 +169,14 @@
 				className: 'list-group-item',
 				Timer: function(time) {
 					return moment(time).format('YYYY-MM-DD');
+				},
+				events: {
+					'click .js-detail': '_onShowDetail'
+				},
+				_onShowDetail: function() {
+					var m_id = this.model.id;
+					var location = Url + "/front/detail/standardDetail.html?id=" + m_id;
+					window.open(location);
 				}
 			});
 			//标准管理视图

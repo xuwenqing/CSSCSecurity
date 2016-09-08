@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>法律法规管理</title>
+		<title>安全职业健康知识管理</title>
 		<link rel="shortcut icon" href="../images/logo.png" />
 		<link type="text/css" href="../css/bootstrap.min.css" rel="stylesheet" />
 		<link type="text/css" href="../css/main.css" rel="stylesheet" />
@@ -28,7 +28,7 @@
 										<a class="navbar-brand" href="../view/index.html">网站首页</a>
 									</div>
 									<div>
-									<ul class="nav navbar-nav">
+										<ul class="nav navbar-nav">
 											<li class="active">
 												<a href="../view/standard.html">标准管理</a>
 											</li>
@@ -82,21 +82,16 @@
 						</form>
 					</div>
 					<div class="Menu-item">
-						<h4 class="list-group-item active">法律管理</h4>
+						<h4 class="list-group-item active">标准</h4>
 						<ul class="list-group">
 							<li class="list-group-item">
-								<a href="javascript:void(0);" title="法律">
-									法律
+								<a href="javascript:void(0);" class="js-work" title="作业健康知识">
+									作业健康知识
 								</a>
 							</li>
 							<li class="list-group-item">
-								<a href="javascript:void(0);" title="法规">
-									法规
-								</a>
-							</li>
-							<li class="list-group-item">
-								<a href="javascript:void(0);" title="地方性法规">
-									地方性法规
+								<a href="javascript:void(0);" class="js-pro" title="职业健康知识">
+									职业健康知识
 								</a>
 							</li>
 						</ul>
@@ -105,13 +100,13 @@
 				<div class="col-xs-9">
 					<div class="row">
 						<div class="col-xs-3">
-							<h4>法律管理</h4>
+							<h4>安全职业健康知识管理</h4>
 						</div>
 						<div class=" pull-right" style="padding-top:10px;">
-							网站首页 > 法律管理
+							网站首页 > 安全职业健康知识管理
 						</div>
 					</div>
-					<div class="row" id="lawDetailView">
+					<div class="row" id="healthDetailView">
 
 					</div>
 				</div>
@@ -119,21 +114,21 @@
 			</div>
 		</script>
 
-		<!--法律法规详情视图-->
-		<script type="text/template" id="lawDetailView-template">
-			<div class = 'head'>
+		<!--安全职业健康知识详情视图-->
+		<script type="text/template" id="healthDetailView-template">
+			<div class='head'>
 				<h3 class="text-center"> <%= name %> </h3>
 			</div>
 			<div class="text-center">
 				<span>发表人:<%= publisher %></span>
 				<span>发表时间:<%= this.Timer(publishDate) %></span>
 			</div>
-			
-			<div class = 'content'>
+
+			<div class='content'>
 				<div class="col-xs-10 col-xs-offset-2">
-					 <%= content %> 
+					<%= content %>
 				</div>
-				
+
 			</div>
 		</script>
 	</body>
@@ -145,31 +140,32 @@
 	<script src="../js/backbone.layoutmanager.js" type="text/javascript"></script>
 	<script src="../js/moment.js" type="text/javascript"></script>
 	<script type="text/javascript" src="../entities/entities.js"></script>
-	<script type="text/javascript" src="../handle/law/law.js"></script>
+	<script type="text/javascript" src="../handle/health/health.js"></script>
 	<script type="text/javascript">
 		(function(Backbone, _) {
 			var EventBus = _.extend({}, Backbone.Events);
-			var LawModel = Entities.Law.Model;
-			var LawCollection = Entities.Law.Collection;
+			var HealthModel = Entities.Health.Model;
+			var HealthCollection = Entities.Health.Collection;
 			Backbone.Layout.configure({
 				manage: true
 			});
-			//法律法规视图
-			var LawDetailView = Backbone.View.extend({
-				template: '#lawDetailView-template',
+			//安全职业健康知识管理视图
+			var HealthDetailView = Backbone.View.extend({
+				template: '#healthDetailView-template',
 				initialize: function() {
-					console.log('initialize');
 					this.listenTo(this.model, 'change', this.render);
 					this.onCreate();
 				},
 				Timer: function(time) {
 					return moment(time).format('YYYY-MM-DD');
 				},
-				onCreate: function(){
-					this.model.fetch({id:this.model.id}).then(function(){
+				onCreate: function() {
+					this.model.fetch({
+						id: this.model.id
+					}).then(function() {
 						document.title = this.model.get('name');
 					}.bind(this));
-						
+
 				}
 			});
 			var MainView = Backbone.View.extend({
@@ -181,17 +177,19 @@
 				initialize: function() {
 					this.getParam();
 				},
-				getParam: function(){
+				getParam: function() {
 					var reg = new RegExp("(^|&)" + 'id' + "=([^&]*)(&|$)");
 					var r = window.location.search.substr(1).match(reg);
 					if(r != null) this.m_id = +unescape(r[2]);
 					return null;
 				},
 				afterRender: function() {
-					this.lawDetailView = new LawDetailView({
-						model: new LawModel({id:this.m_id})
+					this.healthDetailView = new HealthDetailView({
+						model: new HealthModel({
+							id: this.m_id
+						})
 					});
-					this.setView('#lawDetailView', this.lawDetailView);
+					this.setView('#healthDetailView', this.healthDetailView);
 				}
 			});
 			new MainView({

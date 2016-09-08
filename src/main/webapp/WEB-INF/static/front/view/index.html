@@ -8,6 +8,7 @@
 		<link type="text/css" href="../css/bootstrap.min.css" rel="stylesheet" />
 		<link type="text/css" href="../css/main.css" rel="stylesheet" />
 	</head>
+
 	<body>
 		<div class="container" id="MainView"></div>
 		<script type="text/template" id="MainView-template">
@@ -97,7 +98,7 @@
 		<script type="text/template" id="standardView-template">
 			<div class="row">
 				<div class="col-xs-6">
-					<a href="标准管理" clas="active">
+					<a href="javascript:void(0);" title='标准管理' class="js-detail">
 						<%= name %>
 					</a>
 				</div>
@@ -119,7 +120,7 @@
 		<script type="text/template" id="lawView-template">
 			<div class="row">
 				<div class="col-xs-6">
-					<a href="法律法规" clas="active">
+					<a href="javascript:void(0);" title='法律法规' class="js-detail">
 						<%= name %>
 					</a>
 				</div>
@@ -137,7 +138,7 @@
 		<script type="text/template" id="healthView-template">
 			<div class="row">
 				<div class="col-xs-6">
-					<a href="安全职业健康">
+					<a href="javascript:void(0);" title='安全职业健康' class="js-detail">
 						<%= name %>
 					</a>
 				</div>
@@ -155,7 +156,7 @@
 		<script type="text/template" id="frockView-template">
 			<div class="row">
 				<div class="col-xs-6">
-					<a href="安全工装">
+					<a href="javascript:void(0);" title='安全工装' class="js-detail">
 						<%= name %>
 					</a>
 				</div>
@@ -174,7 +175,7 @@
 		<script type="text/template" id="techniqueView-template">
 			<div class="row">
 				<div class="col-xs-6">
-					<a href="国内外新技术">
+					<a href="javascript:void(0);" title='国内外新技术' class="js-detail">
 						<%= name %>
 					</a>
 				</div>
@@ -222,6 +223,7 @@
 		(function(Backbone, _) {
 			var EventBus = _.extend({}, Backbone.Events);
 			// var AccidentCollection = new Entities.Accident.Collection();
+			var Url = Entities.config.apiUrl;
 			var StandardCollection = Entities.Standard.Collection;
 			var FrockCollection = Entities.Frock.Collection;
 			var HealthCollection = Entities.Health.Collection;
@@ -238,6 +240,14 @@
 				className: 'list-group-item',
 				Timer: function(time) {
 					return moment(time).format('YYYY-MM-DD');
+				},
+				events: {
+					'click .js-detail': '_onShowDetail'
+				},
+				_onShowDetail: function() {
+					var m_id = this.model.id;
+					var location = Url + "/front/detail/standardDetail.html?id=" + m_id;
+					window.open(location);
 				}
 			});
 			//标准管理列表视图
@@ -268,6 +278,14 @@
 				className: 'list-group-item',
 				Timer: function(time) {
 					return moment(time).format('YYYY-MM-DD');
+				},
+				events: {
+					'click .js-detail': '_onShowDetail'
+				},
+				_onShowDetail: function() {
+					var m_id = this.model.id;
+					var location = Url + "/front/detail/lawDetail.html?id=" + m_id;
+					window.open(location);
 				}
 			});
 			//法律法规列表视图
@@ -298,6 +316,14 @@
 				className: 'list-group-item',
 				Timer: function(time) {
 					return moment(time).format('YYYY-MM-DD');
+				},
+				events: {
+					'click .js-detail': '_onShowDetail'
+				},
+				_onShowDetail: function() {
+					var m_id = this.model.id;
+					var location = Url + "/front/detail/healthDetail.html?id=" + m_id;
+					window.open(location);
 				}
 			});
 			//安全职业健康列表视图
@@ -328,6 +354,14 @@
 				className: 'list-group-item',
 				Timer: function(time) {
 					return moment(time).format('YYYY-MM-DD');
+				},
+				events: {
+					'click .js-detail': '_onShowDetail'
+				},
+				_onShowDetail: function() {
+					var m_id = this.model.id;
+					var location = Url + "/front/detail/frockDetail.html?id=" + m_id;
+					window.open(location);
 				}
 			});
 			//安全工装列表视图
@@ -359,6 +393,14 @@
 				className: 'list-group-item',
 				Timer: function(time) {
 					return moment(time).format('YYYY-MM-DD');
+				},
+				events: {
+					'click .js-detail': '_onShowDetail'
+				},
+				_onShowDetail: function() {
+					var m_id = this.model.id;
+					var location = Url + "/front/detail/techniqueDetail.html?id=" + m_id;
+					window.open(location);
 				}
 			});
 			//国内外新技术列表视图

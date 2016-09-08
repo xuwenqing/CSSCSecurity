@@ -85,27 +85,27 @@
 						<h4 class="list-group-item active">标准</h4>
 						<ul class="list-group">
 							<li class="list-group-item ">
-								<a href="javascript:void(0);" class="js-category"  title="物体打击事故">
+								<a href="javascript:void(0);" class="js-category" title="物体打击事故">
 									物体打击事故
 								</a>
 							</li>
 							<li class="list-group-item ">
-								<a href="javascript:void(0);" class="js-category"  title="起重伤害事故">
+								<a href="javascript:void(0);" class="js-category" title="起重伤害事故">
 									起重伤害事故
 								</a>
 							</li>
-							<li class="list-group-item" >
-								<a href="javascript:void(0);" class="js-category"  title="火灾爆炸窒息事故">
+							<li class="list-group-item">
+								<a href="javascript:void(0);" class="js-category" title="火灾爆炸窒息事故">
 									火灾爆炸窒息事故
 								</a>
 							</li>
-							<li class="list-group-item" >
-								<a href="javascript:void(0);" class="js-category"  title="高处坠落事故">
+							<li class="list-group-item">
+								<a href="javascript:void(0);" class="js-category" title="高处坠落事故">
 									高处坠落事故
 								</a>
 							</li>
-							<li class="list-group-item" >
-								<a href="javascript:void(0);" class="js-category"  title="触电事故">
+							<li class="list-group-item">
+								<a href="javascript:void(0);" class="js-category" title="触电事故">
 									触电事故
 								</a>
 							</li>
@@ -137,7 +137,7 @@
 		<script type="text/template" id="accidentView-template">
 			<div class="row">
 				<div class="col-xs-7">
-					<a href="安全职业健康">
+					<a href="javascript:void(0);" class="js-detail">
 						<%= name %>
 					</a>
 				</div>
@@ -162,6 +162,7 @@
 		(function(Backbone, _) {
 			var EventBus = _.extend({}, Backbone.Events);
 			var AccidentCollection = Entities.Accident.Collection;
+					var Url = Entities.config.apiUrl;
 			Backbone.Layout.configure({
 				manage: true
 			});
@@ -171,6 +172,14 @@
 				template: '#accidentView-template',
 				tagName: 'li',
 				className: 'list-group-item',
+				events: {
+					'click .js-detail': '_onShowDetail'
+				},
+				_onShowDetail: function() {
+					var m_id = this.model.id;
+					var location = Url + "/front/detail/accidentDetail.html?id=" + m_id;
+					window.open(location);
+				},
 				Timer: function(time) {
 					return moment(time).format('YYYY-MM-DD');
 				}

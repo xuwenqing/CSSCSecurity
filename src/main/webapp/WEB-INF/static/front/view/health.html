@@ -122,7 +122,7 @@
 		<script type="text/template" id="healthView-template">
 			<div class="row">
 				<div class="col-xs-7">
-					<a href="安全职业健康">
+					<a href="javascript:void(0);" class="js-detail" >
 						<%= name %>
 					</a>
 				</div>
@@ -149,6 +149,7 @@
 		(function(Backbone, _) {
 			var EventBus = _.extend({}, Backbone.Events);
 			var HealthCollection = Entities.Health.Collection;
+			var Url = Entities.config.apiUrl;
 			Backbone.Layout.configure({
 				manage: true
 			});
@@ -160,6 +161,14 @@
 				className: 'list-group-item',
 				Timer: function(time) {
 					return moment(time).format('YYYY-MM-DD');
+				},
+				events: {
+					'click .js-detail': '_onShowDetail'
+				},
+				_onShowDetail: function() {
+					var m_id = this.model.id;
+					var location = Url + "/front/detail/healthDetail.html?id=" + m_id;
+					window.open(location);
 				}
 			});
 			//安全职业健康列表视图
