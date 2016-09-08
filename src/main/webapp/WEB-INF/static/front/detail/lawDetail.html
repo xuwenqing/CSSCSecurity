@@ -111,7 +111,7 @@
 							网站首页 > 法律管理
 						</div>
 					</div>
-					<div class="row" id="lawListView">
+					<div class="row" id="lawDetailView">
 
 					</div>
 				</div>
@@ -119,23 +119,13 @@
 			</div>
 		</script>
 
-		<!--法律法规视图-->
-		<script type="text/template" id="lawListView-template">
-
-		</script>
-
-		<script type="text/template" id="lawView-template">
-			<div class="row">
-				<div class="col-xs-7">
-					<a href="javascript:void(0);" class="js-detail" target="_blank">
-						<%= name %>
-					</a>
-				</div>
-				<div class="col-xs-2 col-xs-offset-3">
-					<span>【<%= this.Timer(publishDate) %>】</span>
-				</div>
+		<!--法律法规详情视图-->
+		<script type="text/template" id="lawDetailView-template">
+			<div class="header">
+				<h3> <%= name %></h3>
 			</div>
-
+			<div>
+				<%= name %> </div>
 		</script>
 
 	</body>
@@ -151,60 +141,25 @@
 	<script type="text/javascript">
 		(function(Backbone, _) {
 			var EventBus = _.extend({}, Backbone.Events);
+			var LawModel = Entities.Law.Model;
 			var LawCollection = Entities.Law.Collection;
-			var Url = Entities.config.apiUrl;
 			Backbone.Layout.configure({
 				manage: true
 			});
 
 			//法律法规视图
-			var LawView = Backbone.View.extend({
-				template: '#lawView-template',
-				tagName: 'li',
-				className: 'list-group-item',
+			var LawDetailView = Backbone.View.extend({
+				template: '#lawDetailView-template',
+				initialize: function() {
+					this.listenTo(this.model, 'change', this.render);
+				},
 				Timer: function(time) {
 					return moment(time).format('YYYY-MM-DD');
 				},
-				events: {
-					'click .js-detail': '_onShowDetail'
-				},
-				_onShowDetail: function() {
-					var m_id = this.model.id;
-					var location = Url+"/front/detail/lawDetail.html?id="+m_id;
-					window.open(location);
-				}
-			});
-			//法律法规视图
-			var LawListView = Backbone.View.extend({
-				template: '#lawListView-template',
-				tagName: 'ul',
-				className: 'list-group',
-				initialize: function() {
-					this.listenTo(this.collection, 'reset', this.addAll);
-					this.listenTo(EventBus, 'law:show', this._onLawShow);
-					this.listenTo(EventBus, 'category:show', this._onCategoryShow);
-					this.onCreate();
-				},
-				addOne: function(LawModel) {
-					var lawView = new LawView({
-						model: LawModel
-					});
-					this.insertView('', lawView).render();
-				},
-				addAll: function() {
-					this.render();
-					this.collection.each(this.addOne, this);
-				},
-				_onLawShow: function(condition) {
-					this.collection.fetch(condition);
-				},
-				_onCategoryShow: function(cate) {
-					this.collection.fetch({
-						category: cate
-					});
-				},
-				onCreate: function() {
-					this.collection.fetch();
+				afterRender: function() {
+					this.model.fetch(
+						{id:this.model.id}
+					);
 				}
 			});
 
@@ -214,25 +169,21 @@
 					'click .js-search': '_onShowInfo',
 					'click .list-group-item a': '_onShowLaw',
 				},
+				initialize: function() {
+					this.getParam();
+				},
+				getParam: function(){
+					var reg = new RegExp("(^|&)" + 'id' + "=([^&]*)(&|$)");
+					var r = window.location.search.substr(1).match(reg);
+					if(r != null) this.m_id = +unescape(r[2]);
+					return null;
+				},
 				beforeRender: function() {
-					this.lawListView = new LawListView({
-						collection: new LawCollection()
+					console.log(this.m_id );
+					this.lawDetailView = new LawDetailView({
+						model: new LawModel({id:this.m_id})
 					});
-					this.setView('#lawListView', this.lawListView);
-				},
-				_onShowInfo: function() {
-					var key = $('select').val();
-					var value = $("input").val();
-					var data = {};
-					if(key && value) {
-						data[key] = value;
-						EventBus.trigger('law:show', data);
-					}
-				},
-				_onShowLaw: function(ctx) {
-					var cate = this.$(ctx.target).attr('title');
-					console.log(cate);
-					EventBus.trigger('category:show', cate);
+					this.setView('#lawDetailView', this.lawDetailView);
 				}
 			});
 			new MainView({
