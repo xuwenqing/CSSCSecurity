@@ -1,0 +1,501 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="../../asset/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../asset/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
+</head>
+<body>
+<div class="container" id="MainView">
+</div>
+<script type="text/template" id="mainView_template">
+    <div class="crumb-wrap">
+    </div>
+    <div class="StandardListView">
+        <div class="search-wrap">
+            <div class="search-content">
+                <table class="search-tab">
+                    <tr>
+                        <!--<th width="70">关键字:</th>-->
+                        <td>
+                            <select name="condition" class="required" style="width:150px;height:30px;">
+                                <option value="">输入查询条件</option>
+                                <option value="category">分类</option>
+                                <option value="keywords">关键词</option>
+                                <option value="name">名称</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input class="common-text required" size="30" value="" type="text">
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" id="js_query">查询</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="result-wrap">
+            <h3 class="controll-title">信息管理</h3>
+
+            <div class="result-title">
+                <div class="result-list">
+                    <a href="javascript:void(0);" id='js_create' class="btn btn-success"><i
+                            class="icon-plus icon-large"></i>添加</a>
+                    <a href="#" class="btn btn-danger" id='delete_items'>
+                        <i class="icon-trash icon-large"></i>批量删除</a>
+                </div>
+            </div>
+            <div class="result-content">
+                <table class="result-tab" width="100%">
+                    <thead>
+                    <tr>
+                        <th class="tc" width="5%"><input id="all_Id" type="checkbox" class="js_choose"></th>
+                        <th>ID</th>
+                        <th>名称</th>
+                        <th>标准号</th>
+                        <th>单位</th>
+                        <th>生效日期</th>
+                        <th>预计失效日期</th>
+                        <th>发布人</th>
+                        <th>发布时间</th>
+                        <th>浏览次数</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="RowView">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class = "Page">
+        <ul class="pagination pagination-lg ">
+
+        </ul>
+    </div>
+    <div class="StandardSaveView" style="display: none;">
+        <div class="result-wrap">
+            <div class="result-content">
+                <form id = "validate-data" method="get" action="#">
+                    <table class="insert-tab" width="100%" id="StandardView">
+
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="crumbView-template">
+</script>
+
+<script type = "text/template" id = "pageView-template">
+        <a href="javascript:void(0);" class = "js_index"><%= index %></a>
+</script>
+
+<script type="text/template" id="StandardListView-template">
+    <td>
+        <input name="items" type="checkbox" value="<%=id %>">
+    </td>
+    <td><%=id %></td>
+    <td><a href="javascript:void(0);"><%= name %></a></td>
+    <td><%=no %></td>
+    <td><%=publishDep %></td>
+    <td><%=this.switchDate(effectiveDate) %></td>
+    <td><%=this.switchDate(expiredDate) %></td>
+    <td><%=publisher %></td>
+    <td><%= this.switchDate(publishDate) %></td>
+    <td><%=viewCount %></td>
+    <td>
+        <a class="link-update js_edit" href="javascript:void(0);">
+            <i class="icon-edit icon-large"></i>
+        </a>
+        <a class="link-del js_delete" href="#">
+            <i class="icon-trash icon-large"></i>
+        </a>
+    </td>
+</script>
+
+
+<script type="text/template" id="StandardSaveView-template">
+    <tr>
+        <th width="120">标准名称：</th>
+        <td>
+            <input class="common-text required" name="name" size="50" value="" type="text" required>
+            <i class="require-red">*</i>
+        </td>
+    </tr>
+    <tr>
+        <th width="120">类别：</th>
+        <td>
+            <select name="category" class="required" style="width:120px;" required>
+                <option value="">请选择</option>
+                <option value="国标">国标</option>
+                <option value="地标">地标</option>
+                <option value="行标">行标</option>
+                <option value="企标">企标</option>
+            </select>
+            <i class="require-red">*</i>
+        </td>
+    </tr>
+
+    <tr>
+        <th>标准号：</th>
+        <td>
+            <input class="common-text required" name="no" size="50" value="" type="text">
+            <i class="require-red">*</i>
+        </td>
+    </tr>
+
+    <tr>
+        <th> 标准内容:<i class="require-red">*</i></th>
+        <td><textarea name="content" id="container" class="common-textarea" value="" cols="30" style="width: 99%;"
+                      rows="10"></textarea>
+
+        </td>
+    </tr>
+
+    <tr>
+        <th>标准发布单位：</th>
+        <td>
+            <input class="common-text required" name="publishDep" size="50" value="" type="text">
+            <i class="require-red">*</i>
+        </td>
+    </tr>
+
+    <tr>
+        <th width="150">标准生效日期：</th>
+        <td>
+            <input class="common-text laydate-icon" name="effectiveDate" size="50" value="" type="text"
+                   onclick="laydate()">
+            <!--<i class="require-red">*</i>-->
+        </td>
+    </tr>
+
+    <tr>
+        <th>标准预计失效日期：</th>
+        <td>
+            <input class="common-text  laydate-icon" name="expiredDate" size="50" value="" type="text"
+                   onclick="laydate()">
+            <!--<i class="require-red">*</i>-->
+        </td>
+    </tr>
+
+    <tr>
+        <th>发布人：</th>
+        <td>
+            <input class="common-text required" name="publisher" size="50" value="" type="text">
+            <i class="require-red">*</i>
+        </td>
+    </tr>
+
+    <tr>
+        <th>发布日期：</th>
+        <td>
+            <input class="common-text  laydate-icon" name="publishDate" size="50" value="" type="text"
+                   onclick="laydate()">
+        </td>
+    </tr>
+
+    <tr>
+        <th>关键词：</th>
+        <td>
+            <input class="common-text required" name="keywords" size="50" value="" type="text">
+            <i class="require-red">关键词以逗号隔开</i>
+        </td>
+    </tr>
+    <tr>
+        <th></th>
+        <td>
+            <!--<a class="btn btn-primary btn6 mr10 " href="javascript:void(0);" id="js_new">提交</a>-->
+            <input class="btn btn-primary btn6 mr10 " type="submit" id="js_new" value="提交">
+            <a class="btn btn-info btn6 mr10" href="standardList.html">返回</a>
+        </td>
+    </tr>
+</script>
+
+</body>
+
+<!-- Javascript -->
+<script type="text/javascript" src="../../js/jquery-1.8.0.min.js"></script>
+<!-- 配置文件 -->
+<script type="text/javascript" src="../../plugins/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="../../plugins/ueditor/ueditor.all.js"></script>
+<script type="text/javascript" src="../../js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../../js/messages_zh.js"></script>
+<script type="text/javascript" src="../../js/moment.js"></script>
+<script type="text/javascript" src="../calender/laydate.js"></script>
+<script type="text/javascript" src="../../js/jquery.json.js"></script>
+<script type="text/javascript" src="../../js/Underscore.js"></script>
+<script type="text/javascript" src="../../js/Backbone.js"></script>
+<script type="text/javascript" src="../../js/backbone.layoutmanager.js"></script>
+<script type="text/javascript" src="../../entities/entities.js"></script>
+<script type="text/javascript" src="../../handle/standard/standard.js"></script>
+</html>
+<script type="text/javascript">
+    (function (Backbone, _) {
+        var StandardCollection = new Entities.Standard.Collection();
+        var Url = Entities.config.apiUrl;
+        var StandardModel = new Entities.Standard.Model();
+        var EventBus = _.extend({}, Backbone.Events);
+        var Msgs = {
+            StandardListView: "editStandard",
+            MainView: {DeleteItems:"mainView-deleteItems"}
+        };
+        Backbone.Layout.configure({
+            manage: true
+        });
+        var CrumbView = Backbone.View.extend({
+            template:'#crumbView-template',
+            tagName:'span',
+            afterRender:function(){
+                if(!this.model.base){
+                    var _html='基础数据管理'+'>>'+'标准管理';
+                }
+                else{
+                    var _html='基础数据管理'+'>>'+this.model.base+'>>'+this.model.type;
+                }
+                this.$el.html(_html);
+            }
+
+        });
+
+        var StandardListView = Backbone.View.extend({
+            template: '#StandardListView-template',
+            tagName: 'tr',
+            initialize: function () {
+                this.listenTo(this.model, 'change', this.render);
+                this.listenTo(this.model, 'destroy', this.remove);
+            },
+            events: {
+                'click .js_edit': '_onEditStandard',
+                'click .js_delete': '_onDeleteStandard'
+            },
+            switchDate: function (data) {
+                var date = moment(data).format('YYYY-MM-DD');
+                return date;
+            },
+            _onEditStandard: function () {
+                var data = this.model.toJSON();
+                $('.StandardListView').hide();
+                $('.StandardSaveView').show();
+                EventBus.trigger(Msgs.StandardListView, data);
+            },
+            _onDeleteStandard: function () {
+                this.model.delete();
+            }
+        });
+
+        var PageIndexView = Backbone.View.extend({
+            template:'#pageView-template',
+            tagName:'li',
+            initialize:function(){
+            },
+            serialize:function(){
+                return {index:this.index};
+            },
+            events:{
+                "click .js_index":"_onPageIndex"
+            },
+            _onPageIndex:function(){
+                alert(this.$('.js_index').text());
+                this.$('.js_index').addClass('active');
+                this.$('.js_index').parents('li').siblings().children(':first').removeClass('active');
+            }
+        });
+        var StandardSaveView = Backbone.View.extend({
+            template: '#StandardSaveView-template',
+            tagName: 'tbody',
+            initialize: function () {
+                this.listenTo(this.model, 'change', this.render);
+                this.listenTo(EventBus, Msgs.StandardListView, this._onEditStandard);
+            },
+            events: {
+                "click #js_new": '_onValidator'
+            },
+            switchDate: function (data) {
+                var date = moment(data).format('YYYY-MM-DD');
+                return date;
+            },
+            parseTime: function (a, b, c) {
+                $('input[name="publishDate"]').val(a);
+                $('input[name="effectiveDate"]').val(b);
+                $('input[name="expiredDate"]').val(c);
+            },
+            /*向表单填充数据*/
+            _onEditStandard: function (data) {
+                var ue = UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
+                this.model_id = data.id;
+                var obj = data;
+                var key, value, tagName, type, arr;
+                for (x in obj) {
+                    key = x;
+                    value = obj[x];
+                    $("[name='" + key + "'],[name='" + key + "[]']").each(function () {
+                        tagName = $(this)[0].tagName;
+                        type = $(this).attr('type');
+                        if (tagName == 'INPUT') {
+                            if (type == 'radio') {
+                                $(this).attr('checked', $(this).val() == value);
+                            } else if (type == 'checkbox') {
+                                arr = value.split(',');
+                                for (var i = 0; i < arr.length; i++) {
+                                    if ($(this).val() == arr[i]) {
+                                        $(this).attr('checked', true);
+                                        break;
+                                    }
+                                }
+                            } else {
+                                $(this).val(value);
+                            }
+                        } else if (tagName == 'SELECT' || tagName == 'TEXTAREA') {
+                            $(this).val(value);
+                        }
+                    });
+                }
+                var publishDate = this.switchDate(parseInt($('input[name="publishDate"]').val()));
+                var effectiveDate = this.switchDate(parseInt($('input[name="effectiveDate"]').val()));
+                var expiredDate = this.switchDate(parseInt($('input[name="expiredDate"]').val()));
+                this.parseTime(publishDate, effectiveDate, expiredDate);
+            },
+            /*验证表单*/
+            _onValidator:function(){
+                var parent=this;
+                $('#validate-data').validate({
+                    rules:{
+                        name:'required'
+                    },
+                    messages:{
+                        name:'请输入法律法规'
+                    },
+                    submitHandler:function() {
+                        parent._onSubmit();
+                    }
+                });
+            },
+            /*验证通过提交表单*/
+            _onSubmit: function(){
+                var jsonData = $('form').serializeArray();
+                var data = this._toJSON(jsonData);
+                if (this.model_id) {
+                    var flag = StandardModel.edit(_.extend(data, {id: this.model_id}));
+                    if (flag) {
+                        window.location.href = Url+"/admin/page/standard/standardList.html";
+                    }
+                }
+                else {
+                    var flag = StandardCollection.create(data);
+                    if (flag) {
+                        window.location.href = Url+"/admin/page/standard/standardList.html";
+                    }
+                }
+            },
+            _toJSON: function (data) {
+                var data_json = {};
+                _.each(data, function (obj) {
+                    var name = obj.name;
+                    var value = obj.value;
+                    data_json[name] = value;
+                });
+                return data_json;
+            }
+        });
+        var MainView = Backbone.View.extend({
+            template: '#mainView_template',
+            initialize: function () {
+                this.listenTo(StandardCollection, 'reset', this.addAll);
+                var standardSaveView = new StandardSaveView({model: StandardModel});
+                this.insertView('#StandardView', standardSaveView).render();
+                this._onCreate();
+            },
+            beforeRender: function(){
+                var $info = $("#ifra", parent.document);
+                var base = $info.attr('data_parent');
+                var type = $info.attr('data_category');
+                var crumbView = new CrumbView({model:{base:base,type:type}});
+                this.insertView('.crumb-wrap', crumbView);
+            },
+            _onCreate: function () {
+                var $info = $("#ifra", parent.document);
+                var base = $info.attr('data_parent');
+                this.type = $info.attr('data_category');
+                StandardCollection.fetch({category: this.type});
+                this.$('.crumb-wrap').append('基础数据管理' + ">>" + base + ">>" + this.type);
+            },
+            events: {
+                "click #js_query": '_onShowStandardList',
+                "click #js_create": '_onCreateStandard',
+                "click .js_choose": '_onChooseItems',
+                "click #delete_items": '_onDeleteItems'
+            },
+            _onShowStandardList: function () {
+                var key = $('select').val();
+                var value = $("input").val();
+                var data = {};
+                if (key && value) {
+                    data[key] = value;
+                    this.render();
+                    StandardCollection.fetch(data);
+                }
+            },
+            _onChooseItems: function () {
+                if (this.$('#all_Id').attr("checked")) {
+                    $("input[name=items]").each(function () {
+                        $(this).attr("checked", true);
+                    });
+                }
+                else {
+                    $("input[name=items]").each(function () {
+                        $(this).attr("checked", false);
+                    });
+                }
+            },
+            _onDeleteItems: function () {
+                var ids=[];
+                this.$("input[name=items]").each(function(index) {
+                    if ($(this).attr("checked")) {
+                        ids[index]=+$(this).val();
+                    }
+                });
+                var result =  _.filter(StandardCollection.toJSON(), function(obj){
+                    return  _.contains(ids, obj.id);
+                });
+                _.each(result,function(obj){
+                    StandardCollection.get(obj.id).delete();
+                });
+            },
+            _onCreateStandard: function () {
+                this.$('.StandardListView').hide();
+                this.$('.Page').hide();
+                this.$('.StandardSaveView').show();
+                UE.getEditor('container',{initialFrameHeight:250,elementPathEnabled:false});
+            },
+            addOne: function (StandardModel) {
+                var standardListView = new StandardListView({model: StandardModel});
+                this.insertView('#RowView', standardListView).render();
+            },
+            addAll: function () {
+
+                StandardCollection.each(this.addOne, this);
+                this.showPageIndexView(StandardCollection.models.length);
+            },
+            showPageIndexView:function(len){
+                console.log('+++++++++');
+                console.log(len);
+                var page = Math.ceil(len/8);
+                for(var i = 1;i<=page;i++){
+                    var pageIndexView = new PageIndexView({index:i});
+                    this.insertView('.pagination', pageIndexView).render();
+                }
+            }
+        });
+        new MainView({el: '#MainView'}).render();
+    })(Backbone, _);
+</script>
+
+

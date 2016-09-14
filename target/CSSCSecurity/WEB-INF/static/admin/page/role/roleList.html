@@ -1,0 +1,418 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="../../asset/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../asset/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
+    <link rel="stylesheet" href="../../plugins/z-tree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+</head>
+<body>
+<div class="container" id="MainView">
+</div>
+<script type="text/template" id="mainView_template">
+    <div class="crumb-wrap">
+    </div>
+    <div class="RoleListView">
+        <div class="search-wrap">
+            <div class="search-content">
+                <table class="search-tab">
+                    <tr>
+                        <td>
+                            <select name="condition" class="required" style="width:150px;height:30px;">
+                                <option value="">输入查询条件</option>
+                                <option value="role">角色</option>
+                                <option value="desscription">描述</option>
+                                <!--<option value="name">名称</option>-->
+                            </select>
+                        </td>
+                        <td>
+                            <input class="common-text required" size="30" value="" type="text">
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" id="js_query">查询</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="result-wrap">
+            <h3 class="controll-title">角色管理</h3>
+
+            <div class="result-title">
+                <div class="result-list">
+                    <a href="javascript:void(0);" id='js_create' class="btn btn-success"><i
+                            class="icon-plus icon-large"></i>添加</a>
+                    <a href="#" class="btn btn-danger" id='delete_items'>
+                        <i class="icon-trash icon-large"></i>批量删除</a>
+                </div>
+            </div>
+            <div class="result-content">
+                <table class="result-tab" width="100%">
+                    <thead>
+                    <tr>
+                        <th class="tc" width="5%"><input id="all_Id" type="checkbox" class="js_choose"></th>
+                        <th>ID</th>
+                        <th>角色</th>
+                        <th>描述</th>
+                        <th>权限</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="RowView">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="RoleSaveView" style="display: none;">
+        <div class="result-wrap">
+            <div class="result-content">
+                <form id = "validate-data" method="get" action="#">
+                    <table class="insert-tab" width="100%" id="RoleView">
+
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="crumbView-template">
+</script>
+<script type="text/template" id="RoleListView-template">
+    <td>
+        <input name="items" type="checkbox" value="<%=id %>">
+    </td>
+    <td><%=id %></td>
+    <td><a href="javascript:void(0);"><%= role %></a></td>
+    <td><%=description %></td>
+    <td><%=available %></td>
+    <td>
+        <a class="link-update js_edit" href="javascript:void(0);">
+            <i class="icon-edit icon-large"></i>
+        </a>
+        <a class="link-del js_delete" href="#">
+            <i class="icon-trash icon-large"></i>
+        </a>
+    </td>
+</script>
+
+
+<script type="text/template" id="RoleSaveView-template">
+    <tr>
+        <th width="120">角色：</th>
+        <td>
+            <input class="common-text required" name="role" size="50" value="" type="text" required>
+            <i class="require-red">*</i>
+        </td>
+    </tr>
+
+    <tr>
+        <th width="120">权限授予：</th>
+        <td>
+            <ul id="TreeView" class="ztree"></ul>
+        </td>
+    </tr>
+    <tr>
+        <th>描述: </th>
+        <td>
+            <input class="common-text required" name="description" size="50" value="" type="text" required>
+            <i class="require-red">*</i>
+        </td>
+    </tr>
+    <tr>
+        <th>权限：</th>
+        <td>
+            <input class="common-text required" name="available"  size="50" value="" type="text" >
+            <i class="require-red">*</i>
+        </td>
+    </tr>
+
+    <tr>
+        <th></th>
+        <td>
+            <input class="btn btn-primary btn6 mr10 " type="submit" id="js_new" value="提交">
+            <a class="btn btn-info btn6 mr10" href="roleList.html">返回</a>
+        </td>
+    </tr>
+</script>
+
+<script type = "text/template" id = "Role-template">
+
+</script>
+
+<script type="text/template" id="treeView-template">
+
+</script>
+
+</body>
+
+<!-- Javascript -->
+<script type="text/javascript" src="../../js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.validate.min.js"></script>
+<!--树形插件-->
+<script type="text/javascript" src="../../plugins/z-tree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="../../plugins/z-tree/js/jquery.ztree.excheck.min.js"></script>
+<script type="text/javascript" src="../../js/validate_extend.js"></script>
+<script type="text/javascript" src="../../js/messages_zh.js"></script>
+<script type="text/javascript" src="../../js/moment.js"></script>
+<script type="text/javascript" src="../calender/laydate.js"></script>
+<script type="text/javascript" src="../../js/jquery.json.js"></script>
+<script type="text/javascript" src="../../js/Underscore.js"></script>
+<script type="text/javascript" src="../../js/Backbone.js"></script>
+<script type="text/javascript" src="../../js/backbone.layoutmanager.js"></script>
+<script type="text/javascript" src="../../entities/entities.js"></script>
+<script type="text/javascript" src="../../handle/role/role.js"></script>
+</html>
+<script type="text/javascript">
+    (function (Backbone, _) {
+        var RoleCollection = new Entities.Role.Collection();
+        var RoleModel = new Entities.Role.Model();
+        var Url = Entities.config.apiUrl;
+        var EventBus = _.extend({}, Backbone.Events);
+        var Msgs = {
+            RoleListView: "editRole",
+            RolePermissionView:'getTree',
+            MainView: {DeleteItems:"mainView-deleteItems"}
+        };
+        Backbone.Layout.configure({
+            manage: true
+        });
+        var CrumbView = Backbone.View.extend({
+            template:'#crumbView-template',
+            tagName:'span',
+            afterRender:function(){
+                var _html='基础数据管理'+'>>'+this.model.type;
+                this.$el.html(_html);
+            }
+        });
+
+        var  TreeView = Backbone.View.extend({
+            template:'#treeView-template',
+            tagName:'div'
+        });
+        var RoleListView = Backbone.View.extend({
+            template: '#RoleListView-template',
+            tagName: 'tr',
+            initialize: function () {
+                this.listenTo(this.model, 'change', this.render);
+                this.listenTo(this.model, 'destroy', this.remove);
+            },
+            events: {
+                'click .js_edit': '_onEditRole',
+                'click .js_delete': '_onDeleteRole'
+            },
+            switchDate: function (data) {
+                var date = moment(data).format('YYYY-MM-DD');
+                return date;
+            },
+            _onEditRole: function () {
+                var data = this.model.toJSON();
+                $('.RoleListView').hide();
+                $('.RoleSaveView').show();
+                EventBus.trigger(Msgs.RoleListView, data);
+            },
+            _onDeleteRole: function () {
+                this.model.delete();
+            }
+        });
+        var RoleSaveView = Backbone.View.extend({
+            template: '#RoleSaveView-template',
+            tagName: 'tbody',
+            initialize: function () {
+                var treeView = new TreeView();
+                this.insertView('#TreeView', treeView).render();
+                this.listenTo(this.model, 'change', this.render);
+                this.listenTo(EventBus, Msgs.RoleListView, this._onEditRole);
+            },
+            events: {
+                "click #js_new": '_onValidator'
+            },
+            /*向表单填充数据*/
+            _onEditRole: function (data) {
+                this._showTree(data);
+                this.model_id = data.id;
+                var obj = data;
+                var time = [];
+                var key, value, tagName, type, arr;
+                for (x in obj) {
+                    key = x;
+                    value = obj[x];
+                    $("[name='" + key + "'],[name='" + key + "[]']").each(function () {
+                        tagName = $(this)[0].tagName;
+                        type = $(this).attr('type');
+                        if (tagName == 'INPUT') {
+                            if (type == 'radio') {
+                                $(this).attr('checked', $(this).val() == value);
+                            } else if (type == 'checkbox') {
+                                arr = value.split(',');
+                                for (var i = 0; i < arr.length; i++) {
+                                    if ($(this).val() == arr[i]) {
+                                        $(this).attr('checked', true);
+                                        break;
+                                    }
+                                }
+                            } else {
+                                $(this).val(value);
+                            }
+                        } else if (tagName == 'SELECT' || tagName == 'TEXTAREA') {
+                            $(this).val(value);
+                        }
+                    });
+                }
+            },
+            _showTree:function(data){
+                var setting = {
+                    check: {
+                        enable: true
+                    },
+                    data: {
+                        simpleData: {
+                            enable: true
+                        }
+                    }
+                };
+                var viewData=RoleCollection.tree({id:data.id}).then(function(res) {
+                    $.fn.zTree.init($("#TreeView "), setting,res);
+                });
+            },
+            /*验证表单*/
+            _onValidator:function(){
+                var parent=this;
+                $('#validate-data').validate({
+                    rules:{
+                        role:'required'
+                    },
+                    messages:{
+                        role:'请输入角色'
+                    },
+                    submitHandler:function() {
+                        parent._onSubmit();
+                    }
+                });
+            },
+            /*验证通过提交表单*/
+            _onSubmit: function(){
+                var jsonData = $('form').serializeArray();//序列化表单数据
+                var zTree = $.fn.zTree.getZTreeObj("TreeView");
+                var nodes = zTree.getCheckedNodes(true);
+                var Nodes_id=this.nodesId(nodes);
+                console.log(Nodes_id);
+                var data = _.extend(this._toJSON(jsonData),{ids:Nodes_id});
+                console.log(data);
+                var new_data= _.omit(data,[ 'confirm_password','password']);//舍去confirm_password
+                if (this.model_id) {
+                    var flag = RoleModel.edit(_.extend(new_data, {id: this.model_id}));
+                    if (flag) {
+                        window.location.href = Url+"/admin/page/role/roleList.html";
+                    }
+                }
+                else {
+                    var flag = RoleCollection.create(new_data);
+                    if (flag) {
+                        window.location.href = Url+"/admin/page/role/roleList.html";
+                    }
+                }
+            },
+            nodesId:function(nodes){
+                var ids=[];
+                var i=0;
+                _.each(nodes,function(ele,index,list){
+                    if(list[index].hidden==false){
+                        ids[i]=list[index].id;
+                        i++;
+                    }
+                });
+                return ids;
+            },
+            _toJSON: function (data) {
+                var data_json = {};
+                _.each(data, function (obj) {
+                    var name = obj.name;
+                    var value = obj.value;
+                    data_json[name] = value;
+                });
+                return data_json;
+            }
+        });
+        var MainView = Backbone.View.extend({
+            template: '#mainView_template',
+            initialize: function () {
+                var $info = $("#ifra", parent.document);
+                var base = $info.attr('data_parent');
+                var type = $info.attr('data_category');
+                this.crumbTitle = {base:base,type:type};
+                this.listenTo(RoleCollection, 'reset', this.addAll);
+                var roleSaveView = new RoleSaveView({model: RoleModel});
+                this.insertView('#RoleView', roleSaveView).render();
+                this._onCreate();
+            },
+            beforeRender: function(){
+                var crumbView = new CrumbView({model: this.crumbTitle});
+                this.insertView('.crumb-wrap', crumbView);
+            },
+            _onCreate: function () {
+                RoleCollection.fetch();
+            },
+            events: {
+                "click #js_query": '_onShowRoleList',
+                "click #js_create": '_onCreateRole',
+                "click .js_choose": '_onChooseItems',
+                "click #delete_items": '_onDeleteItems'
+            },
+            _onShowRoleList: function () {
+                var key = $('select').val();
+                var value = $("input").val();
+                var data = {};
+                if (key && value) {
+                    data[key] = value;
+                    this.render();
+                    RoleCollection.fetch(data);
+                }
+            },
+            _onChooseItems: function () {
+                if (this.$('#all_Id').attr("checked")) {
+                    $("input[name=items]").each(function () {
+                        $(this).attr("checked", true);
+                    });
+                }
+                else {
+                    $("input[name=items]").each(function () {
+                        $(this).attr("checked", false);
+                    });
+                }
+            },
+            _onDeleteItems: function () {
+                var ids=[];
+                this.$("input[name=items]").each(function(index) {
+                    if ($(this).attr("checked")) {
+                        ids[index]=+$(this).val();
+                    }
+                });
+                var result =  _.filter(RoleCollection.toJSON(), function(obj){
+                    return  _.contains(ids, obj.id);
+                });
+                _.each(result,function(obj){
+                    RoleCollection.get(obj.id).delete();
+                });
+            },
+            _onCreateRole: function () {
+                this.$('.RoleListView').hide();
+                this.$('.RoleSaveView').show();
+            },
+            addOne: function (RoleModel) {
+                var roleListView = new RoleListView({model: RoleModel});
+                this.insertView('#RowView', roleListView).render();
+            },
+            addAll: function () {
+                RoleCollection.each(this.addOne, this);
+            }
+        });
+        new MainView({el: '#MainView'}).render();
+    })(Backbone, _);
+</script>
+

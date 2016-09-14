@@ -6,30 +6,30 @@
 		<title>案例分析管理</title>
 		<link rel="shortcut icon" href="../images/logo.png" />
 		<link type="text/css" href="../css/bootstrap.min.css" rel="stylesheet" />
-		<link type="text/css" href="../css/main.css" rel="stylesheet" />
+		<link type="text/css" href="../css/common.css" rel="stylesheet" />
 	</head>
 
 	<body>
-		<div class="container" id="MainView"></div>
-		<script type="text/template" id="MainView-template">
-			<div class='row header'>
+	<div class="header">
+		<div class="container">
+			<div class='row'>
 				<div class='col-md-12'>
-					<div class='row title'>
-						<div class='col-md-6 col-md-push-3'>
+					<div class='row title'  >
+						<div class='col-md-10 ' >
 							<h3>中国船舶工业集团安全生产技术研究中心</h3>
 							<p>SAFETY PRODUCTION TECHNOLOGY RESEARCH CENTER,CSSC</p>
 						</div>
 					</div>
 					<div class='row'>
-						<div class='col-md-11 col-md-push-1'>
-							<nav class="navbar navbar-default" role="navigation">
+						<div class='col-md-12'>
+							<nav class="navbar navbar-default" role="navigation" >
 								<div class="container-fluid">
 									<div class="navbar-header">
 										<a class="navbar-brand" href="../view/index.html">网站首页</a>
 									</div>
 									<div>
 										<ul class="nav navbar-nav">
-											<li class="active">
+											<li>
 												<a href="../view/standard.html">标准管理</a>
 											</li>
 											<li>
@@ -41,11 +41,11 @@
 											<li>
 												<a href="../view/frock.html">安全工装管理</a>
 											</li>
-											<li>
+											<li  class="active">
 												<a href="../view/accident.html">案例分析管理</a>
 											</li>
-											<li>
-												<a href="./view/technique.html">国内外新技术管理</a>
+											<li >
+												<a href="../view/technique.html">国内外新技术管理</a>
 											</li>
 											<li>
 												<a href="#">联系我们</a>
@@ -58,31 +58,66 @@
 					</div>
 				</div>
 			</div>
-			<div class="row content ">
-				<img src="../images/image2.JPG" width="1170" height="270" />
-			</div>
-			<div class="row content">
-				<div class="col-xs-3">
-					<div class="Content-search">
-						<h4 class="list-group-item active">站内搜索</h4>
-						<form class="form-horizontal">
+		</div>
+	</div>
+			<div class="container" id="MainView"></div>
+			<script type="text/template" id="MainView-template">
+				<div class="row content" style="margin-left: 2px;margin-top:0px;width:1140px; ">
+
+					<div id="carouselcontainter" class="carousel" data-ride="carousel" style="width:1140px; height:270px;">
+						<ol class="carousel-indicators">
+							<li class="active" data-target="#carouselcontainter" data-slide-to="0">
+
+							</li>
+							<li  data-target="#carouselcontainter" data-slide-to="1">
+
+							</li>
+							<li  data-target="#carouselcontainter" data-slide-to="2">
+
+							</li>
+							<li  data-target="#carouselcontainter" data-slide-to="3">
+
+							</li>
+						</ol>
+						<div class="carousel-inner" style="width:1140px;height:270px; ">
+							<div class="item active" style="width:1140px;height:270px; ">
+								<img src=" ../images/image1.jpg" alt="图片"width=“1140”;height=“270” >
+							</div>
+							<div class="item">
+								<img src="../images/image2.JPG"  alt="图片" width="1140" height="270" >
+							</div>
+							<div class="item">
+								<img src="../images/image3.jpg"  alt="图片" width="1140" height="270" >
+							</div>
+							<div class="item">
+								<img src="../images/image4.png"  alt="图片" width="1140" height="270" >
+							</div>
+						</div>
+					</div>
+				</div>
+
+			<div class="row-content">
+				<div class="col-xs-3"  style="background: #ffffff;">
+					<div class="Content-search" style="margin-left: 0px;">
+						<h4 class="list-group-item active" style="margin-top: 0px;">站内搜索</h4>
+						<form class="form-horizontal"  >
 							<select class="form-control" name="condition">
-								<option value="name">标题</option>
+								<option value="name" >标题</option>
 								<option value="category">所属类别</option>
 								<option value="keywords">关键词</option>
 							</select>
-							<div class="form-group" style="margin-top: 10px;">
-								<div class="col-xs-8">
+							<div class="form-group" style="padding-right:0;margin-left: 0;margin-right: 0;margin-bottom: 0;">
+								<div class="col-xs-8" style="padding-left: 0;margin-top: 4px;">
 									<input class="form-control" type="text" placeholder="请输入查询条件" />
 								</div>
-								<div class="col-xs-4">
-									<button type="button" class="btn btn-info js-search">搜素</button>
+								<div class="col-xs-3" style="padding-right:0;margin-top:4px;float:right;" >
+									<button type="button" class=" btn btn-info js-search " style="float: right;">搜素</button>
 								</div>
 							</div>
 						</form>
 					</div>
 					<div class="Menu-item">
-						<h4 class="list-group-item active">标准</h4>
+						<h4 class="list-group-item active">案例分析管理</h4>
 						<ul class="list-group">
 							<li class="list-group-item ">
 								<a href="javascript:void(0);" class="js-category" title="物体打击事故">
@@ -112,13 +147,14 @@
 						</ul>
 					</div>
 				</div>
-				<div class="col-xs-9">
-					<div class="row">
-						<div class="col-xs-3">
-							<h4>案例分析管理</h4>
+				<div class="col-xs-9" style="background: #ffffff;">
+					<div class="row" style="background: #fbfbfb;">
+						<div class="col-xs-3" style="border-bottom:2px solid crimson;">
+							<h4 >案例分析</h4>
 						</div>
-						<div class=" pull-right" style="padding-top:10px;">
-							网站首页 > 案例分析管理
+						<div class=" pull-right" style="padding-top:10px;padding-right:12px;">
+							当前位置：<a href="../view/index.html" title="网站首页">网站首页</a> &gt; <a href="#" >案例分析管理</a> &gt;> 案例分析
+
 						</div>
 					</div>
 					<div class="row" id="accidentDetailView">
@@ -143,7 +179,6 @@
 				<div class="col-xs-10 col-xs-offset-2">
 					<%= content %>
 				</div>
-
 			</div>
 		</script>
 	</body>
@@ -156,11 +191,21 @@
 	<script src="../js/moment.js" type="text/javascript"></script>
 	<script type="text/javascript" src="../entities/entities.js"></script>
 	<script type="text/javascript" src="../handle/accident/accident.js"></script>
+	<script type="text/javascript"  src="../js/bootstrap-carousel.js"></script>
+	<script>
+		!function ($) {
+			$(function(){
+
+				$('#carouselcontainter').carousel()
+			})
+		}(window.jQuery)
+	</script>
 	<script type="text/javascript">
 		(function(Backbone, _) {
 			var EventBus = _.extend({}, Backbone.Events);
 			var AccidentModel = Entities.Accident.Model;
 			var AccidentCollection = Entities.Accident.Collection;
+			var Url = Entities.config.apiUrl;
 			Backbone.Layout.configure({
 				manage: true
 			});
@@ -187,7 +232,7 @@
 				template: '#MainView-template',
 				events: {
 					'click .js-search': '_onShowInfo',
-					'click .list-group-item a': '_onShowLaw',
+					'click .list-group-item a': '_onShowCategory'
 				},
 				initialize: function() {
 					this.getParam();
@@ -198,6 +243,19 @@
 					if(r != null) this.m_id = +unescape(r[2]);
 					return null;
 				},
+				_onShowInfo: function() {
+					var key = $('select').val();
+					var value = $("input").val();
+					var data = {};
+					if(key && value) {
+						data[key] = value;
+						EventBus.trigger('accident:show', data);
+					}
+				},
+				_onShowCategory: function(ctx) {
+					var cate = $(ctx.target).attr('title');
+					EventBus.trigger('category:show', cate);
+				},
 				afterRender: function() {
 					this.accidentDetailView = new AccidentDetailView({
 						model: new AccidentModel({
@@ -205,6 +263,7 @@
 						})
 					});
 					this.setView('#accidentDetailView', this.accidentDetailView);
+
 				}
 			});
 			new MainView({

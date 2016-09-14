@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>详细内容</title>
+    <link rel="shortcut icon" href="../images/logo.png" />
+    <link type="text/css" href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link type="text/css" href="../css/main.css" rel="stylesheet" />
+
+</head>
+
+<body>
+<div class="header">
+    <div class="container">
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class='row title'  >
+                    <div class='col-md-10 '  style="background:url(../images/logo.png) no-repeat;margin-top:20px;margin-bottom:20px;">
+                        <h3 style="margin-left:138px;font-size:34px;font-family:'新宋体';font-weight:bold;color:#FFFFFF;">中国船舶工业集团安全生产技术研究中心</h3>
+                        <p style="margin-left:138px;font-size:20px;font-family:Arial;color:#FFFFFF;">SAFETY PRODUCTION TECHNOLOGY RESEARCH CENTER,CSSC</p>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-12'>
+                        <nav class="navbar navbar-default" role="navigation" style="font-size:16px;padding-left:26px;font-weight:bold;">
+                            <div class="container-fluid">
+                                <div class="navbar-header">
+                                    <a class="navbar-brand" href="./index.html">网站首页</a>
+                                </div>
+                                <div>
+                                    <ul class="nav navbar-nav">
+                                        <li >
+                                            <a href="./standard.html">标准管理</a>
+                                        </li>
+                                        <li >
+                                            <a href="./law.html">法律法规管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="./health.html">安全及职业健康知识管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="./frock.html">安全工装管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="./accident.html">案例分析管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="./technique.html">国内外新技术管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">联系我们</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" id="MainView"></div>
+<script type="text/template" id="MainView-template">
+    <div class="row content" style="margin-left:2px;margin-top:0px;">
+        <img src="../images/image2.JPG" width="1140" height="270" />
+    </div>
+    <div class="row content" style="background:#ffffff;width:1140px;margin-left:0px;padding-left:0px;margin-top: 6px;">
+        <div class="col-xs-3" style="padding-left: 0px;padding-right:4px;">
+            <div class="Content-search" style="margin-left: 0px;">
+                <h4 class="list-group-item active" style="margin-top: 0px;">站内搜索</h4>
+                <form class="form-horizontal" >
+                    <select class="form-control" name="condition">
+                        <option value="name" >标题</option>
+                        <option value="category">所属类别</option>
+                        <option value="keywords">关键词</option>
+                    </select>
+                    <div class="form-group" style="margin-top: 4px;margin-left:0px;margin-right:0px;margin-bottom:2px;padding-left:0px;">
+                        <div class="col-xs-8" style="padding-left: 0px;padding-bottom:2px;">
+                            <input class="form-control" type="text" placeholder="请输入查询条件" />
+                        </div>
+                        <div class="col-xs-3" style="padding-right:0px;float:right">
+                            <button type="button" class=" btn btn-info js-search " >搜素</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="panel-group" id="panelContainer">
+                <div class="panel panel-default panel-accordion">
+                    <div class="panel-heading" style="padding:0px;">
+                        <h4 class="panel-title list-group-item active" style="margin-left:0px;margin-right:0px;">
+                            <a data-toggle="collapse" data-parent="#panelContainer" data-target="#collapsel" href="javascript:void(0);">
+                                标准
+                            </a>
+                        </h4>
+                        <div id="collapsel" class="panel-collapse collapse in">
+                            <div class="panel-body" style="padding:0px;">
+                                <ul class="list-group" style="margin:0px;">
+                                    <li class="list-group-item">
+                                        <a href="javascript:void(0);"  title="国标">
+                                            国标</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:void(0);"  title="地标">
+                                            地标</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:void(0);"  title="行标">
+                                            行标
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:void(0);"  title="企标">
+                                            企标
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default panel-accordion">
+                        <div class="panel-heading"  data-toggle="collapse" data-parent="#panelContainer" data-target="#collapse2" style="padding:0px;">
+                            <h4 class="panel-title list-group-item active">
+                                <a href="javascript:void(0);">法律法规</a>
+                            </h4>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse in">
+                            <div class="panel-body" style="padding:0px;">
+                                <ul class="list-group" style="margin:0px;">
+                                    <li class="list-group-item">
+                                        <a href="javascript:void(0);"  title="法律">
+                                            法律
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:void(0);"  title="法规">
+                                            法规
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:void(0);"  title="地方性法规">
+                                            地方性法规
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default panel-accordion">
+                        <div class="panel-heading"  data-toggle="collapse" data-parent="#panelContainer" data-target="#collapse3" style="padding:0px;">
+                            <h4 class="panel-title list-group-item active">
+                                <a href="javascript:void(0);">安全及职业健康知识</a>
+                            </h4>
+                        </div>
+                        <div id="collapse3" class="panel-collapse collapse in">
+                            <div class="panel-body" style="padding: 0px;">
+                                <ul class="list-group" style="margin:0px;">
+                                    <li class="list-group-item">
+                                        <a href="javascript:void(0);"  title="作业安全知识">
+                                            作业安全知识</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:void(0);"  title="职业健康知识">
+                                            职业健康知识</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default panel-accordion">
+                        <div class="panel-heading"  data-toggle="collapse" data-parent="#panelContainer" data-target="#collapse4" style="padding:0px;">
+                            <h4 class="panel-title list-group-item active">
+                                <a href="javascript:void(0);">安全工装</a>
+                            </h4>
+                        </div>
+                        <div id="collapse4" class="panel-collapse collapse in">
+                            <div class="panel-body"style="padding: 0px;">
+                                <ul class="list-group" style="margin:0px;">
+                                    <li class="list-group-item ">
+                                        <a href="javascript:void(0);" title="防坠落工装">
+                                            防坠落工装
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item ">
+                                        <a href="javascript:void(0);" title="防夹伤卷入工装">
+                                            防夹伤卷入工装
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:void(0);" title="防倾倒工装">
+                                            防倾倒工装
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:void(0);" title="防撞击工装">
+                                            防撞击工装
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:void(0);" title="防掉落工装">
+                                            防掉落工装
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:void(0);" title="防火防爆工装">
+                                            防火防爆工装
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:void(0);" title="其他5S工装">
+                                            其他5S工装
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default panel-accordion">
+                        <div class="panel-heading"  data-toggle="collapse" data-parent="#panelContainer" data-target="#collapse5" style="padding:0px;">
+                            <h4 class="panel-title list-group-item active">
+                                <a href="javascript:void(0);">案例分析</a>
+                            </h4>
+                        </div>
+                        <div id="collapse5" class="panel-collapse collapse in">
+                            <div class="panel-body" style="padding: 0px;">
+                                <ul class="list-group" style="margin:0px;">
+                                    <li class="list-group-item ">
+                                        <a href="javascript:void(0);" class="js-category"  title="物体打击事故">
+                                            物体打击事故
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item ">
+                                        <a href="javascript:void(0);" class="js-category"  title="起重伤害事故">
+                                            起重伤害事故
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item" >
+                                        <a href="javascript:void(0);" class="js-category"  title="火灾爆炸窒息事故">
+                                            火灾爆炸窒息事故
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item" >
+                                        <a href="javascript:void(0);" class="js-category"  title="高处坠落事故">
+                                            高处坠落事故
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item" >
+                                        <a href="javascript:void(0);" class="js-category"  title="触电事故">
+                                            触电事故
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default panel-accordion">
+                        <div class="panel-heading"  data-toggle="collapse" data-parent="#panelContainer" data-target="#collapse6" style="padding:0px;">
+                            <h4 class="panel-title list-group-item active">
+                                <a href="javascript:void(0);">国内外新技术</a>
+                            </h4>
+                        </div>
+                        <div id="collapse6" class="panel-collapse collapse in">
+                            <div class="panel-body" style="padding: 0px">
+                                <ul class="list-group" style="margin:0px;">
+                                    <li class="list-group-item ">
+                                        <a href="javascript:void(0);" title="国内新技术">
+                                            国内新技术
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item ">
+                                        <a href="javascript:void(0);" title="韩国新技术">
+                                            韩国新技术
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:void(0);" title="日本新技术">
+                                            日本新技术
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:void(0);" title="欧美新技术">
+                                            欧美新技术
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-xs-9" style="background: #ffffff;">
+            <div class="row" style="background: #fbfbfb;">
+                <div class="col-xs-3" style="border-bottom:2px solid crimson;">
+                    <h4 >法律法规</h4>
+                </div>
+                <div class=" pull-right" style="padding-top:10px;padding-right:12px;">
+                    当前位置：<a href="#" title="网站首页">网站首页</a> &gt; <a href="#" >法律法规管理</a> > <a href=="#" >法律法规</a>
+
+                </div>
+            </div>
+            <div class="row" id="lawListView">
+
+            </div>
+
+        </div>
+    </div>
+    </div>
+</script>
+
+<!--法律法规视图-->
+<script type="text/template" id="lawListView-template">
+
+		</script>
+
+<script type="text/template" id="lawView-template">
+    <div class="row">
+        <div class="col-xs-7">
+            <a href="法律管理">
+                <%= name %>
+            </a>
+        </div>
+        <div class="col-xs-2 col-xs-offset-3">
+            <span>【<%= this.Timer(publishDate) %>】</span>
+        </div>
+    </div>
+</script>
+<!--左边菜单-->
+<script src="../js/bootstrap.min.js "  type="text/javascript"></script>
+<script src="../js/jquery.js "  type="text/javascript"></script>
+<script type="text/javascript">
+    $('#panelContainer').on('show.bs.collapse',function(){
+        alert ("show.bs.collapse");
+    }).on('shown.bs.collapse',function() {
+        alert("shown.bs.collapse");
+    }).on('hide.bs.collapse',function(){
+        alert("hide.bs.collapse");
+    }).on('hidden.bs.collapse',function() {
+        alert("hidden.bs.collapse");
+    });
+</script>
+
+</body>
+<script src="../js/bootstrap-collapse.js" type="text/javascript"></script>
+<script src="../js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="../js/moment.js" type="text/javascript"></script>
+<script src="../js/jquery.json.js" type="text/javascript"></script>
+<script src="../js/Underscore.js" type="text/javascript"></script>
+<script src="../js/Backbone.js" type="text/javascript"></script>
+<script src="../js/backbone.layoutmanager.js" type="text/javascript"></script>
+<script src="../js/moment.js" type="text/javascript"></script>
+<script type="text/javascript" src="../entities/entities.js"></script>
+<script type="text/javascript" src="../handle/law/law.js"></script>
+<script type="text/javascript">
+    (function(Backbone, _) {
+        var EventBus = _.extend({}, Backbone.Events);
+        var LawCollection = Entities.Law.Collection;
+        Backbone.Layout.configure({
+            manage: true
+        });
+
+        //法律法规视图
+        var LawView = Backbone.View.extend({
+            template: '#lawView-template',
+            tagName: 'li',
+            className: 'list-group-item',
+            Timer: function(time) {
+                return moment(time).format('YYYY-MM-DD');
+            }
+        });
+        //法律法规视图
+        var LawListView = Backbone.View.extend({
+            template: '#lawListView-template',
+            tagName: 'ul',
+            className: 'list-group',
+            initialize: function() {
+                this.listenTo(this.collection, 'reset', this.addAll);
+                this.listenTo(EventBus, 'law:show', this._onLawShow);
+                this.listenTo(EventBus, 'category:show', this._onCategoryShow);
+                this.onCreate();
+            },
+            addOne: function(LawModel) {
+                var lawView = new LawView({
+                    model: LawModel
+                });
+                this.insertView('', lawView).render();
+            },
+            addAll: function() {
+                this.render();
+                this.collection.each(this.addOne, this);
+            },
+            _onLawShow: function(condition) {
+                this.collection.fetch(condition);
+            },
+            _onCategoryShow: function(cate) {
+                this.collection.fetch({
+                    category: cate
+                });
+            },
+            onCreate: function() {
+                this.collection.fetch();
+            }
+        });
+
+        var MainView = Backbone.View.extend({
+            template: '#MainView-template',
+            events: {
+                'click .js-search': '_onShowInfo',
+                'click .list-group-item a': '_onShowLaw',
+            },
+            beforeRender: function() {
+                this.lawListView = new LawListView({
+                    collection: new LawCollection()
+                });
+                this.setView('#lawListView', this.lawListView);
+            },
+            _onShowInfo: function() {
+                var key = $('select').val();
+                var value = $("input").val();
+                var data = {};
+                if(key && value) {
+                    data[key] = value;
+                    EventBus.trigger('law:show', data);
+                }
+            },
+            _onShowLaw: function(ctx) {
+                var cate = this.$(ctx.target).attr('title');
+                console.log(cate);
+                EventBus.trigger('category:show', cate);
+            }
+        });
+        new MainView({
+            el: '#MainView'
+        }).render();
+    })(Backbone, _);
+</script>
+
+</html>
