@@ -125,7 +125,7 @@ public class HealthController extends BaseController {
         return new ResponsePackDto(map);
     }
 
-    @RequiresAuthentication
+    //@RequiresAuthentication
     @RequestMapping(value = "/queryDetail", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto queryDetail(@RequestBody IdDto id) {
         return new ResponsePackDto(healthService.queryDetail(id.getId()));

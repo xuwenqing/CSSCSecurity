@@ -26,6 +26,13 @@ Entities.Law = (function (Backbone, Entities, _) {
                 model.trigger('destroy', model, model.collection, {removeself: true});
             });
         },
+        fetch: function(data){
+        	 var model = this;
+            data = _.extend({id: model.id}, data);
+            return Entities.sync(API_QUERY, data).then(function (res) {
+                model.set(_.extend(data, res));
+            });
+        }
     });
 
     var Collection = Backbone.Collection.extend({
@@ -40,7 +47,6 @@ Entities.Law = (function (Backbone, Entities, _) {
         query: function (data) {
             var collection = this;
             return Entities.sync(API_QUERY, data).then(function (res) {
-                console.log(res);
                 collection.reset(res);
             });
         },

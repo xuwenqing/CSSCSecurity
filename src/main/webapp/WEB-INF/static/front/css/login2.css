@@ -1,0 +1,147 @@
+
+body {
+	font-family:"Microsoft Yahei",sans-serif;
+	font-size:12px;
+	margin:0;
+	background-color: #ffffff;background:url("../images/login-bg.jpg") 50% 0 no-repeat;
+}
+ul {
+	padding:0;
+	margin:0;
+}
+ul li {
+	list-style-type:none;
+}
+a {
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:none;color:#f00;
+}
+.cl{ clear: both;}
+input[type="text"]:focus, input[type="password"]:focus {
+	outline:none;
+}
+h1{margin:80px auto 60px auto;text-align:center;color:#fff;
+	font-size:35px;font-weight: bold;text-shadow: 0 1px 1px #555;
+}
+.login {
+	margin:0 auto;
+	width:370px;
+	border:2px solid #eee;
+	border-bottom:none;
+	position:relative;
+	background-color:#ffffff;
+	padding:5px 0;
+	-webkit-box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, .3);
+	box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, .3);
+}
+.header {
+	height:50px;
+	border-bottom:1px solid #e2e2e2;
+	position:relative;
+	font-family:"Microsoft Yahei", Arial, Helvetica, sans-serif
+	font-size:18px;
+
+}
+.header .hd {
+	height:45px;
+	position:absolute;
+	left: 22px;
+	bottom:0;
+	font-size:18px;
+
+}
+.header .hd .hd-top {
+	color:#333;
+	display:inline-block;
+	height:45px;
+	line-height:45px;
+	outline:none;
+    margin-bottom: 0;
+
+}
+.web_qr_login{
+	display: block; height: 235px;position:relative;
+	overflow:hidden;
+}
+
+.web_login {
+	width:370px;
+	position:relative;
+	padding-bottom:20px;
+}
+.web_login .login_form {
+	width:272px;
+	margin:0 auto;
+	margin-top:20px;
+}
+.web_login .input-tips {
+	float:left;
+	margin-top:10px;
+	width:70px;
+	height:42px;
+	font-size:16px;
+	line-height:42px;
+	font-family:"Microsoft Yahei",Arial, Helvetica, sans-serif;
+}
+.web_login .inputOuter {
+	width:200px;
+	height:42px;
+	margin-top:10px;
+	float:left;
+	
+}
+.web_login .inputstyle {
+	width:200px;
+	height:38px;
+	padding-left:5px;
+	line-height:38px;
+	border:1px solid #D7D7D7;
+	background:#fff;
+	color:#333;border-radius:2px;
+	font-family:Verdana, Tahoma, Arial,sans-serif;
+	font-size:16px;
+	ime-mode:disabled;
+}
+.web_login .uinArea {
+	height:55px;
+	position:relative;
+}
+.web_login .pwdArea {
+	height:55px;
+	margin-bottom:10px;
+	position:relative;
+}
+.cue {
+	height:40px;
+	line-height:40px;
+	font-size:14px;
+	margin-top:10px;margin-bottom:5px;
+	text-align:center;
+	font-family:"Hiragino Sans GB", "Microsoft Yahei",sans-serif;
+	border:1px solid #eee;border-radius:3px;
+}
+.b-button{
+	padding-left:70px;margin-top:20px;
+}
+.b-button .button_blue{
+	width:150px;
+	display:inline-block;
+	float:left;
+	height:41px;border-radius:4px;
+	background:#2795dc;border:none;cursor:pointer;
+	border-bottom:3px solid #0078b3;*border-bottom:none;
+	color:#fff;
+	font-size:16px;padding:0 10px;*width:140px;
+	text-align:center;outline:none;font-family: "Microsoft Yahei",Arial, Helvetica, sans-serif;
+}
+input.button_blue:hover
+{
+	background:#0081c1;
+	border-bottom:3px solid #006698;
+	*border-bottom:none;
+	color:#fff;
+	text-decoration:none;
+}
+

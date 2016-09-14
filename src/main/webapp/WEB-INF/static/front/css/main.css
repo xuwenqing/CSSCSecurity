@@ -10,6 +10,79 @@ html body{
 .navbar{
 	margin-bottom: 0;
 }
+.hide-info em {
+	background: #ffffff;
+	width: 280px;
+	height: 100px;
+	position: absolute;
+	top: -85px;
+	left: -15px;
+	text-align: center;
+	padding: 10px 12px 10px;
+	font-style: normal;
+	z-index: 2;
+	display: none;
+}
 .container .content{
 	margin-top: 10px;
 }
+.navbar-default{
+	width:1140px;font-size:16px;margin-left:30px;padding-left:26px;font-weight:bold;
+}
+.col-md-10{
+	background:url(../images/logo.png) no-repeat;margin-top:20px;margin-bottom:20px;
+}
+.col-md-10 h3{
+	margin-left:138px;font-size:34px;font-family:'新宋体',serif;font-weight:bold;color: #ffffff
+}
+.col-md-10 p{
+	margin-left:138px;font-size:20px;font-family:Arial,sans-serif;color:#FFFFFF;
+}
+.row-content{
+	margin-top: 0;width:1140px;margin-left:2px;
+}
+.col-md-8{
+	padding-left:0;padding-right:0;
+}
+.col-md-8 .row{
+	margin-left: 0;margin-right: 0;
+}
+.col-md-6{
+	padding-left:0;margin-top: 0;padding-right: 0;
+}
+.col-md-6 h5{
+	height:44px;margin-top: 0;margin-bottom: 0;
+}
+.col-md-6 h5 span{
+	font-family: 宋体,serif;font-size: 16px;color: #fbfbfb;float:left;
+}
+.col-md-6 h5 a{
+	float:right;font-family:Arial,sans-serif;font-weight:bold;margin-top: 12px;
+}
+.col-md-4,.col-md-12{
+	padding-left:0;padding-right:0;
+}
+.col-md-4 .col-md-12 h5{
+	height:44px;margin-top: 0;margin-bottom: 0;
+}
+.col-md-4 .col-md-12 h5 span{
+	font-family: 宋体,serif;font-size: 16px;color: #fbfbfb;float:left;
+}
+.col-md-4 .col-md-12 h5 a{
+float:right;font-family:Arial,sans-serif;font-weight:bold;margin-top: 12px;
+}
+.col-md-4 .col-md-12 .weicha-info p{
+	margin-bottom: 0; margin-left:66px;margin-top:18px; font-family: 宋体,serif;font-size:20px;
+}
+
+/*分页*/
+.digg4  { padding:3px; margin:3px; text-align:center;
+	font-family: Arial, Helvetica,sans-serif;
+	font-size: 12px;}
+.digg4  a,.digg4 span.miy{ border:1px solid #ddd; padding:2px 5px 2px 5px; margin:2px; color:#aaa;
+	text-decoration:none;}.digg4  a:hover { border:1px solid #a0a0a0; }
+.digg4  a:hover { border:1px solid #a0a0a0; }
+.digg4  span.current {border:1px solid #e0e0e0; padding:2px 5px 2px 5px; margin:2px; color:#aaa;
+	background-color:#f0f0f0; text-decoration:none;}
+.digg4  span.disabled { border:1px solid #f3f3f3; padding:2px 5px 2px 5px; margin:2px; color:#ccc;}
+.digg4 .disabledfy { font-family: Tahoma, Verdana,sans-serif;}
