@@ -10,163 +10,178 @@
 	</head>
 
 	<body>
-	<div class="header">
-		<div class="container">
-			<div class='row'>
-				<div class='col-md-12'>
-					<div class='row title'  >
-						<div class='col-md-10 '>
-							<h3>中国船舶工业集团安全生产技术研究中心</h3>
-							<p>SAFETY PRODUCTION TECHNOLOGY RESEARCH CENTER,CSSC</p>
+		<div class="header">
+			<div class="container">
+				<div class='row'>
+					<div class='col-md-12'>
+						<div class='row title'>
+							<div class='col-md-10 '>
+								<h3>中国船舶工业集团安全生产技术研究中心</h3>
+								<p>SAFETY PRODUCTION TECHNOLOGY RESEARCH CENTER,CSSC</p>
+							</div>
+						</div>
+						<div class='row'>
+							<div class='col-md-12'>
+								<nav class="navbar navbar-default" role="navigation">
+									<div class="container-fluid">
+										<div class="navbar-header">
+											<a class="navbar-brand" href="../view/index.html">网站首页</a>
+										</div>
+										<div>
+											<ul class="nav navbar-nav">
+												<li>
+													<a href="../view/standard.html">标准管理</a>
+												</li>
+												<li>
+													<a href="../view/law.html">法律法规管理</a>
+												</li>
+												<li>
+													<a href="../view/health.html">安全及职业健康知识管理</a>
+												</li>
+												<li class="active">
+													<a href="../view/frock.html">安全工装管理</a>
+												</li>
+												<li>
+													<a href="../view/accident.html">案例分析管理</a>
+												</li>
+												<li>
+													<a href="../view/technique.html">国内外新技术管理</a>
+												</li>
+												<li>
+													<a href="#">联系我们</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</nav>
+							</div>
 						</div>
 					</div>
-					<div class='row'>
-						<div class='col-md-12'>
-							<nav class="navbar navbar-default" role="navigation" >
-								<div class="container-fluid">
-									<div class="navbar-header">
-										<a class="navbar-brand" href="../view/index.html">网站首页</a>
-									</div>
-									<div>
-										<ul class="nav navbar-nav">
-											<li>
-												<a href="../view/standard.html">标准管理</a>
-											</li>
-											<li>
-												<a href="../view/law.html">法律法规管理</a>
-											</li>
-											<li>
-												<a href="../view/health.html">安全及职业健康知识管理</a>
-											</li>
-											<li class="active">
-												<a href="../view/frock.html">安全工装管理</a>
-											</li>
-											<li>
-												<a href="../view/accident.html">案例分析管理</a>
-											</li>
-											<li >
-												<a href="../view/technique.html">国内外新技术管理</a>
-											</li>
-											<li>
-												<a href="#">联系我们</a>
-											</li>
-										</ul>
-									</div>
+				</div>
+			</div>
+		</div>
+		<div class="container" id="MainView"></div>
+		<script type="text/template" id="MainView-template">
+			<div class="row content" style="margin-left: 2px;margin-top:0px;width:1140px; ">
+				<div id="carouselcontainter" class="carousel" data-ride="carousel" style="width:1136px; height:270px;">
+					<ol class="carousel-indicators">
+						<li class="active" data-target="#carouselcontainter" data-slide-to="0">
+
+						</li>
+						<li data-target="#carouselcontainter" data-slide-to="1">
+
+						</li>
+						<li data-target="#carouselcontainter" data-slide-to="2">
+
+						</li>
+						<li data-target="#carouselcontainter" data-slide-to="3">
+
+						</li>
+					</ol>
+					<div class="carousel-inner" style="width:1140px;height:270px; ">
+						<div class="item active" style="width:1140px;height:270px; ">
+							<img src=" ../images/image1.jpg" alt="图片" width=“1140”;height=“270”>
+						</div>
+						<div class="item">
+							<img src="../images/image2.JPG" alt="图片" width="1140" height="270">
+						</div>
+						<div class="item">
+							<img src="../images/image3.jpg" alt="图片" width="1140" height="270">
+						</div>
+						<div class="item">
+							<img src="../images/image4.png" alt="图片" width="1140" height="270">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row-content">
+				<div class="col-xs-3" style="background: #ffffff;">
+					<div class="Content-search" style="margin-left: 0px;">
+						<h4 class="list-group-item active" style="margin-top: 0px;">站内搜索</h4>
+						<form class="form-horizontal">
+							<select class="form-control" name="condition">
+								<option value="name">标题</option>
+								<option value="category">所属类别</option>
+								<option value="keywords">关键词</option>
+							</select>
+							<div class="form-group" style="padding-right:0;margin-left: 0;margin-right: 0;margin-bottom: 0;">
+								<div class="col-xs-8" style="padding-left: 0;margin-top: 4px;">
+									<input class="form-control" type="text" placeholder="请输入查询条件" />
 								</div>
-							</nav>
+								<div class="col-xs-3" style="padding-right:0;margin-top:4px;float:right;">
+									<button type="button" class=" btn btn-info js-search " style="float: right;">搜素</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="Menu-item">
+						<h4 class="list-group-item active">安全工装管理</h4>
+						<ul class="list-group">
+							<li class="list-group-item ">
+								<a href="javascript:void(0);" title="防坠落工装">
+									防坠落工装
+								</a>
+							</li>
+							<li class="list-group-item ">
+								<a href="javascript:void(0);" title="防夹伤卷入工装">
+									防夹伤卷入工装
+								</a>
+							</li>
+							<li class="list-group-item">
+								<a href="javascript:void(0);" title="防倾倒工装">
+									防倾倒工装
+								</a>
+							</li>
+							<li class="list-group-item">
+								<a href="javascript:void(0);" title="防撞击工装">
+									防撞击工装
+								</a>
+							</li>
+							<li class="list-group-item">
+								<a href="javascript:void(0);" title="防掉落工装">
+									防掉落工装
+								</a>
+							</li>
+							<li class="list-group-item">
+								<a href="javascript:void(0);" title="防火防爆工装">
+									防火防爆工装
+								</a>
+							</li>
+							<li class="list-group-item">
+								<a href="javascript:void(0);" title="其他5S工装">
+									其他5S工装
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-xs-9" style="background: #ffffff;">
+					<div class="row" style="background: #fbfbfb;">
+						<div class="col-xs-3" style="border-bottom:2px solid crimson;">
+							<h4>安全工装</h4>
+						</div>
+						<div class=" pull-right" style="padding-top:10px;padding-right:12px;">
+							当前位置：
+							<a href="../view/index.html" title="网站首页">网站首页</a> &gt;
+							<a href="#">安全工装管理</a> &gt;> 安全工装
+
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="container" id="MainView"></div>
-	<script type="text/template" id="MainView-template">
-		<div class="row content" style="margin-left: 2px;margin-top:0px;width:1140px; ">
-			<div id="carouselcontainter" class="carousel" data-ride="carousel" style="width:1136px; height:270px;">
-				<ol class="carousel-indicators">
-					<li class="active" data-target="#carouselcontainter" data-slide-to="0">
-
-					</li>
-					<li  data-target="#carouselcontainter" data-slide-to="1">
-
-					</li>
-					<li  data-target="#carouselcontainter" data-slide-to="2">
-
-					</li>
-					<li  data-target="#carouselcontainter" data-slide-to="3">
-
-					</li>
-				</ol>
-				<div class="carousel-inner" style="width:1140px;height:270px; ">
-					<div class="item active" style="width:1140px;height:270px; ">
-						<img src=" ../images/image1.jpg" alt="图片"width=“1140”;height=“270” >
-					</div>
-					<div class="item">
-						<img src="../images/image2.JPG"  alt="图片" width="1140" height="270" >
-					</div>
-					<div class="item">
-						<img src="../images/image3.jpg"  alt="图片" width="1140" height="270" >
-					</div>
-					<div class="item">
-						<img src="../images/image4.png"  alt="图片" width="1140" height="270" >
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row-content" >
-			<div class="col-xs-3"  style="background: #ffffff;">
-				<div class="Content-search" style="margin-left: 0px;">
-					<h4 class="list-group-item active" style="margin-top: 0px;">站内搜索</h4>
-					<form class="form-horizontal"  >
-						<select class="form-control" name="condition">
-							<option value="name" >标题</option>
-							<option value="category">所属类别</option>
-							<option value="keywords">关键词</option>
-						</select>
-						<div class="form-group" style="padding-right:0;margin-left: 0;margin-right: 0;margin-bottom: 0;">
-							<div class="col-xs-8" style="padding-left: 0;margin-top: 4px;">
-								<input class="form-control" type="text" placeholder="请输入查询条件" />
-							</div>
-							<div class="col-xs-3" style="padding-right:0;margin-top:4px;float:right;" >
-								<button type="button" class=" btn btn-info js-search " style="float: right;">搜素</button>
-							</div>
-						</div>
-					</form>
-				</div>
-				<div class="Menu-item">
-					<h4 class="list-group-item active">安全工装管理</h4>
-					<ul class="list-group">
-						<li class="list-group-item ">
-							<a href="javascript:void(0);" title="防坠落工装">
-								防坠落工装
-							</a>
-						</li>
-						<li class="list-group-item ">
-							<a href="javascript:void(0);" title="防夹伤卷入工装">
-								防夹伤卷入工装
-							</a>
-						</li>
-						<li class="list-group-item">
-							<a href="javascript:void(0);" title="防倾倒工装">
-								防倾倒工装
-							</a>
-						</li>
-						<li class="list-group-item">
-							<a href="javascript:void(0);" title="防撞击工装">
-								防撞击工装
-							</a>
-						</li>
-						<li class="list-group-item">
-							<a href="javascript:void(0);" title="防掉落工装">
-								防掉落工装
-							</a>
-						</li>
-						<li class="list-group-item">
-							<a href="javascript:void(0);" title="防火防爆工装">
-								防火防爆工装
-							</a>
-						</li>
-						<li class="list-group-item">
-							<a href="javascript:void(0);" title="其他5S工装">
-								其他5S工装
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-xs-9" style="background: #ffffff;">
-				<div class="row" style="background: #fbfbfb;">
-					<div class="col-xs-3" style="border-bottom:2px solid crimson;">
-						<h4 >安全工装</h4>
-					</div>
-					<div class=" pull-right" style="padding-top:10px;padding-right:12px;">
-						当前位置：<a href="../view/index.html" title="网站首页">网站首页</a> &gt; <a href="#" >安全工装管理</a> &gt;> 安全工装
-
-					</div>
-				</div>
 					<div class="row" id="frockDetailView">
 
+					</div>
+
+					<div class="row" id="frockListView" style="display: none;">
+
+					</div>
+					<div id="flip">
+						<div class='digg4 metpager_8'>
+							<span class='disabled disabledfy'><b>«</b></span>
+							<span class='disabled disabledfy'>‹</span>
+							<span class='current'>1</span>
+							<span class='disabled disabledfy'>›</span>
+							<span class='disabled disabledfy'><b>»</b></span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -175,20 +190,39 @@
 
 		<!--安全工装管理详情视图-->
 		<script type="text/template" id="frockDetailView-template">
-			<div class = 'head'>
+			<div class='head'>
 				<h3 class="text-center"> <%= name %> </h3>
 			</div>
 			<div class="text-center">
 				<span>发表人:<%= publisher %></span>
 				<span>发表时间:<%= this.Timer(publishDate) %></span>
 			</div>
-			
-			<div class = 'content'>
+
+			<div class='content'>
 				<div class="col-xs-10 col-xs-offset-2">
-					 <%= content %> 
+					<%= content %>
 				</div>
-				
+
 			</div>
+		</script>
+
+		<!--安全工装列表视图-->
+		<script type="text/template" id="frockListView-template">
+
+		</script>
+
+		<script type="text/template" id="frockView-template">
+			<div class="row">
+				<div class="col-xs-7">
+					<a href="javascript:void(0);" class="js-detail">
+						<%= name %>
+					</a>
+				</div>
+				<div class="col-xs-2 col-xs-offset-3">
+					<span>【<%= this.Timer(publishDate) %>】</span>
+				</div>
+			</div>
+
 		</script>
 	</body>
 	<script src="../js/jquery-1.9.1.min.js" type="text/javascript"></script>
@@ -200,11 +234,10 @@
 	<script src="../js/moment.js" type="text/javascript"></script>
 	<script type="text/javascript" src="../entities/entities.js"></script>
 	<script type="text/javascript" src="../handle/frock/frock.js"></script>
-	<script type="text/javascript"  src="../js/bootstrap-carousel.js"></script>
-	<script>
-		!function ($) {
-			$(function(){
-
+	<script type="text/javascript" src="../js/bootstrap-carousel.js"></script>
+	<script type="text/javascript">
+		! function($) {
+			$(function() {
 				$('#carouselcontainter').carousel()
 			})
 		}(window.jQuery)
@@ -214,9 +247,57 @@
 			var EventBus = _.extend({}, Backbone.Events);
 			var FrockModel = Entities.Frock.Model;
 			var FrockCollection = Entities.Frock.Collection;
+			var Url = Entities.config.apiUrl;
 			Backbone.Layout.configure({
 				manage: true
 			});
+			//安全工装视图
+			var FrockView = Backbone.View.extend({
+				template: '#frockView-template',
+				tagName: 'li',
+				className: 'list-group-item',
+				Timer: function(time) {
+					return moment(time).format('YYYY-MM-DD');
+				},
+				events: {
+					'click .js-detail': '_onShowDetail'
+				},
+				_onShowDetail: function() {
+					var m_id = this.model.id;
+					var location = Url + "/front/detail/frockDetail.html?id=" + m_id;
+					window.open(location);
+				}
+			});
+			//安全工装列表视图
+			var FrockListView = Backbone.View.extend({
+				template: '#frockListView-template',
+				tagName: 'ul',
+				className: 'list-group',
+				initialize: function() {
+					this.listenTo(this.collection, 'reset', this.addAll);
+					this.listenTo(EventBus, 'frock:show', this._onFrockShow);
+					this.listenTo(EventBus, 'category:show', this._onCategoryShow);
+				},
+				addOne: function(FrockModel) {
+					var frockView = new FrockView({
+						model: FrockModel
+					});
+					this.insertView('', frockView).render();
+				},
+				addAll: function() {
+					this.render();
+					this.collection.each(this.addOne, this);
+				},
+				_onFrockShow: function(condition) {
+					this.collection.fetch(condition);
+				},
+				_onCategoryShow: function(cate) {
+					this.collection.fetch({
+						category: cate
+					});
+				}
+			});
+
 			//安全工装详情视图
 			var FrockDetailView = Backbone.View.extend({
 				template: '#frockDetailView-template',
@@ -227,33 +308,60 @@
 				Timer: function(time) {
 					return moment(time).format('YYYY-MM-DD');
 				},
-				onCreate: function(){
-					this.model.fetch({id:this.model.id}).then(function(){
+				onCreate: function() {
+					this.model.fetch({
+						id: this.model.id
+					}).then(function() {
 						document.title = this.model.get('name');
 					}.bind(this));
-						
+
 				}
 			});
 			var MainView = Backbone.View.extend({
 				template: '#MainView-template',
 				events: {
 					'click .js-search': '_onShowInfo',
-					'click .list-group-item a': '_onShowLaw',
+					'click .list-group-item a': '_onShowFrock',
 				},
 				initialize: function() {
 					this.getParam();
 				},
-				getParam: function(){
+				getParam: function() {
 					var reg = new RegExp("(^|&)" + 'id' + "=([^&]*)(&|$)");
 					var r = window.location.search.substr(1).match(reg);
 					if(r != null) this.m_id = +unescape(r[2]);
 					return null;
 				},
+				beforeRender: function() {
+					this.frockListView = new FrockListView({
+						collection: new FrockCollection()
+					});
+					this.setView('#frockListView', this.frockListView);
+				},
 				afterRender: function() {
 					this.frockDetailView = new FrockDetailView({
-						model: new FrockModel({id:this.m_id})
+						model: new FrockModel({
+							id: this.m_id
+						})
 					});
 					this.setView('#frockDetailView', this.frockDetailView);
+				},
+				_onShowInfo: function() {
+					this.$('#frockDetailView').hide();
+					this.$('#frockListView').show();
+					var key = $('select').val();
+					var value = $("input").val();
+					var data = {};
+					if(key && value) {
+						data[key] = value;
+						EventBus.trigger('frock:show', data);
+					}
+				},
+				_onShowFrock: function(ctx) {
+					this.$('#frockDetailView').hide();
+					this.$('#frockListView').show();
+					var cate = this.$(ctx.target).attr('title');
+					EventBus.trigger('category:show', cate);
 				}
 			});
 			new MainView({

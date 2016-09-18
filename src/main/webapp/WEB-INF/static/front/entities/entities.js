@@ -5,7 +5,6 @@ window.Entities = (function() {
     };
     Entities.sync = function(url, data, options) {
         var data = $.toJSON(data);
-        console.log(data);
         options = options || {};
         var params = {
             url: url,
@@ -17,7 +16,6 @@ window.Entities = (function() {
         var xhr = options.xhr = $.ajax(params);
         // 处理链式调用情况
         return xhr.then(function(res, textStatus, jqXHR) {
-            console.log(res);
             if (res.status == 0) {
                 return res.data;
             } else {
