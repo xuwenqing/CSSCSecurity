@@ -37,7 +37,7 @@ public class TechniqueController extends BaseController {
     @Autowired
     private webUploader wu;
 
-    @RequiresPermissions("technique:add")
+    @RequiresPermissions("technique:create")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto add(@RequestBody Technique Technique) {
         ResponsePackDto dto = new ResponsePackDto();

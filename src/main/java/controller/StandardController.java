@@ -28,7 +28,7 @@ public class StandardController extends BaseController {
     @Autowired
     private StandardService standardService;
 
-    @RequiresPermissions("standard:add")
+    @RequiresPermissions("standard:create")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public @ResponseBody ResponsePackDto add(@RequestBody Standard standard) {
         System.out.println(standard);
