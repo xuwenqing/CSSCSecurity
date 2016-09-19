@@ -27,6 +27,7 @@ Entities.Technique = (function (Backbone, Entities, _) {
             });
         },
         fetch: function(data){
+        	console.log('++++++++++++');
         	 var model = this;
             data = _.extend({id: model.id}, data);
             return Entities.sync(API_QUERY, data).then(function (res) {
